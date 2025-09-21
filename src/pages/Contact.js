@@ -33,7 +33,6 @@ const Contact = () => {
     location: 'Mississauga, Ontario, Canada',
     linkedin: 'linkedin.com/in/gabriel-smith-b3b366253',
     github: 'github.com/gabrielsmith1874',
-    website: 'gabrielsmith.site'
   };
 
   const handleInputChange = (e) => {

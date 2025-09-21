@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { ChevronDown, Code, Cpu, Database, Globe, Sparkles } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import TypingAnimation from '../components/TypingAnimation';
 
 const Home = () => {
   const navigate = useNavigate();
-  const { scrollY } = useScroll();
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
-  const y = useTransform(scrollY, [0, 300], [0, -50]);
   const [currentCommand, setCurrentCommand] = useState(0);
   const [showContent, setShowContent] = useState(false);
   const [showAboutCommands, setShowAboutCommands] = useState(false);
@@ -16,17 +13,17 @@ const Home = () => {
   const [showProjectsCommands, setShowProjectsCommands] = useState(false);
   const [showCTACommands, setShowCTACommands] = useState(false);
   const [animationKey, setAnimationKey] = useState(0);
+  const [currentSection, setCurrentSection] = useState(0); // 0: hero, 1: about, 2: skills, 3: projects, 4: cta
+  const [showSkillsContent, setShowSkillsContent] = useState(false);
+  const [showProjectsContent, setShowProjectsContent] = useState(false);
+  const [showCTAContent, setShowCTAContent] = useState(false);
+  const [showSkillsComponents, setShowSkillsComponents] = useState(false);
+  const [showProjectsComponents, setShowProjectsComponents] = useState(false);
+  const [showProjectsHeading, setShowProjectsHeading] = useState(false);
+  const [showCTAButtons, setShowCTAButtons] = useState(false);
+  const [showCTAHeading, setShowCTAHeading] = useState(false);
 
-  // Reset animation when scrolling back to top
-  useEffect(() => {
-    const unsubscribe = scrollY.onChange((latest) => {
-      if (latest < 100) {
-        setCurrentCommand(0);
-        setAnimationKey(prev => prev + 1);
-      }
-    });
-    return unsubscribe;
-  }, [scrollY]);
+  // Keep animations persistent - no reset on scroll
 
 
   const skills = [
@@ -51,38 +48,66 @@ const Home = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-dark-bg via-dark-surface to-dark-card"></div>
         <div className="absolute inset-0">
           {/* Terminal-style grid with animation */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="grid grid-cols-20 h-full">
-              {Array.from({ length: 400 }).map((_, i) => (
+          <div className="absolute inset-0 opacity-5">
+            <div className="grid grid-cols-10 h-full">
+              {Array.from({ length: 100 }).map((_, i) => (
                 <div 
                   key={i} 
-                  className="border-r border-b border-terminal-green/30 animate-pulse"
-                  style={{ animationDelay: `${i * 0.01}s` }}
+                  className="border-r border-b border-terminal-green/20"
+                  style={{ animationDelay: `${i * 0.05}s` }}
                 ></div>
               ))}
             </div>
           </div>
           
           {/* Floating geometric shapes */}
-          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-terminal-green/20 to-accent-blue/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-accent-blue/20 to-terminal-green/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-          <div className="absolute top-1/2 right-1/3 w-32 h-32 bg-gradient-to-r from-accent-orange/15 to-terminal-green/15 rounded-full blur-2xl animate-pulse delay-500"></div>
+          <motion.div 
+            className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-terminal-green/10 to-accent-blue/10 rounded-full blur-3xl"
+            animate={{ 
+              x: [0, 20, -10, 0],
+              y: [0, -15, 10, 0],
+              scale: [1, 1.1, 0.95, 1]
+            }}
+            transition={{ 
+              duration: 20,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          ></motion.div>
+          <motion.div 
+            className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-accent-blue/10 to-terminal-green/10 rounded-full blur-3xl"
+            animate={{ 
+              x: [0, -30, 15, 0],
+              y: [0, 20, -25, 0],
+              scale: [1, 0.9, 1.05, 1]
+            }}
+            transition={{ 
+              duration: 25,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 5
+            }}
+          ></motion.div>
           
           {/* Animated code snippets */}
           <div className="absolute top-20 left-20 text-terminal-green/15 font-mono text-xs animate-pulse">
-            <div className="animate-bounce">$ git status</div>
-            <div className="animate-bounce delay-100">$ npm start</div>
-            <div className="animate-bounce delay-200">$ ls -la</div>
+            <div className="animate-bounce" style={{ animationDuration: '2s' }}>$ git status</div>
+            <div className="animate-bounce delay-400" style={{ animationDuration: '3s' }}>$ npm start</div>
+            <div className="animate-bounce delay-800" style={{ animationDuration: '2.5s' }}>$ ls -la</div>
           </div>
-          <div className="absolute bottom-20 right-20 text-terminal-green/15 font-mono text-xs animate-pulse delay-1000">
-            <div className="animate-bounce">function deploy() {'{'}</div>
-            <div className="animate-bounce delay-100">  return success;</div>
-            <div className="animate-bounce delay-200">{'}'}</div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-terminal-green/15 font-mono text-xs animate-pulse delay-1000">
+            <div className="animate-bounce" style={{ animationDuration: '3.5s' }}>function deploy() {'{'}</div>
+            <div className="animate-bounce delay-600" style={{ animationDuration: '2.2s' }}>  return success;</div>
+            <div className="animate-bounce delay-1400" style={{ animationDuration: '2.8s' }}>{'}'}</div>
           </div>
           
           {/* Additional floating elements */}
-          <div className="absolute top-1/3 right-1/4 text-accent-blue/10 font-mono text-sm animate-pulse">
+          <div className="absolute top-20 right-20 text-accent-blue/10 font-mono text-sm animate-pulse">
             <div className="animate-ping">const portfolio = true;</div>
+          </div>
+          
+          {/* Export statement - moved to avoid border interference */}
+          <div className="absolute bottom-20 left-20 text-accent-blue/10 font-mono text-sm animate-pulse">
             <div className="animate-ping delay-300">export default portfolio;</div>
           </div>
           
@@ -100,15 +125,15 @@ const Home = () => {
             transition={{ duration: 0.8 }}
           >
             {/* Terminal-style container */}
-            <div className="bg-dark-surface/50 border border-terminal-green/30 rounded-lg p-6 backdrop-blur-sm">
+            <div className="bg-dark-surface/80 border-2 border-terminal-green/50 rounded-lg p-6 backdrop-blur-sm shadow-lg shadow-terminal-green/20">
               {/* Command 1: whoami */}
               <div className="mb-4">
                 <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
                 {currentCommand >= 0 && (
-                  <TypingAnimation 
-                    key={`whoami-${animationKey}`}
-                    text="whoami" 
-                    speed={100}
+                   <TypingAnimation 
+                     key={`whoami-${animationKey}`}
+                     text="whoami" 
+                     speed={30}
                     className="command-text text-lg font-mono"
                     onComplete={() => {
                       setTimeout(() => setCurrentCommand(1), 500);
@@ -133,10 +158,10 @@ const Home = () => {
                 <div className="mb-4">
                   <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
                   {currentCommand === 1 && (
-                    <TypingAnimation 
-                      key={`cat-title-${animationKey}`}
-                      text="cat title.txt" 
-                      speed={100}
+                     <TypingAnimation 
+                       key={`cat-title-${animationKey}`}
+                       text="cat title.txt" 
+                       speed={30}
                       className="command-text text-lg font-mono"
                       onComplete={() => {
                         setTimeout(() => setCurrentCommand(2), 500);
@@ -159,10 +184,10 @@ const Home = () => {
                 <div className="mb-4">
                   <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
                   {currentCommand === 2 && (
-                    <TypingAnimation 
-                      key={`cat-about-${animationKey}`}
-                      text="cat about.md" 
-                      speed={100}
+                     <TypingAnimation 
+                       key={`cat-about-${animationKey}`}
+                       text="cat about.md" 
+                       speed={30}
                       className="command-text text-lg font-mono"
                       onComplete={() => {
                         setTimeout(() => setCurrentCommand(3), 500);
@@ -213,10 +238,7 @@ const Home = () => {
         </div>
 
         {/* Scroll to Explore */}
-        <motion.div
-          style={{ opacity, y }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center space-y-2"
-        >
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center space-y-2 text-center">
           <span className="text-terminal-text text-sm font-medium font-mono">
             <span className="prompt-text">gabriel@portfolio:~$ </span>
             <span className="command-text">scroll down</span>
@@ -227,38 +249,182 @@ const Home = () => {
           >
             <ChevronDown size={24} className="text-terminal-green" />
           </motion.div>
-        </motion.div>
+        </div>
       </section>
 
-      {/* About Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
+        {/* About Section */}
+        <section className="relative py-12 px-4 sm:px-6 lg:px-8 h-[1200px] overflow-hidden">
+          {/* Unique About Section Background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-dark-surface via-dark-bg to-dark-card"></div>
+          <div className="absolute inset-0 h-[1200px]">
+            {/* Hexagonal grid pattern */}
+            <div className="absolute inset-0 opacity-3 h-[1200px]">
+              <div className="grid grid-cols-8 h-full">
+                {Array.from({ length: 64 }).map((_, i) => (
+                  <div 
+                    key={i} 
+                    className="border-r border-b border-accent-blue/15"
+                    style={{ 
+                      animationDelay: `${i * 0.05}s`,
+                      clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
+                    }}
+                  ></div>
+                ))}
+              </div>
+            </div>
+
+            {/* Asymmetric geometric shapes - completely different layout */}
+            <motion.div 
+              className="absolute top-20 left-1/4 w-32 h-32 bg-gradient-to-r from-accent-blue/10 to-terminal-green/10 rounded-full blur-2xl"
+              animate={{ 
+                x: [0, 15, -8, 0],
+                y: [0, -10, 12, 0],
+                rotate: [0, 5, -3, 0]
+              }}
+              transition={{ 
+                duration: 18,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            ></motion.div>
+            <motion.div 
+              className="absolute top-1/4 right-1/4 w-56 h-56 bg-gradient-to-r from-accent-orange/8 to-accent-blue/8 rounded-full blur-3xl"
+              animate={{ 
+                x: [0, -20, 10, 0],
+                y: [0, 15, -18, 0],
+                scale: [1, 1.05, 0.98, 1]
+              }}
+              transition={{ 
+                duration: 22,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 3
+              }}
+            ></motion.div>
+            <motion.div 
+              className="absolute bottom-1/4 left-1/3 w-40 h-40 bg-gradient-to-r from-terminal-green/6 to-accent-orange/6 rounded-full blur-2xl"
+              animate={{ 
+                x: [0, 12, -15, 0],
+                y: [0, -8, 20, 0],
+                rotate: [0, -4, 2, 0]
+              }}
+              transition={{ 
+                duration: 16,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 7
+              }}
+            ></motion.div>
+
+            {/* Scattered data structures - dynamic positioning */}
+            <div className="absolute top-40 left-16 text-accent-blue/12 font-mono text-sm animate-pulse">
+              <div className="animate-bounce" style={{ animationDuration: '2.3s' }}>[Python, Java, C]</div>
+            </div>
+            <div className="absolute top-1/2 right-16 text-terminal-green/12 font-mono text-sm animate-pulse delay-500">
+              <div className="animate-bounce" style={{ animationDuration: '3.2s' }}>{'{AI, ML, Data}'}</div>
+            </div>
+            <div className="absolute bottom-40 left-1/2 transform -translate-x-1/2 text-accent-orange/12 font-mono text-sm animate-pulse delay-1100">
+              <div className="animate-bounce" style={{ animationDuration: '2.7s' }}>← Algorithms →</div>
+            </div>
+            <div className="absolute top-1/3 left-1/6 text-terminal-green/10 font-mono text-sm animate-pulse delay-200">
+              <div className="animate-bounce" style={{ animationDuration: '2.9s' }}>class Developer {'{'}</div>
+            </div>
+            <div className="absolute bottom-1/3 right-1/5 text-accent-blue/10 font-mono text-sm animate-pulse delay-800">
+              <div className="animate-bounce" style={{ animationDuration: '3.1s' }}>  skills: [...];</div>
+            </div>
+
+            {/* Mathematical symbols scattered around */}
+            <div className="absolute top-24 right-1/5 text-accent-orange/8 font-mono text-lg animate-pulse">
+              <div className="animate-ping">∑</div>
+            </div>
+            <div className="absolute bottom-1/3 left-1/4 text-accent-blue/8 font-mono text-lg animate-pulse delay-400">
+              <div className="animate-ping">∫</div>
+            </div>
+            <div className="absolute top-1/2 right-1/3 text-terminal-green/8 font-mono text-lg animate-pulse delay-800">
+              <div className="animate-ping">∇</div>
+            </div>
+
+            {/* Diagonal binary streams */}
+            <div className="absolute top-0 right-0 text-terminal-green/6 font-mono text-xs animate-pulse transform rotate-45">
+              <div className="animate-bounce delay-300">10101010</div>
+              <div className="animate-bounce delay-1000">11001100</div>
+            </div>
+            <div className="absolute bottom-0 left-0 text-accent-blue/6 font-mono text-xs animate-pulse transform -rotate-45">
+              <div className="animate-bounce delay-600">11110000</div>
+              <div className="animate-bounce delay-1300">01010101</div>
+            </div>
+
+            {/* Corner accent elements */}
+            <div className="absolute top-0 left-0 w-20 h-20 border-l-2 border-t-2 border-accent-blue/20 animate-pulse"></div>
+            <div className="absolute bottom-0 right-0 w-20 h-20 border-r-2 border-b-2 border-terminal-green/20 animate-pulse delay-600"></div>
+            <div className="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-accent-orange/20 animate-pulse delay-300"></div>
+            <div className="absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-accent-blue/20 animate-pulse delay-900"></div>
+          </div>
+
+          <div className="max-w-6xl mx-auto relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
-            onViewportEnter={() => {
-              setTimeout(() => setShowAboutCommands(true), 500);
-            }}
+             onViewportEnter={() => {
+               if (currentSection === 0) {
+                 setCurrentSection(1);
+                 setTimeout(() => setShowAboutCommands(true), 500);
+               }
+             }}
           >
-            {showAboutCommands && (
-              <>
-                <div className="mb-4">
-                  <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
-                  <span className="command-text text-lg font-mono">cat about.txt</span>
-                </div>
-                <div className="text-terminal-text text-lg font-mono mb-8">
-                  I'm a Computer Science and Statistics student at University of Toronto with a strong foundation in 
-                  programming, specifically data structures, algorithms, and artificial intelligence. Currently working as 
-                  a Systems Developer at the Ministry of Public and Business Service Delivery.
-                </div>
-              </>
-            )}
-            <h2 className="text-4xl sm:text-5xl font-bold mb-6 font-mono">
-              About <span className="gradient-text">Me</span>
-            </h2>
+            <div className="min-h-[180px]">
+              {showAboutCommands && (
+                <>
+                  <div className="mb-4 bg-dark-surface/80 border border-terminal-green/30 rounded-lg p-4 backdrop-blur-sm">
+                    <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
+                    <TypingAnimation 
+                      text="cat about.txt" 
+                      speed={30}
+                      className="command-text text-lg font-mono"
+                      onComplete={() => {
+                        setTimeout(() => {
+                          setShowContent(true);
+                        }, 500);
+                      }}
+                    />
+                  </div>
+                  {showContent && (
+                    <>
+                      {/* About Me Container - All in one bordered section */}
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.8 }}
+                        className="bg-dark-surface/60 border border-accent-blue/20 rounded-lg p-6 backdrop-blur-sm mb-8"
+                      >
+                        <h2 className="text-4xl sm:text-5xl font-bold mb-6 font-mono text-center">
+                          About <span className="gradient-text">Me</span>
+                        </h2>
+                        <div className="text-terminal-text text-lg font-mono">
+                          I'm a Computer Science and Statistics student at University of Toronto with a strong foundation in programming, specifically data structures, algorithms, and artificial intelligence. Currently working as a Systems Developer at the Ministry of Public and Business Service Delivery.
+                        </div>
+                      </motion.div>
+                      <div className="text-center">
+                        <TypingAnimation 
+                          text=""
+                          speed={30}
+                          delay={2000}
+                          onComplete={() => {
+                            setTimeout(() => {
+                              setCurrentSection(2);
+                              setShowSkillsCommands(true);
+                            }, 1000);
+                          }}
+                        />
+                      </div>
+                    </>
+                  )}
+                </>
+              )}
+            </div>
           </motion.div>
 
           {/* Skills Section Header */}
@@ -267,206 +433,409 @@ const Home = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-12"
-            onViewportEnter={() => {
-              setTimeout(() => setShowSkillsCommands(true), 500);
-            }}
+            className="text-center mb-8"
+             onViewportEnter={() => {
+               if (currentSection === 2) {
+                 // Skills commands already triggered by About section
+               }
+             }}
           >
-            <div className="bg-dark-surface/50 border border-terminal-green/30 rounded-lg p-6 backdrop-blur-sm mb-8">
+            <div className="min-h-[150px] mb-4">
               {showSkillsCommands && (
-                <>
-                  <div className="mb-4">
+                <div>
+                  <div className="mb-4 bg-dark-surface/80 border border-terminal-green/30 rounded-lg p-4 backdrop-blur-sm">
                     <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
-                    <span className="command-text text-lg font-mono">cat skills.txt</span>
+                    <TypingAnimation 
+                      text="cat skills.txt" 
+                      speed={30}
+                      className="command-text text-lg font-mono"
+                      onComplete={() => {
+                        setTimeout(() => {
+                          setShowSkillsContent(true);
+                        }, 500);
+                      }}
+                    />
                   </div>
-                  <div className="text-terminal-text text-lg font-mono">
-                    Technical skills and expertise areas
-                  </div>
-                </>
+                  {showSkillsContent && (
+                    <>
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.8 }}
+                        className="text-terminal-text text-lg font-mono mb-4 bg-dark-surface/60 border border-accent-blue/20 rounded-lg p-4 backdrop-blur-sm"
+                      >
+                        Programming Languages: Python, Java, C, C#, JavaScript, HTML, CSS<br/>
+                        AI/ML & Data Science: Machine Learning, Algorithms, Data Structures, SQL, R<br/>
+                        Development Tools: Postman, Swagger, REST APIs, Git, Assembly<br/>
+                        Core Competencies: OOP, Algorithm Design, Statistics, Hypothesis Testing
+                      </motion.div>
+                      <div className="mb-4 bg-dark-surface/80 border border-terminal-green/30 rounded-lg p-4 backdrop-blur-sm">
+                        <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
+                        <TypingAnimation 
+                          text="npm run generate-skills"
+                          speed={30}
+                          className="command-text text-lg font-mono"
+                          onComplete={() => {
+                            setTimeout(() => {
+                              setShowSkillsComponents(true);
+                            }, 500);
+                          }}
+                        />
+                      </div>
+                    </>
+                  )}
+                </div>
               )}
             </div>
           </motion.div>
 
-          {/* Skills Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-            {skills.map((skill, index) => (
-              <motion.div
-                key={skill.name}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                className="unix-card p-6"
-              >
-                <skill.icon size={48} className="text-terminal-green mb-4" />
-                <h3 className="text-xl font-semibold mb-2 text-terminal-text font-mono">{skill.name}</h3>
-                <p className="text-terminal-text font-mono">{skill.description}</p>
-              </motion.div>
-            ))}
-          </div>
+          {/* Skills and Stats Container - All in one bordered section */}
+          {showSkillsComponents && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8 }}
+              className="bg-dark-surface/60 border border-accent-blue/20 rounded-lg p-6 backdrop-blur-sm"
+            >
+              {/* Skills Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                {skills.map((skill, index) => (
+                  <motion.div
+                    key={skill.name}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.8, delay: index * 0.1 }}
+                    className="unix-card p-4 h-full"
+                  >
+                    <skill.icon size={48} className="text-terminal-green mb-4" />
+                    <h3 className="text-xl font-semibold mb-2 text-terminal-text font-mono">{skill.name}</h3>
+                    <p className="text-terminal-text font-mono">{skill.description}</p>
+                  </motion.div>
+                ))}
+              </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                className="text-center"
-              >
-                <div className="text-4xl font-bold gradient-text mb-2 font-mono">{stat.number}</div>
-                <div className="text-terminal-text font-mono">{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
+              {/* Stats */}
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                {stats.map((stat, index) => (
+                  <motion.div
+                    key={stat.label}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.8, delay: (index + 4) * 0.1 }}
+                    className="text-center h-full"
+                  >
+                    <div className="text-4xl font-bold gradient-text mb-2 font-mono">{stat.number}</div>
+                    <div className="text-terminal-text font-mono">{stat.label}</div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
         </div>
       </section>
 
       {/* Featured Projects Preview */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-dark-surface">
-        <div className="max-w-6xl mx-auto">
+      <section className="relative py-12 px-4 sm:px-6 lg:px-8 h-[1200px] overflow-hidden">
+        {/* Unique Projects Section Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-dark-card via-dark-surface to-dark-bg"></div>
+        <div className="absolute inset-0 h-[1200px]">
+          {/* Circuit board pattern */}
+          <div className="absolute inset-0 opacity-3">
+            <div className="grid grid-cols-8 h-full">
+              {Array.from({ length: 64 }).map((_, i) => (
+                <div 
+                  key={i} 
+                  className="relative"
+                  style={{ animationDelay: `${i * 0.05}s` }}
+                >
+                  {/* Circuit nodes */}
+                  <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-terminal-green/20 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+
+        </div>
+
+        <div className="max-w-6xl mx-auto relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
-            onViewportEnter={() => {
-              setTimeout(() => setShowProjectsCommands(true), 500);
-            }}
-          >
-            <div className="bg-dark-surface/50 border border-terminal-green/30 rounded-lg p-6 backdrop-blur-sm mb-8">
-              {showProjectsCommands && (
-                <>
-                  <div className="mb-4">
-                    <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
-                    <span className="command-text text-lg font-mono">ls -la projects/</span>
-                  </div>
-                  <div className="text-terminal-text text-lg font-mono">
-                    Explore some of my most innovative projects, from AI-powered games to 
-                    full-stack web applications.
-                  </div>
-                </>
-              )}
-            </div>
-            <h2 className="text-4xl sm:text-5xl font-bold mb-6 font-mono">
-              Featured <span className="gradient-text">Projects</span>
-            </h2>
+             onViewportEnter={() => {
+               setTimeout(() => setShowProjectsCommands(true), 500);
+             }}
+           >
+             <div className="min-h-[180px] mb-6">
+               {showProjectsCommands && (
+                 <div>
+                   <div className="mb-4 bg-dark-surface/80 border border-terminal-green/30 rounded-lg p-4 backdrop-blur-sm">
+                     <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
+                     <TypingAnimation 
+                       text="cat projects.txt" 
+                       speed={30}
+                       className="command-text text-lg font-mono"
+                       onComplete={() => {
+                         setTimeout(() => {
+                           setShowProjectsContent(true);
+                         }, 500);
+                       }}
+                     />
+                   </div>
+                   {showProjectsContent && (
+                     <>
+                       <motion.div
+                         initial={{ opacity: 0 }}
+                         animate={{ opacity: 1 }}
+                         transition={{ duration: 0.8 }}
+                         className="text-terminal-text text-lg font-mono mb-4 bg-dark-surface/60 border border-accent-blue/20 rounded-lg p-4 backdrop-blur-sm"
+                       >
+                         Stroku - Cross-platform streaming solution connecting Android devices with Roku TVs<br/>
+                         Battleship Solitaire AI - AI-powered puzzle solver using constraint satisfaction algorithms<br/>
+                         Checkers AI - Advanced game AI with Minimax algorithm and alpha-beta pruning<br/>
+                         Text Adventure Game - NLP-powered interactive story with voice recognition<br/>
+                         Huffman Compression - Efficient data compression with 80%+ compression rate
+                       </motion.div>
+                       <div className="mb-4 bg-dark-surface/80 border border-terminal-green/30 rounded-lg p-4 backdrop-blur-sm">
+                         <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
+                         <TypingAnimation 
+                           text="npm run generate-projects"
+                           speed={30}
+                           className="command-text text-lg font-mono"
+                           onComplete={() => {
+                             setTimeout(() => {
+                               setShowProjectsHeading(true);
+                               setShowProjectsComponents(true);
+                             }, 500);
+                           }}
+                         />
+                       </div>
+                     </>
+                   )}
+                 </div>
+               )}
+             </div>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Projects Container - All in one bordered section */}
+          {showProjectsComponents && (
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{ duration: 0.8 }}
-              className="card-hover bg-dark-card p-8 rounded-xl border border-gray-700"
+              className="bg-dark-surface/60 border border-accent-blue/20 rounded-lg p-6 backdrop-blur-sm"
             >
-              <div className="flex items-center mb-4">
-                <Sparkles size={32} className="text-accent-purple mr-3" />
-                <h3 className="text-2xl font-bold">Stroku</h3>
-              </div>
-              <p className="text-gray-300 mb-4">
-                An innovative project that showcases my creativity and technical skills. 
-                Built with modern web technologies and designed for optimal user experience.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                <span className="px-3 py-1 bg-accent-blue/20 text-accent-blue rounded-full text-sm">React</span>
-                <span className="px-3 py-1 bg-accent-purple/20 text-accent-purple rounded-full text-sm">JavaScript</span>
-                <span className="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">Innovation</span>
-              </div>
-              <button className="text-accent-blue hover:text-accent-purple transition-colors">
-                Learn More →
-              </button>
-            </motion.div>
+              {/* Featured Projects Heading */}
+              <motion.h2 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="text-4xl sm:text-5xl font-bold mb-6 font-mono text-center"
+              >
+                Featured <span className="gradient-text">Projects</span>
+              </motion.h2>
 
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="card-hover bg-dark-card p-8 rounded-xl border border-gray-700"
-            >
-              <div className="flex items-center mb-4">
-                <Cpu size={32} className="text-accent-blue mr-3" />
-                <h3 className="text-2xl font-bold">Battleship Solitaire AI</h3>
-              </div>
-              <p className="text-gray-300 mb-4">
-                An intelligent AI system that solves Battleship Solitaire puzzles using 
-                advanced algorithms and machine learning techniques.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                <span className="px-3 py-1 bg-accent-blue/20 text-accent-blue rounded-full text-sm">Python</span>
-                <span className="px-3 py-1 bg-accent-purple/20 text-accent-purple rounded-full text-sm">AI/ML</span>
-                <span className="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">Algorithms</span>
-              </div>
-              <button className="text-accent-blue hover:text-accent-purple transition-colors">
-                Learn More →
-              </button>
-            </motion.div>
-          </div>
+              {/* Projects List - Terminal Style */}
+              <div className="space-y-6 mb-6">
+                {/* Project 1 */}
+                <div className="border-b border-dark-border pb-4">
+                  <div className="flex items-start justify-between mb-2">
+                    <div>
+                      <span className="text-terminal-green font-mono text-sm">~/projects/stroku</span>
+                      <h3 className="text-xl font-bold text-terminal-text font-mono mt-1">Stroku</h3>
+                    </div>
+                    <span className="text-accent-green font-mono text-xs bg-accent-green/10 px-2 py-1 rounded">ACTIVE</span>
+                  </div>
+                  <p className="text-terminal-text/80 font-mono text-sm mb-3">
+                    Cross-platform streaming solution connecting Android devices with Roku TVs
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-2 py-1 bg-dark-border text-terminal-text font-mono text-xs rounded">React</span>
+                    <span className="px-2 py-1 bg-dark-border text-terminal-text font-mono text-xs rounded">JavaScript</span>
+                    <span className="px-2 py-1 bg-dark-border text-terminal-text font-mono text-xs rounded">Streaming</span>
+                  </div>
+                </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-center mt-12"
-          >
-            <button className="bg-gradient-to-r from-accent-blue to-accent-purple text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-accent-blue/25 transition-all duration-300">
-              View All Projects
-            </button>
-          </motion.div>
+                {/* Project 2 */}
+                <div className="border-b border-dark-border pb-4">
+                  <div className="flex items-start justify-between mb-2">
+                    <div>
+                      <span className="text-terminal-green font-mono text-sm">~/projects/battleship-ai</span>
+                      <h3 className="text-xl font-bold text-terminal-text font-mono mt-1">Battleship Solitaire AI</h3>
+                    </div>
+                    <span className="text-accent-blue font-mono text-xs bg-accent-blue/10 px-2 py-1 rounded">COMPLETE</span>
+                  </div>
+                  <p className="text-terminal-text/80 font-mono text-sm mb-3">
+                    AI-powered puzzle solver using constraint satisfaction algorithms
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-2 py-1 bg-dark-border text-terminal-text font-mono text-xs rounded">Python</span>
+                    <span className="px-2 py-1 bg-dark-border text-terminal-text font-mono text-xs rounded">AI/ML</span>
+                    <span className="px-2 py-1 bg-dark-border text-terminal-text font-mono text-xs rounded">Algorithms</span>
+                  </div>
+                </div>
+
+                {/* Project 3 */}
+                <div>
+                  <div className="flex items-start justify-between mb-2">
+                    <div>
+                      <span className="text-terminal-green font-mono text-sm">~/projects/checkers-ai</span>
+                      <h3 className="text-xl font-bold text-terminal-text font-mono mt-1">Checkers AI</h3>
+                    </div>
+                    <span className="text-accent-blue font-mono text-xs bg-accent-blue/10 px-2 py-1 rounded">COMPLETE</span>
+                  </div>
+                  <p className="text-terminal-text/80 font-mono text-sm mb-3">
+                    Advanced game AI with Minimax algorithm and alpha-beta pruning
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-2 py-1 bg-dark-border text-terminal-text font-mono text-xs rounded">Python</span>
+                    <span className="px-2 py-1 bg-dark-border text-terminal-text font-mono text-xs rounded">PyGame</span>
+                    <span className="px-2 py-1 bg-dark-border text-terminal-text font-mono text-xs rounded">Minimax</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* View All Projects Button */}
+              <div className="text-center">
+                <motion.button
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                  onClick={() => navigate('/projects')}
+                  className="bg-gradient-to-r from-accent-blue to-accent-purple text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg hover:shadow-accent-blue/25 transition-all duration-300 text-sm"
+                >
+                  View All Projects
+                </motion.button>
+              </div>
+            </motion.div>
+          )}
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="relative py-12 px-4 sm:px-6 lg:px-8 h-[600px] overflow-hidden">
+        {/* Simple CTA Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-dark-card via-dark-surface to-dark-bg"></div>
+        <div className="absolute inset-0 h-[600px]">
+          {/* Subtle pattern */}
+          <div className="absolute inset-0 opacity-3">
+            <div className="grid grid-cols-6 h-full">
+              {Array.from({ length: 36 }).map((_, i) => (
+                <div 
+                  key={i} 
+                  className="border-r border-b border-terminal-green/15"
+                  style={{ animationDelay: `${i * 0.1}s` }}
+                ></div>
+              ))}
+            </div>
+          </div>
+        </div>
+        
+        <div className="max-w-4xl mx-auto text-center relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          onViewportEnter={() => {
-            setTimeout(() => setShowCTACommands(true), 500);
-          }}
-        >
-          <div className="bg-dark-surface/50 border border-terminal-green/30 rounded-lg p-6 backdrop-blur-sm mb-8">
-            {showCTACommands && (
-              <>
-                <div className="mb-4">
-                  <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
-                  <span className="command-text text-lg font-mono">cat contact.md</span>
-                </div>
-                <div className="text-terminal-text text-lg font-mono">
-                  Ready to collaborate on your next project? Let's discuss how we can bring 
-                  your ideas to life with cutting-edge technology.
-                </div>
-              </>
-            )}
-          </div>
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 font-mono">
-            Let's Build Something <span className="gradient-text">Amazing</span>
-          </h2>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-gradient-to-r from-accent-blue to-accent-purple text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-accent-blue/25 transition-all duration-300"
+           onViewportEnter={() => {
+             setTimeout(() => setShowCTACommands(true), 500);
+           }}
+         >
+           <div className="min-h-[200px] mb-6">
+             {showCTACommands && (
+               <div>
+                 <div className="mb-4 bg-dark-surface/80 border border-terminal-green/30 rounded-lg p-4 backdrop-blur-sm">
+                   <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
+                   <TypingAnimation 
+                     text="cat contact.md" 
+                     speed={30}
+                     className="command-text text-lg font-mono"
+                     onComplete={() => {
+                       setTimeout(() => {
+                         setShowCTAContent(true);
+                       }, 500);
+                     }}
+                   />
+                 </div>
+                 {showCTAContent && (
+                   <>
+                     <motion.div
+                       initial={{ opacity: 0 }}
+                       animate={{ opacity: 1 }}
+                       transition={{ duration: 0.8 }}
+                       className="text-terminal-text text-lg font-mono mb-4 bg-dark-surface/60 border border-accent-blue/20 rounded-lg p-4 backdrop-blur-sm"
+                     >
+                       Email: gabrielsmith1874@gmail.com<br/>
+                       Phone: +1 (289) 681-0442<br/>
+                       Location: Mississauga, Ontario, Canada<br/>
+                       LinkedIn: linkedin.com/in/gabriel-smith-b3b366253<br/>
+                       GitHub: github.com/gabrielsmith1874<br/>
+                     </motion.div>
+                     <div className="mb-4 bg-dark-surface/80 border border-terminal-green/30 rounded-lg p-4 backdrop-blur-sm">
+                       <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
+                       <TypingAnimation 
+                         text="npm run generate-buttons"
+                         speed={30}
+                         className="command-text text-lg font-mono"
+                         onComplete={() => {
+                           setTimeout(() => {
+                             setShowCTAHeading(true);
+                             setShowCTAButtons(true);
+                           }, 500);
+                         }}
+                       />
+                     </div>
+                   </>
+                 )}
+               </div>
+             )}
+           </div>
+          {/* CTA Container - All in one bordered section */}
+          {showCTAHeading && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8 }}
+              className="bg-dark-surface/60 border border-accent-blue/20 rounded-lg p-6 backdrop-blur-sm"
+            >
+              <motion.h2 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="text-4xl sm:text-5xl font-bold mb-6 font-mono text-center"
               >
-                Get In Touch
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="border border-gray-600 text-gray-300 px-8 py-3 rounded-lg font-semibold hover:bg-gray-800 hover:text-white transition-all duration-300"
-              >
-                Download Resume
-              </motion.button>
-            </div>
+                Let's Build Something <span className="gradient-text">Amazing</span>
+              </motion.h2>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                {showCTAButtons && (
+                  <>
+                    <motion.button
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.4 }}
+                      onClick={() => navigate('/contact')}
+                      className="bg-gradient-to-r from-accent-blue to-accent-purple text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg hover:shadow-accent-blue/25 transition-all duration-300 text-sm"
+                    >
+                      Get In Touch
+                    </motion.button>
+                    <motion.button
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.6 }}
+                      onClick={() => navigate('/resume')}
+                      className="border border-gray-600 text-gray-300 px-6 py-2 rounded-lg font-semibold hover:bg-gray-800 hover:text-white transition-all duration-300 text-sm"
+                    >
+                      Download Resume
+                    </motion.button>
+                  </>
+                )}
+              </div>
+            </motion.div>
+          )}
           </motion.div>
         </div>
       </section>

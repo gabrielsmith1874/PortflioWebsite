@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Terminal } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,12 +24,6 @@ const Navigation = () => {
     { name: 'Contact', path: '/contact' },
   ];
 
-  const openTerminal = () => {
-    const terminalButton = document.getElementById('terminal-toggle');
-    if (terminalButton) {
-      terminalButton.click();
-    }
-  };
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -68,21 +62,13 @@ const Navigation = () => {
             </div>
           </div>
 
-          {/* Terminal Button & Mobile Menu Button */}
+          {/* Mobile Menu Button */}
           <div className="flex items-center space-x-4">
             {/* Current Page Indicator */}
             <div className="hidden lg:flex items-center space-x-2 px-3 py-2 rounded text-sm font-mono text-terminal-text bg-dark-surface border border-dark-border">
               <span className="text-terminal-green">●</span>
               <span>current: {location.pathname === '/' ? 'home' : location.pathname.slice(1)}</span>
             </div>
-            
-            <button
-              onClick={openTerminal}
-              className="hidden sm:flex items-center space-x-2 px-3 py-2 rounded text-sm font-medium font-mono text-terminal-text hover:text-terminal-green hover:bg-dark-surface hover:border hover:border-dark-border transition-colors duration-200"
-            >
-              <Terminal size={16} />
-              <span>terminal</span>
-            </button>
 
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -112,15 +98,6 @@ const Navigation = () => {
                 {item.name}
               </Link>
             ))}
-            <button
-              onClick={openTerminal}
-              className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-dark-card transition-colors duration-200"
-            >
-              <div className="flex items-center space-x-2">
-                <Terminal size={16} />
-                <span>Terminal</span>
-              </div>
-            </button>
           </div>
         </div>
       )}

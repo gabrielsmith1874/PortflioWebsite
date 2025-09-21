@@ -267,9 +267,6 @@ const Terminal = () => {
           >
             <TerminalIcon size={20} />
             <span className="font-mono text-sm hidden sm:block">terminal</span>
-            {hasNotification && (
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-terminal-green rounded-full animate-pulse"></div>
-            )}
           </button>
         </div>
         <div className="mt-2 text-xs text-terminal-text font-mono text-center">

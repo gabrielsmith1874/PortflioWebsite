@@ -26,8 +26,7 @@ const Resume = () => {
     phone: '+1 (289) 681-0442',
     location: 'Mississauga, Ontario, Canada',
     linkedin: 'linkedin.com/in/gabriel-smith-b3b366253',
-    github: 'github.com/gabrielsmith1874',
-    website: 'gabrielsmith.site'
+    github: 'github.com/gabrielsmith1874'
   };
 
   const skills = {
