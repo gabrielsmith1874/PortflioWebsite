@@ -13,6 +13,10 @@ const CheckersDemo = ({ isOpen, onClose }) => {
   const [validMoves, setValidMoves] = useState([]);
 
   const getBackendUrlForCheckers = () => {
+    // Use local backend for development, Netlify functions for production
+    if (process.env.NODE_ENV === 'development') {
+      return 'http://localhost:5000';
+    }
     return '/.netlify/functions/checkers-ai';
   };
   
