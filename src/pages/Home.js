@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ChevronDown, Code, Cpu, Database, Globe, Sparkles } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -15,6 +15,18 @@ const Home = () => {
   const [showSkillsCommands, setShowSkillsCommands] = useState(false);
   const [showProjectsCommands, setShowProjectsCommands] = useState(false);
   const [showCTACommands, setShowCTACommands] = useState(false);
+  const [animationKey, setAnimationKey] = useState(0);
+
+  // Reset animation when scrolling back to top
+  useEffect(() => {
+    const unsubscribe = scrollY.onChange((latest) => {
+      if (latest < 100) {
+        setCurrentCommand(0);
+        setAnimationKey(prev => prev + 1);
+      }
+    });
+    return unsubscribe;
+  }, [scrollY]);
 
 
   const skills = [
@@ -94,6 +106,7 @@ const Home = () => {
                 <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
                 {currentCommand >= 0 && (
                   <TypingAnimation 
+                    key={`whoami-${animationKey}`}
                     text="whoami" 
                     speed={100}
                     className="command-text text-lg font-mono"
@@ -102,10 +115,16 @@ const Home = () => {
                     }}
                   />
                 )}
+                {/* Main heading appears after whoami */}
                 {currentCommand > 0 && (
-                  <div className="text-terminal-green text-lg font-mono mt-2">
-                    Gabriel Smith
-                  </div>
+                  <motion.h1 
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8, delay: 0.5 }}
+                    className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 font-mono mt-8"
+                  >
+                    <span className="gradient-text">Gabriel Smith</span>
+                  </motion.h1>
                 )}
               </div>
 
@@ -115,6 +134,7 @@ const Home = () => {
                   <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
                   {currentCommand === 1 && (
                     <TypingAnimation 
+                      key={`cat-title-${animationKey}`}
                       text="cat title.txt" 
                       speed={100}
                       className="command-text text-lg font-mono"
@@ -140,6 +160,7 @@ const Home = () => {
                   <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
                   {currentCommand === 2 && (
                     <TypingAnimation 
+                      key={`cat-about-${animationKey}`}
                       text="cat about.md" 
                       speed={100}
                       className="command-text text-lg font-mono"
@@ -168,17 +189,6 @@ const Home = () => {
                 </div>
               )}
 
-              {/* Main heading */}
-              {currentCommand >= 1 && (
-                <motion.h1 
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.8, delay: 0.5 }}
-                  className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 font-mono"
-                >
-                  <span className="gradient-text">Gabriel Smith</span>
-                </motion.h1>
-              )}
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

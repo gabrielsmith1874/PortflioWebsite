@@ -284,12 +284,12 @@ const Terminal = () => {
     <div className={`fixed z-50 transition-all duration-300 ${
       isMinimized ? 'bottom-0 right-6' : isMaximized ? 'inset-4' : 'bottom-6 right-6'
     } ${isMinimized ? 'w-64 h-12' : isMaximized ? 'w-auto h-auto' : 'w-96 h-80'}`}>
-      <div className="terminal-window h-full flex flex-col">
+      <div className="bg-dark-surface/95 border border-terminal-green/30 rounded-lg shadow-2xl backdrop-blur-sm h-full flex flex-col">
         {/* Terminal Header */}
-        <div className="terminal-header px-4 py-2 flex items-center justify-between rounded-t-lg">
+        <div className="bg-terminal-header border-b border-terminal-green/30 px-4 py-2 flex items-center justify-between rounded-t-lg">
           <div className="flex items-center space-x-2">
-            <TerminalIcon size={16} className="text-gray-400" />
-            <span className="text-sm text-gray-300">gabriel@portfolio: ~</span>
+            <TerminalIcon size={16} className="text-terminal-green" />
+            <span className="text-sm text-terminal-text font-mono">gabriel@portfolio:~$</span>
           </div>
           <div className="flex items-center space-x-2">
             <button
@@ -317,29 +317,29 @@ const Terminal = () => {
         </div>
 
         {/* Terminal Content */}
-        <div className="terminal-content flex-1 p-4 overflow-y-auto scrollbar-hide" ref={terminalRef}>
+        <div className="flex-1 p-4 overflow-y-auto bg-dark-bg/50 text-terminal-text font-mono text-sm" ref={terminalRef}>
           {history.map((item, index) => (
             <div key={index} className="mb-1">
               {item.type === 'input' && (
-                <div className="text-terminal-green font-mono text-sm">
+                <div className="text-terminal-green">
                   {item.content}
                 </div>
               )}
               {item.type === 'output' && (
-                <div className="text-gray-300 font-mono text-sm">
+                <div className="text-terminal-text">
                   {item.content}
                 </div>
               )}
               {item.type === 'prompt' && (
                 <div className="flex items-center">
-                  <span className="text-terminal-green font-mono text-sm">gabriel@portfolio:~$ </span>
+                  <span className="text-terminal-green">gabriel@portfolio:~$ </span>
                   <input
                     ref={index === history.length - 1 ? inputRef : null}
                     type="text"
                     value={command}
                     onChange={(e) => setCommand(e.target.value)}
                     onKeyDown={handleKeyPress}
-                    className="flex-1 bg-transparent text-terminal-green font-mono text-sm outline-none caret-terminal-green"
+                    className="flex-1 bg-transparent text-terminal-green outline-none caret-terminal-green"
                     autoFocus={index === history.length - 1}
                   />
                   <span className="animate-terminal-blink text-terminal-green">█</span>

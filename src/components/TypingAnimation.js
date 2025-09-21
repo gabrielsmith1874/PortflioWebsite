@@ -5,6 +5,7 @@ const TypingAnimation = ({
   speed = 50, 
   delay = 0, 
   showCursor = true,
+  isActive = true,
   onComplete = () => {},
   className = ""
 }) => {
@@ -12,7 +13,18 @@ const TypingAnimation = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
 
+  // Reset when text changes or when component becomes active
   useEffect(() => {
+    if (isActive) {
+      setDisplayedText('');
+      setCurrentIndex(0);
+      setIsComplete(false);
+    }
+  }, [text, isActive]);
+
+  useEffect(() => {
+    if (!isActive) return;
+
     if (currentIndex < text.length) {
       const timeout = setTimeout(() => {
         setDisplayedText(prev => prev + text[currentIndex]);
@@ -24,23 +36,23 @@ const TypingAnimation = ({
       setIsComplete(true);
       onComplete();
     }
-  }, [currentIndex, text, speed, isComplete, onComplete]);
+  }, [currentIndex, text, speed, isComplete, onComplete, isActive]);
 
   useEffect(() => {
-    if (delay > 0) {
+    if (delay > 0 && isActive) {
       const timeout = setTimeout(() => {
         setCurrentIndex(0);
       }, delay);
       return () => clearTimeout(timeout);
-    } else {
+    } else if (isActive) {
       setCurrentIndex(0);
     }
-  }, [delay]);
+  }, [delay, isActive]);
 
   return (
     <span className={className}>
       {displayedText}
-      {showCursor && <span className="animate-terminal-blink">█</span>}
+      {showCursor && isActive && !isComplete && <span className="animate-terminal-blink">█</span>}
     </span>
   );
 };

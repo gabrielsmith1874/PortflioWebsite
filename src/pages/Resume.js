@@ -170,9 +170,9 @@ const Resume = () => {
             </div>
           </div>
           <div>
-            <h3 className="font-semibold text-gray-700 mb-2">Frameworks & Libraries</h3>
+            <h3 className="font-semibold text-gray-700 mb-2">AI/ML & Data Science</h3>
             <div className="flex flex-wrap gap-2">
-              {skills.frameworks.map((skill) => (
+              {skills.ai_ml.map((skill) => (
                 <span key={skill} className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">
                   {skill}
                 </span>
@@ -180,9 +180,9 @@ const Resume = () => {
             </div>
           </div>
           <div>
-            <h3 className="font-semibold text-gray-700 mb-2">Tools & Technologies</h3>
+            <h3 className="font-semibold text-gray-700 mb-2">Data Science</h3>
             <div className="flex flex-wrap gap-2">
-              {skills.tools.map((skill) => (
+              {skills.data_science.map((skill) => (
                 <span key={skill} className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">
                   {skill}
                 </span>
@@ -190,9 +190,9 @@ const Resume = () => {
             </div>
           </div>
           <div>
-            <h3 className="font-semibold text-gray-700 mb-2">Languages</h3>
+            <h3 className="font-semibold text-gray-700 mb-2">Other Skills</h3>
             <div className="flex flex-wrap gap-2">
-              {skills.languages.map((skill) => (
+              {skills.other.map((skill) => (
                 <span key={skill} className="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-sm">
                   {skill}
                 </span>
@@ -331,8 +331,42 @@ const Resume = () => {
   );
 
   return (
-    <div className="min-h-screen bg-dark-bg py-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-dark-bg py-20 relative">
+      {/* Animated Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-dark-bg via-dark-surface to-dark-card"></div>
+      <div className="absolute inset-0">
+        {/* Terminal-style grid with animation */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="grid grid-cols-20 h-full">
+            {Array.from({ length: 400 }).map((_, i) => (
+              <div 
+                key={i} 
+                className="border-r border-b border-terminal-green/20 animate-pulse"
+                style={{ animationDelay: `${i * 0.01}s` }}
+              ></div>
+            ))}
+          </div>
+        </div>
+        
+        {/* Floating geometric shapes */}
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-terminal-green/10 to-accent-blue/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-accent-blue/10 to-terminal-green/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 right-1/3 w-32 h-32 bg-gradient-to-r from-accent-orange/8 to-terminal-green/8 rounded-full blur-2xl animate-pulse delay-500"></div>
+        
+        {/* Animated code snippets */}
+        <div className="absolute top-20 left-20 text-terminal-green/8 font-mono text-xs animate-pulse">
+          <div className="animate-bounce">$ cat resume.pdf</div>
+          <div className="animate-bounce delay-100">$ ls -la skills/</div>
+          <div className="animate-bounce delay-200">$ grep experience</div>
+        </div>
+        <div className="absolute bottom-20 right-20 text-terminal-green/8 font-mono text-xs animate-pulse delay-1000">
+          <div className="animate-bounce">const skills = {'{'}</div>
+          <div className="animate-bounce delay-100">  languages: [...];</div>
+          <div className="animate-bounce delay-200">{'}'}</div>
+        </div>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
