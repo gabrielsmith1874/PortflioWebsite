@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import TypingAnimation from '../components/TypingAnimation';
 import HuffmanDemo from '../components/HuffmanDemo';
+import CheckersDemo from '../components/CheckersDemo';
 
 const Projects = () => {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ const Projects = () => {
   const [showCTAContent, setShowCTAContent] = useState(false);
   const [showCTAButtons, setShowCTAButtons] = useState(false);
   const [showHuffmanDemo, setShowHuffmanDemo] = useState(false);
+  const [showCheckersDemo, setShowCheckersDemo] = useState(false);
 
   React.useEffect(() => {
     const timer = setTimeout(() => setShowCommands(true), 500);
@@ -67,7 +69,7 @@ const Projects = () => {
       title: 'Text Adventure Game',
       path: '~/projects/adventure-game',
       description: 'Interactive text-based game with multiple storylines and inventory management',
-      technologies: ['Python', 'OOP', 'Game Design', 'Data Structures'],
+      technologies: ['Java', 'OOP', 'Game Design', 'Data Structures'],
       status: 'COMPLETE',
       githubUrl: 'https://github.com/gabrielsmith1874/My-Projects/tree/main/Adventure%20Game',
       liveUrl: '#'
@@ -251,7 +253,7 @@ const Projects = () => {
                         <div className="flex items-center gap-2">
                           <span className="text-purple-400">$</span>
                           <span className="text-purple-400 text-sm">{project.path}</span>
-                          <span className="text-gray-500">></span>
+                          <span className="text-gray-500">{'>'}</span>
                         </div>
                         <span className={`px-2 py-1 text-xs font-mono border ${
                           project.status === 'COMPLETE' 
@@ -306,6 +308,14 @@ const Projects = () => {
                             }`}
                           >
                             {project.id === 1 ? '[LAUNCH APP]' : '[LIVE DEMO]'}
+                          </button>
+                        )}
+                        {project.id === 3 && (
+                          <button 
+                            onClick={() => setShowCheckersDemo(true)}
+                            className="bg-gray-800 text-purple-300 px-4 py-2 border border-gray-600 hover:bg-gray-700 hover:text-white transition-colors font-mono text-sm"
+                          >
+                            [LIVE DEMO]
                           </button>
                         )}
                         {project.id === 5 && (
@@ -433,6 +443,12 @@ const Projects = () => {
       <HuffmanDemo 
         isOpen={showHuffmanDemo} 
         onClose={() => setShowHuffmanDemo(false)} 
+      />
+
+      {/* Checkers Demo Modal */}
+      <CheckersDemo 
+        isOpen={showCheckersDemo} 
+        onClose={() => setShowCheckersDemo(false)} 
       />
     </div>
   );

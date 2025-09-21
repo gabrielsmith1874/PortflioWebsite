@@ -4,11 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import TypingAnimation from '../components/TypingAnimation';
 import { 
   Briefcase, 
-  Calendar,
   MapPin,
   ChevronRight,
   Terminal,
-  FileText,
   Database,
   Cpu
 } from 'lucide-react';

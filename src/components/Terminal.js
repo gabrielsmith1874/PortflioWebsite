@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Terminal as TerminalIcon, X, Minimize2, Maximize2 } from 'lucide-react';
+import { Terminal as TerminalIcon, X, Maximize2 } from 'lucide-react';
 
 const Terminal = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +13,6 @@ const Terminal = () => {
     { type: 'prompt', content: '' }
   ]);
   const [historyIndex, setHistoryIndex] = useState(-1);
-  const [hasNotification, setHasNotification] = useState(true);
   const inputRef = useRef(null);
   const terminalRef = useRef(null);
   const navigate = useNavigate();
@@ -248,13 +247,8 @@ const Terminal = () => {
     setIsOpen(!isOpen);
     setIsMinimized(false);
     setIsMaximized(false);
-    setHasNotification(false);
   };
 
-  const toggleMinimize = () => {
-    setIsMinimized(!isMinimized);
-    setIsMaximized(false);
-  };
 
   const toggleMaximize = () => {
     setIsMaximized(!isMaximized);

@@ -2,8 +2,9 @@ from flask import Flask, request, jsonify, render_template_string
 from flask_cors import CORS
 import tempfile
 import os
-from compress2 import compress_file, decompress_file, build_frequency_dict, build_huffman_tree, get_codes, avg_length
+from compress2 import compress_file, decompress_file, build_frequency_dict, build_huffman_tree, get_codes, avg_length, number_nodes
 from huffman import HuffmanTree
+import struct
 
 def compress_bytes(data_bytes, codes):
     """Compress bytes using Huffman codes"""
@@ -29,6 +30,60 @@ def compress_bytes(data_bytes, codes):
         compressed_bytes.append(int(byte_bits, 2))
     
     return bytes(compressed_bytes)
+
+def compress_file_with_filename(in_file: str, out_file: str, original_filename: str) -> None:
+    """Compress file and embed original filename in the .huff file"""
+    with open(in_file, "rb") as f1:
+        text = f1.read()
+    
+    freq = build_frequency_dict(text)
+    tree = build_huffman_tree(freq)
+    codes = get_codes(tree)
+    number_nodes(tree)
+    
+    # Create the compressed data using the existing compress_file logic
+    from compress2 import tree_to_bytes, int32_to_bytes
+    compressed_data = (tree.num_nodes_to_bytes() + tree_to_bytes(tree)
+                      + int32_to_bytes(len(text)))
+    compressed_data += compress_bytes(text, codes)
+    
+    # Create the final file with embedded filename
+    # Format: [filename_length:4][filename:filename_length][compressed_data]
+    filename_bytes = original_filename.encode('utf-8')
+    filename_length = len(filename_bytes)
+    
+    with open(out_file, "wb") as f2:
+        # Write filename length (4 bytes)
+        f2.write(struct.pack('<I', filename_length))
+        # Write filename
+        f2.write(filename_bytes)
+        # Write compressed data
+        f2.write(compressed_data)
+    
+    print(f"DEBUG: Embedded filename '{original_filename}' in compressed file")
+
+def decompress_file_with_filename(in_file: str, out_file: str) -> str:
+    """Decompress file and extract original filename from .huff file"""
+    with open(in_file, "rb") as f1:
+        # Read filename length (4 bytes)
+        filename_length = struct.unpack('<I', f1.read(4))[0]
+        # Read filename
+        original_filename = f1.read(filename_length).decode('utf-8')
+        # Read remaining data (compressed content)
+        remaining_data = f1.read()
+    
+    # Write remaining data to temporary file for decompression
+    temp_file = tempfile.mktemp()
+    with open(temp_file, "wb") as temp_f:
+        temp_f.write(remaining_data)
+    
+    # Decompress using existing function
+    decompress_file(temp_file, out_file)
+    
+    # Clean up temp file
+    os.unlink(temp_file)
+    
+    return original_filename
 
 app = Flask(__name__)
 CORS(app)
@@ -444,8 +499,8 @@ def compress_file_api():
         # Get original file size
         original_size = os.path.getsize(input_file)
         
-        # Compress the file
-        compress_file(input_file, output_file)
+        # Compress the file with original filename embedded
+        compress_file_with_filename(input_file, output_file, file.filename)
         
         # Get compressed file size
         compressed_size = os.path.getsize(output_file)
@@ -476,7 +531,8 @@ def compress_file_api():
                 'Content-Disposition': f'attachment; filename="{file.filename.replace(os.path.splitext(file.filename)[1], ".huff")}"',
                 'X-Original-Size': str(original_size),
                 'X-Compressed-Size': str(compressed_size),
-                'X-Avg-Bits-Per-Symbol': str(avg_bits)
+                'X-Avg-Bits-Per-Symbol': str(avg_bits),
+                'X-Original-Filename': file.filename
             }
         )
         
@@ -500,8 +556,9 @@ def decompress_file_api():
         
         output_file = tempfile.mktemp()
         
-        # Decompress the file
-        decompress_file(input_file, output_file)
+        # Decompress the file and extract original filename
+        original_filename = decompress_file_with_filename(input_file, output_file)
+        print(f"DEBUG: Extracted original filename: {original_filename}")
         
         # Read the decompressed file
         with open(output_file, 'rb') as f:
@@ -511,29 +568,8 @@ def decompress_file_api():
         os.unlink(input_file)
         os.unlink(output_file)
         
-        # Extract original filename from .huff file
-        # The .huff file should contain the original filename in its header
-        # For now, we'll try to restore the extension by removing .huff
-        original_filename = file.filename.replace(".huff", "")
-        
-        # Try to determine the original extension from the compressed file content
-        # This is a simplified approach - in a real implementation, the original filename 
-        # would be stored in the .huff file header
-        try:
-            # Read the first few bytes to see if we can determine the file type
-            if len(decompressed_data) > 0:
-                # Common file signatures
-                if decompressed_data.startswith(b'\xFF\xD8\xFF'):
-                    original_filename += '.jpg'
-                elif decompressed_data.startswith(b'\x89PNG'):
-                    original_filename += '.png'
-                elif decompressed_data.startswith(b'%PDF'):
-                    original_filename += '.pdf'
-                elif decompressed_data.startswith(b'PK'):
-                    original_filename += '.zip'
-                # Add more file type detection as needed
-        except:
-            pass  # If detection fails, keep the filename as is
+        # The original filename is now extracted from the .huff file header
+        # No need for file type detection - we have the exact original filename
         
         # Return the decompressed file
         from flask import Response
@@ -541,7 +577,9 @@ def decompress_file_api():
             decompressed_data,
             mimetype='application/octet-stream',
             headers={
-                'Content-Disposition': f'attachment; filename="{original_filename}"'
+                'Content-Disposition': f'attachment; filename="{original_filename}"',
+                'X-Original-Filename': original_filename,
+                'X-Original-Size': str(len(decompressed_data))
             }
         )
         

@@ -112,7 +112,7 @@ const Resume = () => {
     {
       name: 'Text Adventure Game',
       description: 'Text-based adventure game with natural language processing',
-      technologies: ['Python', 'NLP', 'Google Cloud APIs', 'MaryTTS'],
+      technologies: ['Java', 'NLP', 'Google Cloud APIs', 'MaryTTS'],
       impact: 'Integrated voice recognition and multilingual support, broadening accessibility to visually impaired players',
       url: 'https://github.com/gabrielsmith1874/My-Projects/tree/main/Adventure%20Game'
     },

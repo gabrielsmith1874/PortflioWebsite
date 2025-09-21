@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronDown, Code, Cpu, Database, Globe, Sparkles } from 'lucide-react';
+import { ChevronDown, Code, Cpu, Database, Globe } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import TypingAnimation from '../components/TypingAnimation';
 
@@ -12,14 +12,12 @@ const Home = () => {
   const [showSkillsCommands, setShowSkillsCommands] = useState(false);
   const [showProjectsCommands, setShowProjectsCommands] = useState(false);
   const [showCTACommands, setShowCTACommands] = useState(false);
-  const [animationKey, setAnimationKey] = useState(0);
   const [currentSection, setCurrentSection] = useState(0); // 0: hero, 1: about, 2: skills, 3: projects, 4: cta
   const [showSkillsContent, setShowSkillsContent] = useState(false);
   const [showProjectsContent, setShowProjectsContent] = useState(false);
   const [showCTAContent, setShowCTAContent] = useState(false);
   const [showSkillsComponents, setShowSkillsComponents] = useState(false);
   const [showProjectsComponents, setShowProjectsComponents] = useState(false);
-  const [showProjectsHeading, setShowProjectsHeading] = useState(false);
   const [showCTAButtons, setShowCTAButtons] = useState(false);
   const [showCTAHeading, setShowCTAHeading] = useState(false);
 
@@ -131,7 +129,7 @@ const Home = () => {
                 <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
                 {currentCommand >= 0 && (
                    <TypingAnimation 
-                     key={`whoami-${animationKey}`}
+                     key="whoami"
                      text="whoami" 
                      speed={30}
                     className="command-text text-lg font-mono"
@@ -159,7 +157,7 @@ const Home = () => {
                   <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
                   {currentCommand === 1 && (
                      <TypingAnimation 
-                       key={`cat-title-${animationKey}`}
+                       key="cat-title"
                        text="cat title.txt" 
                        speed={30}
                       className="command-text text-lg font-mono"
@@ -185,7 +183,7 @@ const Home = () => {
                   <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
                   {currentCommand === 2 && (
                      <TypingAnimation 
-                       key={`cat-about-${animationKey}`}
+                       key="cat-about"
                        text="cat about.md" 
                        speed={30}
                       className="command-text text-lg font-mono"
@@ -603,7 +601,6 @@ const Home = () => {
                            className="command-text text-lg font-mono"
                            onComplete={() => {
                              setTimeout(() => {
-                               setShowProjectsHeading(true);
                                setShowProjectsComponents(true);
                              }, 500);
                            }}
