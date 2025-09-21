@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    background-color: #0d1117;
+    color: #c9d1d9;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer components {
+  .font-inter {
+    font-family: 'Inter', sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #00ff41, #00d4ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .card-hover {
+    transition: all 0.3s ease;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0, 255, 65, 0.2);
+    border-color: #00ff41;
+  }
+
+  .terminal-window {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  }
+
+  .terminal-header {
+    background: #21262d;
+    border-bottom: 1px solid #30363d;
+  }
+
+  .terminal-content {
+    background: #0d1117;
+    color: #00ff41;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .glass-effect {
+    background: rgba(13, 17, 23, 0.9);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(48, 54, 61, 0.5);
+  }
+
+  .unix-button {
+    background: #21262d;
+    border: 1px solid #30363d;
+    color: #c9d1d9;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    transition: all 0.2s ease;
+  }
+
+  .unix-button:hover {
+    background: #30363d;
+    border-color: #00ff41;
+    color: #00ff41;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+  }
+
+  .unix-input {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    color: #c9d1d9;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .unix-input:focus {
+    outline: none;
+    border-color: #00ff41;
+    box-shadow: 0 0 0 2px rgba(0, 255, 65, 0.2);
+  }
+
+  .unix-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .unix-card:hover {
+    border-color: #00ff41;
+    box-shadow: 0 4px 16px rgba(0, 255, 65, 0.1);
+  }
+
+  .prompt-text {
+    color: #00ff41;
+    font-weight: bold;
+  }
+
+  .directory-text {
+    color: #00d4ff;
+  }
+
+  .file-text {
+    color: #c9d1d9;
+  }
+
+  .command-text {
+    color: #ffa657;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d1117;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #30363d;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00ff41;
+}
+
+/* Selection color */
+::selection {
+  background: #00ff41;
+  color: #0d1117;
+}
+
+::-moz-selection {
+  background: #00ff41;
+  color: #0d1117;
+}
