@@ -293,13 +293,6 @@ const Terminal = () => {
           </div>
           <div className="flex items-center space-x-2">
             <button
-              onClick={toggleMinimize}
-              className="w-3 h-3 rounded-full bg-yellow-500 hover:bg-yellow-400 transition-colors"
-              title="Minimize"
-            >
-              <Minimize2 size={8} className="m-auto text-black" />
-            </button>
-            <button
               onClick={toggleMaximize}
               className="w-3 h-3 rounded-full bg-green-500 hover:bg-green-400 transition-colors"
               title="Maximize"
