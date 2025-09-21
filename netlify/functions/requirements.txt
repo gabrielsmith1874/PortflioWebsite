@@ -1,2 +1,0 @@
-# Netlify Functions requirements
-# No external dependencies needed for basic functions

@@ -45,7 +45,7 @@ const HuffmanDemo = ({ isOpen, onClose }) => {
       const formData = new FormData();
       formData.append('file', selectedFile);
 
-      const response = await fetch('/.netlify/functions/huffman-compress/compress', {
+      const response = await fetch('http://localhost:5000/compress_file', {
         method: 'POST',
         body: formData
       });
@@ -105,7 +105,7 @@ const HuffmanDemo = ({ isOpen, onClose }) => {
       const formData = new FormData();
       formData.append('file', selectedFile);
 
-      const response = await fetch('/.netlify/functions/huffman-compress/decompress', {
+      const response = await fetch('http://localhost:5000/decompress', {
         method: 'POST',
         body: formData
       });

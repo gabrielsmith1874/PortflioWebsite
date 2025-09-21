@@ -1,0 +1,20 @@
+{
+	"geolocation": {
+		"data": {
+			"city": "Mississauga",
+			"country": {
+				"code": "CA",
+				"name": "Canada"
+			},
+			"subdivision": {
+				"code": "ON",
+				"name": "Ontario"
+			},
+			"timezone": "America/Toronto",
+			"latitude": 43.5366,
+			"longitude": -79.6919,
+			"postalCode": "L5L"
+		},
+		"timestamp": 1758493364311
+	}
+}
