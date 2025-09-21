@@ -375,56 +375,54 @@ const Home = () => {
                }
              }}
           >
-            <div className="min-h-[180px]">
-              {showAboutCommands && (
-                <>
-                  <div className="mb-4 bg-dark-surface/80 border border-terminal-green/30 rounded-lg p-4 backdrop-blur-sm">
-                    <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
-                    <TypingAnimation 
-                      text="cat about.txt" 
-                      speed={30}
-                      className="command-text text-lg font-mono"
-                      onComplete={() => {
-                        setTimeout(() => {
-                          setShowContent(true);
-                        }, 500);
-                      }}
-                    />
-                  </div>
-                  {showContent && (
-                    <>
-                      {/* About Me Container - All in one bordered section */}
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.8 }}
-                        className="bg-dark-surface/60 border border-accent-blue/20 rounded-lg p-6 backdrop-blur-sm mb-8"
-                      >
-                        <h2 className="text-4xl sm:text-5xl font-bold mb-6 font-mono text-center">
-                          About <span className="gradient-text">Me</span>
-                        </h2>
-                        <div className="text-terminal-text text-lg font-mono">
-                          I'm a Computer Science and Statistics student at University of Toronto with a strong foundation in programming, specifically data structures, algorithms, and artificial intelligence. Currently working as a Systems Developer at the Ministry of Public and Business Service Delivery.
-                        </div>
-                      </motion.div>
-                      <div className="text-center">
-                        <TypingAnimation 
-                          text=""
-                          speed={30}
-                          delay={2000}
-                          onComplete={() => {
-                            setTimeout(() => {
-                              setCurrentSection(2);
-                              setShowSkillsCommands(true);
-                            }, 1000);
-                          }}
-                        />
+            {showAboutCommands && (
+              <>
+                <div className="mb-4 bg-dark-surface/80 border border-terminal-green/30 rounded-lg p-4 backdrop-blur-sm">
+                  <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
+                  <TypingAnimation 
+                    text="cat about.txt" 
+                    speed={30}
+                    className="command-text text-lg font-mono"
+                    onComplete={() => {
+                      setTimeout(() => {
+                        setShowContent(true);
+                      }, 500);
+                    }}
+                  />
+                </div>
+                {showContent && (
+                  <>
+                    {/* About Me Container - All in one bordered section */}
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.8 }}
+                      className="mt-6 bg-dark-surface/60 border border-accent-blue/20 rounded-lg p-6 backdrop-blur-sm"
+                    >
+                      <h2 className="text-4xl sm:text-5xl font-bold mb-6 font-mono text-center">
+                        About <span className="gradient-text">Me</span>
+                      </h2>
+                      <div className="text-terminal-text text-lg font-mono">
+                        I'm a Computer Science and Statistics student at University of Toronto with a strong foundation in programming, specifically data structures, algorithms, and artificial intelligence. Currently working as a Systems Developer at the Ministry of Public and Business Service Delivery.
                       </div>
-                    </>
-                  )}
-                </>
-              )}
-            </div>
+                    </motion.div>
+                    <div className="text-center mt-4">
+                      <TypingAnimation 
+                        text=""
+                        speed={30}
+                        delay={2000}
+                        onComplete={() => {
+                          setTimeout(() => {
+                            setCurrentSection(2);
+                            setShowSkillsCommands(true);
+                          }, 1000);
+                        }}
+                      />
+                    </div>
+                  </>
+                )}
+              </>
+            )}
           </motion.div>
 
           {/* Skills Section Header */}
@@ -440,53 +438,51 @@ const Home = () => {
                }
              }}
           >
-            <div className="min-h-[150px] mb-4">
-              {showSkillsCommands && (
-                <div>
-                  <div className="mb-4 bg-dark-surface/80 border border-terminal-green/30 rounded-lg p-4 backdrop-blur-sm">
-                    <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
-                    <TypingAnimation 
-                      text="cat skills.txt" 
-                      speed={30}
-                      className="command-text text-lg font-mono"
-                      onComplete={() => {
-                        setTimeout(() => {
-                          setShowSkillsContent(true);
-                        }, 500);
-                      }}
-                    />
-                  </div>
-                  {showSkillsContent && (
-                    <>
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.8 }}
-                        className="text-terminal-text text-lg font-mono mb-4 bg-dark-surface/60 border border-accent-blue/20 rounded-lg p-4 backdrop-blur-sm"
-                      >
-                        Programming Languages: Python, Java, C, C#, JavaScript, HTML, CSS<br/>
-                        AI/ML & Data Science: Machine Learning, Algorithms, Data Structures, SQL, R<br/>
-                        Development Tools: Postman, Swagger, REST APIs, Git, Assembly<br/>
-                        Core Competencies: OOP, Algorithm Design, Statistics, Hypothesis Testing
-                      </motion.div>
-                      <div className="mb-4 bg-dark-surface/80 border border-terminal-green/30 rounded-lg p-4 backdrop-blur-sm">
-                        <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
-                        <TypingAnimation 
-                          text="npm run generate-skills"
-                          speed={30}
-                          className="command-text text-lg font-mono"
-                          onComplete={() => {
-                            setTimeout(() => {
-                              setShowSkillsComponents(true);
-                            }, 500);
-                          }}
-                        />
-                      </div>
-                    </>
-                  )}
+            {showSkillsCommands && (
+              <div>
+                <div className="mb-4 bg-dark-surface/80 border border-terminal-green/30 rounded-lg p-4 backdrop-blur-sm">
+                  <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
+                  <TypingAnimation 
+                    text="cat skills.txt" 
+                    speed={30}
+                    className="command-text text-lg font-mono"
+                    onComplete={() => {
+                      setTimeout(() => {
+                        setShowSkillsContent(true);
+                      }, 500);
+                    }}
+                  />
                 </div>
-              )}
-            </div>
+                {showSkillsContent && (
+                  <>
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.8 }}
+                      className="text-terminal-text text-lg font-mono mb-4 bg-dark-surface/60 border border-accent-blue/20 rounded-lg p-4 backdrop-blur-sm"
+                    >
+                      Programming Languages: Python, Java, C, C#, JavaScript, HTML, CSS<br/>
+                      AI/ML & Data Science: Machine Learning, Algorithms, Data Structures, SQL, R<br/>
+                      Development Tools: Postman, Swagger, REST APIs, Git, Assembly<br/>
+                      Core Competencies: OOP, Algorithm Design, Statistics, Hypothesis Testing
+                    </motion.div>
+                    <div className="mb-4 bg-dark-surface/80 border border-terminal-green/30 rounded-lg p-4 backdrop-blur-sm">
+                      <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
+                      <TypingAnimation 
+                        text="npm run generate-skills"
+                        speed={30}
+                        className="command-text text-lg font-mono"
+                        onComplete={() => {
+                          setTimeout(() => {
+                            setShowSkillsComponents(true);
+                          }, 500);
+                        }}
+                      />
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
           </motion.div>
 
           {/* Skills and Stats Container - All in one bordered section */}

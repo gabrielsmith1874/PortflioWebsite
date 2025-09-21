@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Terminal as TerminalIcon, X, Minimize2, Maximize2 } from 'lucide-react';
 
 const Terminal = () => {
@@ -17,6 +17,10 @@ const Terminal = () => {
   const inputRef = useRef(null);
   const terminalRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  
+  // Check if we're on the timeline page to use blue theme
+  const isTimelinePage = location.pathname === '/timeline';
 
   const commands = {
     help: {
@@ -263,15 +267,19 @@ const Terminal = () => {
           <button
             id="terminal-toggle"
             onClick={toggleTerminal}
-            className="bg-terminal-header border border-terminal-green text-terminal-green p-3 rounded-lg shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-terminal-green/25 flex items-center space-x-2"
+            className={`bg-terminal-header border p-3 rounded-lg shadow-lg transition-all duration-300 hover:scale-110 flex items-center space-x-2 ${
+              isTimelinePage 
+                ? 'border-blue-400 text-blue-400 hover:shadow-blue-400/25' 
+                : 'border-terminal-green text-terminal-green hover:shadow-terminal-green/25'
+            }`}
           >
             <TerminalIcon size={20} />
             <span className="font-mono text-sm hidden sm:block">terminal</span>
           </button>
         </div>
         <div className="mt-2 text-xs text-terminal-text font-mono text-center">
-          <span className="prompt-text">gabriel@portfolio:~$ </span>
-          <span className="command-text">./open_terminal.sh</span>
+          <span className={isTimelinePage ? 'text-blue-400' : 'text-terminal-green'}>gabriel@portfolio:~$ </span>
+          <span className={isTimelinePage ? 'text-blue-400' : 'text-terminal-green'}>./open_terminal.sh</span>
         </div>
       </div>
     );
@@ -281,11 +289,15 @@ const Terminal = () => {
     <div className={`fixed z-50 transition-all duration-300 ${
       isMinimized ? 'bottom-0 right-6' : isMaximized ? 'inset-4' : 'bottom-6 right-6'
     } ${isMinimized ? 'w-64 h-12' : isMaximized ? 'w-auto h-auto' : 'w-96 h-80'}`}>
-      <div className="bg-dark-surface/95 border border-terminal-green/30 rounded-lg shadow-2xl backdrop-blur-sm h-full flex flex-col">
+      <div className={`bg-dark-surface/95 border rounded-lg shadow-2xl backdrop-blur-sm h-full flex flex-col ${
+        isTimelinePage ? 'border-blue-400/30' : 'border-terminal-green/30'
+      }`}>
         {/* Terminal Header */}
-        <div className="bg-terminal-header border-b border-terminal-green/30 px-4 py-2 flex items-center justify-between rounded-t-lg">
+        <div className={`bg-terminal-header border-b px-4 py-2 flex items-center justify-between rounded-t-lg ${
+          isTimelinePage ? 'border-blue-400/30' : 'border-terminal-green/30'
+        }`}>
           <div className="flex items-center space-x-2">
-            <TerminalIcon size={16} className="text-terminal-green" />
+            <TerminalIcon size={16} className={isTimelinePage ? 'text-blue-400' : 'text-terminal-green'} />
             <span className="text-sm text-terminal-text font-mono">gabriel@portfolio:~$</span>
           </div>
           <div className="flex items-center space-x-2">
@@ -311,7 +323,7 @@ const Terminal = () => {
           {history.map((item, index) => (
             <div key={index} className="mb-1">
               {item.type === 'input' && (
-                <div className="text-terminal-green">
+                <div className={isTimelinePage ? 'text-blue-400' : 'text-terminal-green'}>
                   {item.content}
                 </div>
               )}
@@ -322,17 +334,19 @@ const Terminal = () => {
               )}
               {item.type === 'prompt' && (
                 <div className="flex items-center">
-                  <span className="text-terminal-green">gabriel@portfolio:~$ </span>
+                  <span className={isTimelinePage ? 'text-blue-400' : 'text-terminal-green'}>gabriel@portfolio:~$ </span>
                   <input
                     ref={index === history.length - 1 ? inputRef : null}
                     type="text"
                     value={command}
                     onChange={(e) => setCommand(e.target.value)}
                     onKeyDown={handleKeyPress}
-                    className="flex-1 bg-transparent text-terminal-green outline-none caret-terminal-green"
+                    className={`flex-1 bg-transparent outline-none ${
+                      isTimelinePage ? 'text-blue-400 caret-blue-400' : 'text-terminal-green caret-terminal-green'
+                    }`}
                     autoFocus={index === history.length - 1}
                   />
-                  <span className="animate-terminal-blink text-terminal-green">█</span>
+                  <span className={`animate-terminal-blink ${isTimelinePage ? 'text-blue-400' : 'text-terminal-green'}`}>█</span>
                 </div>
               )}
             </div>

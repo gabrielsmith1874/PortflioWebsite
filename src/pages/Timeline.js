@@ -1,318 +1,367 @@
-import React, { useState, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import TypingAnimation from '../components/TypingAnimation';
 import { 
-  GraduationCap, 
   Briefcase, 
-  Code, 
-  Award, 
   Calendar,
   MapPin,
-  ChevronRight
+  ChevronRight,
+  Terminal,
+  FileText,
+  Database,
+  Cpu
 } from 'lucide-react';
 
 const Timeline = () => {
-  const [activeItem, setActiveItem] = useState(0);
+  const navigate = useNavigate();
   const [showCommands, setShowCommands] = useState(false);
-  const timelineRef = useRef(null);
-  const isInView = useInView(timelineRef, { once: true });
+  const [showContent, setShowContent] = useState(false);
+  const [showTimeline, setShowTimeline] = useState(false);
 
   React.useEffect(() => {
-    if (isInView) {
-      setTimeout(() => setShowCommands(true), 500);
-    }
-  }, [isInView]);
+    const timer = setTimeout(() => setShowCommands(true), 500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Scroll to top on component mount
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const timelineData = [
     {
       id: 0,
-      type: 'education',
-      title: 'University of Toronto',
-      subtitle: 'Computer Science Student',
-      period: '2021 - Present',
-      location: 'Toronto, ON',
-      description: 'Pursuing a Bachelor of Science in Computer Science with focus on Artificial Intelligence and Software Engineering.',
+      title: 'Systems Developer & Tester',
+      company: 'Ministry of Public and Business Service Delivery and Procurement',
+      period: 'February 2025 - Present',
+      location: 'Toronto, Ontario, Canada',
+      description: 'Working as a Systems Developer and Tester, developing and maintaining critical government systems with focus on quality assurance and system reliability.',
       achievements: [
-        'Maintaining strong academic performance',
-        'Active in computer science clubs and organizations',
-        'Completed coursework in Data Structures, Algorithms, and AI',
-        'Participating in hackathons and coding competitions'
+        'Automated regression testing processes for government procurement systems, contributing to more efficient software deployment cycles',
+        'Implemented Web API integrations using Postman and Swagger over 12 months to enable real-time data exchange across three government platforms',
+        'Supported and executed the migration from SFTP to REST services, delivering development and testing contributions to enhance TestApp functionality'
       ],
-      skills: ['C++', 'Java', 'Python', 'Data Structures', 'Algorithms'],
-      icon: GraduationCap,
-      color: 'from-blue-500 to-blue-600'
+      skills: ['Web API', 'Postman', 'Swagger', 'REST Services', 'SFTP Migration', 'Regression Testing'],
+      icon: Database,
+      color: 'from-blue-500 to-cyan-500'
     },
     {
       id: 1,
-      type: 'project',
-      title: 'Stroku',
-      subtitle: 'Innovative Web Application',
-      period: '2023 - Present',
-      location: 'Personal Project',
-      description: 'Developed a cutting-edge web application showcasing modern development practices and user experience design.',
+      title: 'Customer Service Representative',
+      company: 'Farm Boy Inc.',
+      period: 'July 2024 - January 2025',
+      location: 'Ontario, Canada',
+      description: 'Provided exceptional customer service, addressing customer inquiries and resolving issues promptly and courteously.',
       achievements: [
-        'Built with React and modern JavaScript frameworks',
-        'Implemented responsive design principles',
-        'Optimized for performance and accessibility',
-        'Deployed using modern CI/CD practices'
+        'Provided exceptional customer service, addressing customer inquiries and resolving issues promptly and courteously',
+        'Maintained clean and organized work areas, following health and safety regulations',
+        'Assisted with inventory management, including stocking supplies and monitoring product freshness',
+        'Collaborated with team members to ensure efficient workflow and positive shopping experience',
+        'Offered assistant manager and supervisor titles within a few weeks of employment due to work ethic and delegation skills'
       ],
-      skills: ['React', 'JavaScript', 'CSS3', 'HTML5', 'Git'],
-      icon: Code,
-      color: 'from-purple-500 to-purple-600'
+      skills: ['Customer Service', 'Inventory Management', 'Team Collaboration', 'Leadership', 'Workflow Optimization'],
+      icon: Briefcase,
+      color: 'from-purple-500 to-pink-500'
     },
     {
       id: 2,
-      type: 'project',
-      title: 'Battleship Solitaire AI',
-      subtitle: 'AI-Powered Puzzle Solver',
-      period: '2023',
-      location: 'Personal Project',
-      description: 'Created an intelligent AI system that solves Battleship Solitaire puzzles using advanced algorithms and machine learning techniques.',
+      title: 'HMR Clerk',
+      company: 'Loblaws',
+      period: 'September 2023 - Present',
+      location: 'Mississauga, Ontario, Canada',
+      description: 'As an HMR Clerk at Loblaws Supermarket, excelling in customer engagement and guiding patrons to select quality meal options.',
       achievements: [
-        'Implemented constraint satisfaction algorithms',
-        'Developed heuristic search strategies',
-        'Achieved high success rate in puzzle solving',
-        'Optimized for computational efficiency'
+        'Provide exceptional customer engagement, guiding patrons to select quality meal options',
+        'Conduct meticulous food preparation, ensuring adherence to safety standards',
+        'Effectively manage inventory, optimizing stock levels and minimizing waste',
+        'Maintain clean and organized work areas following health and safety regulations'
       ],
-      skills: ['Python', 'AI/ML', 'Algorithms', 'Data Science', 'Optimization'],
-      icon: Award,
-      color: 'from-green-500 to-green-600'
+      skills: ['Customer Service', 'Food Preparation', 'Inventory Management', 'Safety Standards', 'Quality Control'],
+      icon: Briefcase,
+      color: 'from-green-500 to-emerald-500'
     },
     {
       id: 3,
-      type: 'experience',
-      title: 'Software Development Projects',
-      subtitle: 'Full-Stack Development',
-      period: '2022 - Present',
-      location: 'Various Projects',
-      description: 'Developed multiple full-stack applications demonstrating proficiency in modern web technologies and best practices.',
+      title: 'Assembler',
+      company: 'Dana Incorporated',
+      period: 'August 2021 - September 2021',
+      location: 'Oakville, Ontario, Canada',
+      description: 'Assembled mechanical and electronic components for automotive products, meeting daily production targets efficiently and achieving minimal production errors.',
       achievements: [
-        'Built responsive web applications',
-        'Implemented RESTful APIs',
-        'Integrated database systems',
-        'Applied software engineering principles'
+        'Assembled mechanical and electronic components for automotive products, meeting daily production targets efficiently',
+        'Achieved minimal production errors and maintained high quality standards',
+        'Conducted quality checks regularly, achieving high accuracy rate with zero-defects',
+        'Maintained high quality standards for products through systematic quality control processes'
       ],
-      skills: ['Full-Stack', 'React', 'Node.js', 'Databases', 'APIs'],
-      icon: Briefcase,
-      color: 'from-orange-500 to-orange-600'
+      skills: ['Assembly', 'Quality Control', 'Mechanical Components', 'Electronic Components', 'Production Targets'],
+      icon: Terminal,
+      color: 'from-indigo-500 to-blue-500'
+    },
+    {
+      id: 4,
+      title: 'Order Picker',
+      company: 'Wallace & Carey',
+      period: 'July 2021 - August 2021',
+      location: 'Oakville, Ontario',
+      description: 'Executed daily order fulfillment duties utilizing a warehouse management system, picked and packed products and maintained high accuracy on order shipments.',
+      achievements: [
+        'Executed daily order fulfillment duties utilizing a warehouse management system',
+        'Picked and packed products and maintained high accuracy on order shipments',
+        'Assisted in the packaging of over hundreds of products per week',
+        'Operated machinery such as pallet jacks, safely transporting materials around the warehouse',
+        'Collaborated with team members to meet tight deadlines, consistently completing projects ahead of schedule'
+      ],
+      skills: ['Warehouse Management', 'Order Fulfillment', 'Machinery Operation', 'Team Collaboration', 'Deadline Management'],
+      icon: Cpu,
+      color: 'from-orange-500 to-red-500'
     }
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, x: -50 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-dark-bg py-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
+    <div className="min-h-screen bg-dark-bg">
+      {/* Hero Section with Different Background Pattern */}
+      <section className="relative py-16 px-4 sm:px-6 lg:px-8 min-h-[700px] overflow-hidden">
+        {/* Hexagonal Background Pattern */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-gray-900 to-black"></div>
+        <div className="absolute inset-0">
+          {/* Hexagonal Grid */}
+          <div className="absolute inset-0 opacity-5">
+            <div className="grid grid-cols-12 h-full">
+              {Array.from({ length: 144 }).map((_, i) => (
+                <div 
+                  key={i} 
+                  className="border-r border-b border-cyan-400/20"
+                  style={{ 
+                    animationDelay: `${i * 0.02}s`,
+                    clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
+                  }}
+                ></div>
+              ))}
+            </div>
+          </div>
+
+          {/* Floating Code Elements */}
+          <div className="absolute top-16 left-16 text-blue-400/20 font-mono text-sm animate-pulse">
+            <div className="animate-bounce" style={{ animationDuration: '3s' }}>./configure --prefix=/usr</div>
+            <div className="animate-bounce delay-300" style={{ animationDuration: '2.5s' }}>make && make install</div>
+            <div className="animate-bounce delay-600" style={{ animationDuration: '4s' }}>sudo systemctl start</div>
+          </div>
+          <div className="absolute top-1/3 right-16 text-blue-400/15 font-mono text-sm animate-pulse delay-1000">
+            <div className="animate-bounce" style={{ animationDuration: '3.5s' }}>const experience = [</div>
+            <div className="animate-bounce delay-400" style={{ animationDuration: '2.8s' }}>  'professional',</div>
+            <div className="animate-bounce delay-800" style={{ animationDuration: '3.2s' }}>  'growth'</div>
+            <div className="animate-bounce delay-1200" style={{ animationDuration: '2.7s' }}>];</div>
+          </div>
+          <div className="absolute bottom-16 left-1/3 text-blue-400/15 font-mono text-sm animate-pulse delay-500">
+            <div className="animate-bounce" style={{ animationDuration: '2.9s' }}>export TIMELINE=true</div>
+          </div>
+        </div>
+
+        <div className="max-w-6xl mx-auto relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <div className="bg-dark-surface/50 border border-terminal-green/30 rounded-lg p-6 backdrop-blur-sm mb-8">
-              {showCommands && (
-                <>
-                  <div className="mb-4">
-                    <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
-                    <span className="command-text text-lg font-mono">cat timeline.md</span>
-                  </div>
-                  <div className="text-terminal-text text-lg font-mono">
-                    From university studies to innovative projects, here's a timeline of my 
-                    experience and growth as a software engineer.
-                  </div>
-                </>
-              )}
-            </div>
-            <h1 className="text-4xl sm:text-5xl font-bold mb-6 font-mono">
-              My <span className="gradient-text">Journey</span>
-            </h1>
-          </motion.div>
-
-        {/* Timeline Navigation */}
-        <div className="mb-12">
-          <div className="flex flex-wrap justify-center gap-4">
-            {timelineData.map((item, index) => (
-              <button
-                key={item.id}
-                onClick={() => setActiveItem(index)}
-                className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
-                  activeItem === index
-                    ? 'bg-gradient-to-r from-accent-blue to-accent-purple text-white'
-                    : 'bg-dark-surface text-gray-300 hover:bg-dark-card'
-                }`}
-              >
-                <div className="flex items-center space-x-2">
-                  <item.icon size={20} />
-                  <span>{item.title}</span>
+            {showCommands && (
+              <>
+                <div className="mb-4 bg-gray-800/80 border border-green-400/30 rounded-lg p-4 backdrop-blur-sm inline-block">
+                  <span className="text-blue-400 text-lg font-mono">gabriel@portfolio:~$ </span>
+                  <TypingAnimation 
+                    text="cat experience.log" 
+                    speed={30}
+                    className="text-blue-400 text-lg font-mono"
+                    onComplete={() => {
+                      setTimeout(() => {
+                        setShowContent(true);
+                      }, 500);
+                    }}
+                  />
                 </div>
-              </button>
-            ))}
-          </div>
-        </div>
+                {showContent && (
+                  <>
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.8 }}
+                      className="text-gray-300 text-lg font-mono mb-4 bg-gray-800/60 border border-blue-400/20 rounded-lg p-4 backdrop-blur-sm inline-block"
+                    >
+                      Professional journey spanning government systems development, retail excellence, 
+                      and manufacturing precision. Here's the complete timeline of my career progression.
+                    </motion.div>
+                    <div className="mb-4 bg-gray-800/80 border border-green-400/30 rounded-lg p-4 backdrop-blur-sm inline-block">
+                      <span className="text-blue-400 text-lg font-mono">gabriel@portfolio:~$ </span>
+                      <TypingAnimation 
+                        text="./build-timeline.sh"
+                        speed={30}
+                        className="text-blue-400 text-lg font-mono"
+                        onComplete={() => {
+                          setTimeout(() => {
+                            setShowTimeline(true);
+                          }, 500);
+                        }}
+                      />
+                    </div>
+                  </>
+                )}
+              </>
+            )}
 
-        {/* Timeline Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Timeline Visualization */}
-          <motion.div
-            ref={timelineRef}
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            className="relative"
-          >
-            {/* Timeline Line */}
-            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-accent-blue via-accent-purple to-accent-blue"></div>
-
-            {/* Timeline Items */}
-            {timelineData.map((item, index) => (
+            {/* Timeline Content Integrated into Hero Section */}
+            {showTimeline && (
               <motion.div
-                key={item.id}
-                variants={itemVariants}
-                className={`relative flex items-start mb-8 ${
-                  index % 2 === 0 ? 'lg:mr-auto lg:pr-8' : 'lg:ml-auto lg:pl-8'
-                }`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8 }}
+                className="mt-6 bg-gray-800/60 border border-blue-400/20 rounded-xl p-8 backdrop-blur-sm"
               >
-                {/* Timeline Dot */}
-                <div className={`relative z-10 w-16 h-16 rounded-full bg-gradient-to-r ${item.color} flex items-center justify-center shadow-lg`}>
-                  <item.icon size={24} className="text-white" />
-                </div>
+                {/* Timeline Heading */}
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  className="text-center mb-12"
+                >
+                  <h1 className="text-5xl sm:text-6xl font-bold mb-4 font-mono">
+                    <span className="text-white">Career</span>{' '}
+                    <span className="bg-gradient-to-r from-blue-400 to-blue-500 bg-clip-text text-transparent">
+                      Timeline
+                    </span>
+                  </h1>
+                  <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-blue-500 mx-auto rounded"></div>
+                </motion.div>
 
-                {/* Timeline Content Card */}
-                <div className={`ml-6 lg:ml-0 ${index % 2 === 0 ? 'lg:mr-6' : 'lg:ml-6'}`}>
-                  <div className="bg-dark-surface border border-gray-700 rounded-lg p-6 hover:border-gray-600 transition-all duration-300">
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-xl font-bold text-white">{item.title}</h3>
-                      <span className="text-sm text-gray-400">{item.period}</span>
-                    </div>
-                    <p className="text-accent-blue font-medium mb-2">{item.subtitle}</p>
-                    <div className="flex items-center text-gray-400 text-sm mb-3">
-                      <MapPin size={16} className="mr-1" />
-                      {item.location}
-                    </div>
-                    <p className="text-gray-300 text-sm mb-4">{item.description}</p>
-                    
-                    {/* Skills */}
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {item.skills.slice(0, 3).map((skill) => (
-                        <span key={skill} className="px-3 py-1 bg-dark-card text-gray-300 rounded-full text-xs">
-                          {skill}
-                        </span>
-                      ))}
-                      {item.skills.length > 3 && (
-                        <span className="px-3 py-1 bg-dark-card text-gray-400 rounded-full text-xs">
-                          +{item.skills.length - 3} more
-                        </span>
-                      )}
-                    </div>
+                {/* Vertical Timeline */}
+                <div className="relative">
+                  {/* Timeline Line */}
+                  <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-400 via-blue-500 to-blue-600"></div>
+
+                  {/* Timeline Items */}
+                  <div className="space-y-12">
+                    {timelineData.map((item, index) => (
+                      <motion.div
+                        key={item.id}
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8, delay: 0.4 + (index * 0.2) }}
+                        className="relative flex items-start"
+                      >
+                        {/* Timeline Dot */}
+                        <div className="relative z-10 flex-shrink-0">
+                          <div className={`w-16 h-16 rounded-full bg-gradient-to-r ${item.color} flex items-center justify-center shadow-lg border-4 border-gray-800`}>
+                            <item.icon size={24} className="text-white" />
+                          </div>
+                        </div>
+
+                        {/* Content Card */}
+                        <div className="ml-8 flex-1">
+                          <div className="bg-gray-900/80 border border-gray-700 rounded-lg p-6 hover:border-gray-600 transition-all duration-300">
+                            <div className="flex items-start justify-between mb-4">
+                              <div>
+                                <h3 className="text-2xl font-bold text-white font-mono mb-1">{item.title}</h3>
+                                <p className="text-cyan-400 font-mono text-lg mb-2">{item.company}</p>
+                              </div>
+                              <span className="text-gray-400 font-mono text-sm bg-gray-800 px-3 py-1 rounded">
+                                {item.period}
+                              </span>
+                            </div>
+                            
+                            <div className="flex items-center text-gray-400 mb-4">
+                              <MapPin size={16} className="mr-2" />
+                              <span className="font-mono text-sm">{item.location}</span>
+                            </div>
+
+                            <p className="text-gray-300 mb-4 font-mono text-sm leading-relaxed">{item.description}</p>
+
+                            {/* Achievements */}
+                            <div className="mb-4">
+                              <h4 className="text-cyan-400 font-mono text-sm font-semibold mb-3">Key Achievements:</h4>
+                              <ul className="space-y-2">
+                                {item.achievements.map((achievement, idx) => (
+                                  <li key={idx} className="flex items-start text-gray-300 font-mono text-sm">
+                                    <ChevronRight size={14} className="text-blue-400 mr-2 mt-0.5 flex-shrink-0" />
+                                    {achievement}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+
+                            {/* Skills */}
+                            <div className="flex flex-wrap gap-2">
+                              {item.skills.map((skill) => (
+                                <span key={skill} className="px-3 py-1 bg-gray-800 text-cyan-400 font-mono text-xs rounded border border-gray-700">
+                                  {skill}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
                   </div>
                 </div>
               </motion.div>
-            ))}
+            )}
           </motion.div>
+        </div>
+      </section>
 
-          {/* Detailed View */}
-          <div className="lg:sticky lg:top-24 lg:h-fit">
-            <motion.div
-              key={activeItem}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="bg-dark-surface border border-gray-700 rounded-xl p-8"
-            >
-              <div className="flex items-center mb-6">
-                <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${timelineData[activeItem].color} flex items-center justify-center mr-4`}>
-                  {React.createElement(timelineData[activeItem].icon, { size: 24, className: "text-white" })}
-                </div>
-                <div>
-                  <h2 className="text-2xl font-bold text-white">{timelineData[activeItem].title}</h2>
-                  <p className="text-accent-blue">{timelineData[activeItem].subtitle}</p>
-                </div>
-              </div>
 
-              <div className="space-y-4 mb-6">
-                <div className="flex items-center text-gray-400">
-                  <Calendar size={16} className="mr-2" />
-                  <span>{timelineData[activeItem].period}</span>
-                </div>
-                <div className="flex items-center text-gray-400">
-                  <MapPin size={16} className="mr-2" />
-                  <span>{timelineData[activeItem].location}</span>
-                </div>
-              </div>
-
-              <p className="text-gray-300 mb-6">{timelineData[activeItem].description}</p>
-
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold text-white mb-3">Key Achievements</h3>
-                <ul className="space-y-2">
-                  {timelineData[activeItem].achievements.map((achievement, index) => (
-                    <li key={index} className="flex items-start">
-                      <ChevronRight size={16} className="text-accent-blue mr-2 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-300 text-sm">{achievement}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="text-lg font-semibold text-white mb-3">Technologies Used</h3>
-                <div className="flex flex-wrap gap-2">
-                  {timelineData[activeItem].skills.map((skill) => (
-                    <span key={skill} className="px-3 py-1 bg-gradient-to-r from-accent-blue/20 to-accent-purple/20 text-accent-blue rounded-full text-sm">
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
+      {/* CTA Section with Different Pattern */}
+      <section className="relative py-16 px-4 sm:px-6 lg:px-8 min-h-[500px] overflow-hidden">
+        {/* Circuit Board Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-gray-900 to-black"></div>
+        <div className="absolute inset-0">
+          {/* Circuit Pattern */}
+          <div className="absolute inset-0 opacity-5">
+            <div className="grid grid-cols-16 h-full">
+              {Array.from({ length: 256 }).map((_, i) => (
+                <div 
+                  key={i} 
+                  className="border-r border-b border-emerald-400/20"
+                  style={{ animationDelay: `${i * 0.01}s` }}
+                ></div>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Call to Action */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mt-16"
-        >
-          <h2 className="text-3xl font-bold mb-4">
-            Ready to Start Your <span className="gradient-text">Journey</span>?
-          </h2>
-          <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-            Let's discuss how we can work together to build something amazing.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-gradient-to-r from-accent-blue to-accent-purple text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-accent-blue/25 transition-all duration-300">
-              View My Projects
-            </button>
-            <button className="border border-gray-600 text-gray-300 px-8 py-3 rounded-lg font-semibold hover:bg-gray-800 hover:text-white transition-all duration-300">
-              Get In Touch
-            </button>
-          </div>
-        </motion.div>
-      </div>
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-4xl sm:text-5xl font-bold mb-6 font-mono">
+              Ready to Build Something{' '}
+              <span className="bg-gradient-to-r from-blue-400 to-blue-500 bg-clip-text text-transparent">
+                Amazing
+              </span>?
+            </h2>
+            <p className="text-gray-300 font-mono mb-8 max-w-2xl mx-auto text-lg">
+              Let's connect and discuss how we can work together to create innovative solutions.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <button 
+                onClick={() => navigate('/projects')}
+                className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 font-mono"
+              >
+                View Projects
+              </button>
+              <button 
+                onClick={() => navigate('/contact')}
+                className="border border-gray-600 text-gray-300 px-8 py-4 rounded-lg font-semibold hover:bg-gray-800 hover:text-white transition-all duration-300 font-mono"
+              >
+                Get In Touch
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      </section>
     </div>
   );
 };
