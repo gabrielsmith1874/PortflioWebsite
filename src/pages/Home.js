@@ -233,21 +233,19 @@ const Home = () => {
               setTimeout(() => setShowAboutCommands(true), 500);
             }}
           >
-            <div className="bg-dark-surface/50 border border-terminal-green/30 rounded-lg p-6 backdrop-blur-sm mb-8">
-              {showAboutCommands && (
-                <>
-                  <div className="mb-4">
-                    <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
-                    <span className="command-text text-lg font-mono">cat about.txt</span>
-                  </div>
-                  <div className="text-terminal-text text-lg font-mono">
-                    I'm a Computer Science and Statistics student at University of Toronto with a strong foundation in 
-                    programming, specifically data structures, algorithms, and artificial intelligence. Currently working as 
-                    a Systems Developer at the Ministry of Public and Business Service Delivery.
-                  </div>
-                </>
-              )}
-            </div>
+            {showAboutCommands && (
+              <>
+                <div className="mb-4">
+                  <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
+                  <span className="command-text text-lg font-mono">cat about.txt</span>
+                </div>
+                <div className="text-terminal-text text-lg font-mono mb-8">
+                  I'm a Computer Science and Statistics student at University of Toronto with a strong foundation in 
+                  programming, specifically data structures, algorithms, and artificial intelligence. Currently working as 
+                  a Systems Developer at the Ministry of Public and Business Service Delivery.
+                </div>
+              </>
+            )}
             <h2 className="text-4xl sm:text-5xl font-bold mb-6 font-mono">
               About <span className="gradient-text">Me</span>
             </h2>
