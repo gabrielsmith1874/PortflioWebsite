@@ -7,8 +7,9 @@ const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   
-  // Check if we're on the timeline page to use blue theme
+  // Check which page we're on to use appropriate theme colors
   const isTimelinePage = location.pathname === '/timeline';
+  const isProjectsPage = location.pathname === '/projects';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,12 +38,24 @@ const Navigation = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-terminal-header border border-dark-border rounded flex items-center justify-center">
-              <span className={`font-bold text-sm font-mono ${isTimelinePage ? 'text-blue-400' : 'text-terminal-green'}`}>GS</span>
+              <span className={`font-bold text-sm font-mono ${
+                isTimelinePage ? 'text-blue-400' : 
+                isProjectsPage ? 'text-purple-400' : 
+                'text-terminal-green'
+              }`}>GS</span>
             </div>
             <span className="text-terminal-text font-semibold text-lg font-mono">
-              <span className={isTimelinePage ? 'text-blue-400' : 'text-terminal-green'}>gabriel@portfolio:</span>
+              <span className={
+                isTimelinePage ? 'text-blue-400' : 
+                isProjectsPage ? 'text-purple-400' : 
+                'text-terminal-green'
+              }>gabriel@portfolio:</span>
               <span className="directory-text">~</span>
-              <span className={isTimelinePage ? 'text-blue-400' : 'text-terminal-green'}>$</span>
+              <span className={
+                isTimelinePage ? 'text-blue-400' : 
+                isProjectsPage ? 'text-purple-400' : 
+                'text-terminal-green'
+              }>$</span>
             </span>
           </Link>
 
@@ -55,8 +68,8 @@ const Navigation = () => {
                   to={item.path}
                   className={`px-3 py-2 rounded text-sm font-medium font-mono transition-colors duration-200 ${
                     location.pathname === item.path
-                      ? `${isTimelinePage ? 'text-blue-400' : 'text-terminal-green'} bg-dark-surface border border-dark-border`
-                      : `text-terminal-text hover:${isTimelinePage ? 'text-blue-400' : 'text-terminal-green'} hover:bg-dark-surface hover:border hover:border-dark-border`
+                      ? `${isTimelinePage ? 'text-blue-400' : isProjectsPage ? 'text-purple-400' : 'text-terminal-green'} bg-dark-surface border border-dark-border`
+                      : `text-terminal-text hover:${isTimelinePage ? 'text-blue-400' : isProjectsPage ? 'text-purple-400' : 'text-terminal-green'} hover:bg-dark-surface hover:border hover:border-dark-border`
                   }`}
                 >
                   {item.name.toLowerCase()}
@@ -69,7 +82,11 @@ const Navigation = () => {
           <div className="flex items-center space-x-4">
             {/* Current Page Indicator */}
             <div className="hidden lg:flex items-center space-x-2 px-3 py-2 rounded text-sm font-mono text-terminal-text bg-dark-surface border border-dark-border">
-              <span className={isTimelinePage ? 'text-blue-400' : 'text-terminal-green'}>●</span>
+              <span className={
+                isTimelinePage ? 'text-blue-400' : 
+                isProjectsPage ? 'text-purple-400' : 
+                'text-terminal-green'
+              }>●</span>
               <span>current: {location.pathname === '/' ? 'home' : location.pathname.slice(1)}</span>
             </div>
 

@@ -19,8 +19,9 @@ const Terminal = () => {
   const navigate = useNavigate();
   const location = useLocation();
   
-  // Check if we're on the timeline page to use blue theme
+  // Check which page we're on to use appropriate theme colors
   const isTimelinePage = location.pathname === '/timeline';
+  const isProjectsPage = location.pathname === '/projects';
 
   const commands = {
     help: {
@@ -270,6 +271,8 @@ const Terminal = () => {
             className={`bg-terminal-header border p-3 rounded-lg shadow-lg transition-all duration-300 hover:scale-110 flex items-center space-x-2 ${
               isTimelinePage 
                 ? 'border-blue-400 text-blue-400 hover:shadow-blue-400/25' 
+                : isProjectsPage
+                ? 'border-purple-400 text-purple-400 hover:shadow-purple-400/25'
                 : 'border-terminal-green text-terminal-green hover:shadow-terminal-green/25'
             }`}
           >
@@ -278,8 +281,16 @@ const Terminal = () => {
           </button>
         </div>
         <div className="mt-2 text-xs text-terminal-text font-mono text-center">
-          <span className={isTimelinePage ? 'text-blue-400' : 'text-terminal-green'}>gabriel@portfolio:~$ </span>
-          <span className={isTimelinePage ? 'text-blue-400' : 'text-terminal-green'}>./open_terminal.sh</span>
+          <span className={
+            isTimelinePage ? 'text-blue-400' : 
+            isProjectsPage ? 'text-purple-400' : 
+            'text-terminal-green'
+          }>gabriel@portfolio:~$ </span>
+          <span className={
+            isTimelinePage ? 'text-blue-400' : 
+            isProjectsPage ? 'text-purple-400' : 
+            'text-terminal-green'
+          }>./open_terminal.sh</span>
         </div>
       </div>
     );
@@ -290,14 +301,22 @@ const Terminal = () => {
       isMinimized ? 'bottom-0 right-6' : isMaximized ? 'inset-4' : 'bottom-6 right-6'
     } ${isMinimized ? 'w-64 h-12' : isMaximized ? 'w-auto h-auto' : 'w-96 h-80'}`}>
       <div className={`bg-dark-surface/95 border rounded-lg shadow-2xl backdrop-blur-sm h-full flex flex-col ${
-        isTimelinePage ? 'border-blue-400/30' : 'border-terminal-green/30'
+        isTimelinePage ? 'border-blue-400/30' : 
+        isProjectsPage ? 'border-purple-400/30' : 
+        'border-terminal-green/30'
       }`}>
         {/* Terminal Header */}
         <div className={`bg-terminal-header border-b px-4 py-2 flex items-center justify-between rounded-t-lg ${
-          isTimelinePage ? 'border-blue-400/30' : 'border-terminal-green/30'
+          isTimelinePage ? 'border-blue-400/30' : 
+          isProjectsPage ? 'border-purple-400/30' : 
+          'border-terminal-green/30'
         }`}>
           <div className="flex items-center space-x-2">
-            <TerminalIcon size={16} className={isTimelinePage ? 'text-blue-400' : 'text-terminal-green'} />
+            <TerminalIcon size={16} className={
+              isTimelinePage ? 'text-blue-400' : 
+              isProjectsPage ? 'text-purple-400' : 
+              'text-terminal-green'
+            } />
             <span className="text-sm text-terminal-text font-mono">gabriel@portfolio:~$</span>
           </div>
           <div className="flex items-center space-x-2">
@@ -323,7 +342,11 @@ const Terminal = () => {
           {history.map((item, index) => (
             <div key={index} className="mb-1">
               {item.type === 'input' && (
-                <div className={isTimelinePage ? 'text-blue-400' : 'text-terminal-green'}>
+                <div className={
+                  isTimelinePage ? 'text-blue-400' : 
+                  isProjectsPage ? 'text-purple-400' : 
+                  'text-terminal-green'
+                }>
                   {item.content}
                 </div>
               )}
@@ -334,7 +357,11 @@ const Terminal = () => {
               )}
               {item.type === 'prompt' && (
                 <div className="flex items-center">
-                  <span className={isTimelinePage ? 'text-blue-400' : 'text-terminal-green'}>gabriel@portfolio:~$ </span>
+                  <span className={
+                    isTimelinePage ? 'text-blue-400' : 
+                    isProjectsPage ? 'text-purple-400' : 
+                    'text-terminal-green'
+                  }>gabriel@portfolio:~$ </span>
                   <input
                     ref={index === history.length - 1 ? inputRef : null}
                     type="text"
@@ -342,11 +369,17 @@ const Terminal = () => {
                     onChange={(e) => setCommand(e.target.value)}
                     onKeyDown={handleKeyPress}
                     className={`flex-1 bg-transparent outline-none ${
-                      isTimelinePage ? 'text-blue-400 caret-blue-400' : 'text-terminal-green caret-terminal-green'
+                      isTimelinePage ? 'text-blue-400 caret-blue-400' : 
+                      isProjectsPage ? 'text-purple-400 caret-purple-400' : 
+                      'text-terminal-green caret-terminal-green'
                     }`}
                     autoFocus={index === history.length - 1}
                   />
-                  <span className={`animate-terminal-blink ${isTimelinePage ? 'text-blue-400' : 'text-terminal-green'}`}>█</span>
+                  <span className={`animate-terminal-blink ${
+                    isTimelinePage ? 'text-blue-400' : 
+                    isProjectsPage ? 'text-purple-400' : 
+                    'text-terminal-green'
+                  }`}>█</span>
                 </div>
               )}
             </div>

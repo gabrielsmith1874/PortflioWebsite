@@ -18,11 +18,21 @@ const Timeline = () => {
   const [showCommands, setShowCommands] = useState(false);
   const [showContent, setShowContent] = useState(false);
   const [showTimeline, setShowTimeline] = useState(false);
+  const [showCTACommands, setShowCTACommands] = useState(false);
+  const [showCTAContent, setShowCTAContent] = useState(false);
+  const [showCTAButtons, setShowCTAButtons] = useState(false);
 
   React.useEffect(() => {
     const timer = setTimeout(() => setShowCommands(true), 500);
     return () => clearTimeout(timer);
   }, []);
+
+  React.useEffect(() => {
+    if (showTimeline) {
+      const timer = setTimeout(() => setShowCTACommands(true), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [showTimeline]);
 
   // Scroll to top on component mount
   React.useEffect(() => {
@@ -336,29 +346,73 @@ const Timeline = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl sm:text-5xl font-bold mb-6 font-mono">
-              Ready to Build Something{' '}
-              <span className="bg-gradient-to-r from-blue-400 to-blue-500 bg-clip-text text-transparent">
-                Amazing
-              </span>?
-            </h2>
-            <p className="text-gray-300 font-mono mb-8 max-w-2xl mx-auto text-lg">
-              Let's connect and discuss how we can work together to create innovative solutions.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <button 
-                onClick={() => navigate('/projects')}
-                className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 font-mono"
+            {showCTACommands && (
+              <>
+                <div className="mb-4 bg-gray-800/80 border border-green-400/30 rounded-lg p-4 backdrop-blur-sm inline-block">
+                  <span className="text-blue-400 text-lg font-mono">gabriel@portfolio:~$ </span>
+                  <TypingAnimation 
+                    text="cat cta.md" 
+                    speed={30}
+                    className="text-blue-400 text-lg font-mono"
+                    onComplete={() => {
+                      setTimeout(() => {
+                        setShowCTAContent(true);
+                      }, 500);
+                    }}
+                  />
+                </div>
+                {showCTAContent && (
+                  <>
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.8 }}
+                      className="text-gray-300 text-lg font-mono mb-4 bg-gray-800/60 border border-blue-400/20 rounded-lg p-4 backdrop-blur-sm inline-block"
+                    >
+                      Ready to Build Something Amazing?<br/>
+                      Let's connect and discuss how we can work together to create innovative solutions.
+                    </motion.div>
+                    <div className="mb-4 bg-gray-800/80 border border-green-400/30 rounded-lg p-4 backdrop-blur-sm inline-block">
+                      <span className="text-blue-400 text-lg font-mono">gabriel@portfolio:~$ </span>
+                      <TypingAnimation 
+                        text="npm run generate-buttons"
+                        speed={30}
+                        className="text-blue-400 text-lg font-mono"
+                        onComplete={() => {
+                          setTimeout(() => {
+                            setShowCTAButtons(true);
+                          }, 500);
+                        }}
+                      />
+                    </div>
+                  </>
+                )}
+              </>
+            )}
+
+            {showCTAButtons && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8 }}
+                className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 backdrop-blur-sm"
               >
-                View Projects
-              </button>
-              <button 
-                onClick={() => navigate('/contact')}
-                className="border border-gray-600 text-gray-300 px-8 py-4 rounded-lg font-semibold hover:bg-gray-800 hover:text-white transition-all duration-300 font-mono"
-              >
-                Get In Touch
-              </button>
-            </div>
+                <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                  <button 
+                    onClick={() => navigate('/projects')}
+                    className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 font-mono"
+                  >
+                    View Projects
+                  </button>
+                  <button 
+                    onClick={() => navigate('/contact')}
+                    className="border border-gray-600 text-gray-300 px-8 py-4 rounded-lg font-semibold hover:bg-gray-800 hover:text-white transition-all duration-300 font-mono"
+                  >
+                    Get In Touch
+                  </button>
+                </div>
+              </motion.div>
+            )}
           </motion.div>
         </div>
       </section>
