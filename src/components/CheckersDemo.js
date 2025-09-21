@@ -12,7 +12,9 @@ const CheckersDemo = ({ isOpen, onClose }) => {
   const [capturedPiece, setCapturedPiece] = useState(null);
   const [validMoves, setValidMoves] = useState([]);
 
-  const BACKEND_URL = 'http://localhost:5000'; // Same port as Checkers AI backend
+  const getBackendUrlForCheckers = () => {
+    return '/.netlify/functions/checkers-ai';
+  };
   
   // Debug: Log the current origin
   console.log('Frontend origin:', window.location.origin);
@@ -54,7 +56,7 @@ const CheckersDemo = ({ isOpen, onClose }) => {
     try {
       setError('');
       // First try to get the current board state
-      let response = await fetch(`${BACKEND_URL}/api/get-board`);
+      let response = await fetch(`${getBackendUrlForCheckers()}/api/get-board`);
       
       if (!response.ok) {
         throw new Error('Failed to get board state');
@@ -65,7 +67,7 @@ const CheckersDemo = ({ isOpen, onClose }) => {
       
       // If we don't have a proper game state, start a new game
       if (!data.current_player && !data.currentPlayer) {
-        response = await fetch(`${BACKEND_URL}/api/new-game`, {
+        response = await fetch(`${getBackendUrlForCheckers()}/api/new-game`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -178,7 +180,7 @@ const CheckersDemo = ({ isOpen, onClose }) => {
       // Small delay to show the visual move before processing
       await new Promise(resolve => setTimeout(resolve, 500));
       
-      const response = await fetch(`${BACKEND_URL}/api/move`, {
+      const response = await fetch(`${getBackendUrlForCheckers()}/api/move`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -203,7 +205,7 @@ const CheckersDemo = ({ isOpen, onClose }) => {
       // Get updated game state after AI move
       setTimeout(async () => {
         try {
-          const stateResponse = await fetch(`${BACKEND_URL}/api/state`);
+          const stateResponse = await fetch(`${getBackendUrlForCheckers()}/api/state`);
           const stateData = await stateResponse.json();
           console.log('Updated game state after AI move:', stateData);
           updateGameState(stateData);
@@ -228,7 +230,7 @@ const CheckersDemo = ({ isOpen, onClose }) => {
       setAiThinking(false);
       
       // Call the new game endpoint to reset the backend
-      const response = await fetch(`${BACKEND_URL}/api/new-game`, {
+      const response = await fetch(`${getBackendUrlForCheckers()}/api/new-game`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
