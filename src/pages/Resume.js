@@ -1,346 +1,106 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import TypingAnimation from '../components/TypingAnimation';
 import { 
   Download, 
-  Eye, 
-  FileText, 
-  Mail, 
-  Phone, 
-  MapPin, 
-  ExternalLink,
-  Award,
-  Briefcase,
-  GraduationCap,
-  Code
+  Mail
 } from 'lucide-react';
 
 const Resume = () => {
   const navigate = useNavigate();
-  const [viewMode, setViewMode] = useState('preview'); // 'preview' or 'pdf'
+  const [showCommands, setShowCommands] = useState(false);
+  const [showPersonalInfo, setShowPersonalInfo] = useState(false);
+  const [showExperience, setShowExperience] = useState(false);
+  const [showProjects, setShowProjects] = useState(false);
+  const [showSkills, setShowSkills] = useState(false);
+  const [showEducation, setShowEducation] = useState(false);
+  const [showCTA, setShowCTA] = useState(false);
 
-  const personalInfo = {
-    name: 'Gabriel Smith',
-    title: 'Systems Developer & Computer Science Student',
-    email: 'gabrielsmith1874@gmail.com',
-    phone: '+1 (289) 681-0442',
-    location: 'Mississauga, Ontario, Canada',
-    linkedin: 'linkedin.com/in/gabriel-smith-b3b366253',
-    github: 'github.com/gabrielsmith1874'
-  };
+  // Scroll to top on component mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowCommands(true), 500);
+    return () => clearTimeout(timer);
+  }, []);
+
+
 
   const skills = {
-    programming: ['Python', 'Java', 'C', 'C#', 'JavaScript', 'HTML', 'CSS'],
+    programming: ['Python', 'Java', 'C', 'C#', 'JavaScript', 'HTML', 'CSS', 'Assembly'],
     ai_ml: ['Machine Learning', 'Artificial Intelligence', 'Algorithms', 'Data Structures'],
     data_science: ['SQL', 'R', 'Statistics', 'Hypothesis Testing'],
-    other: ['Object-Oriented Programming', 'Algorithm Design', 'Time/Correctness Analysis', 'Assembly']
+    other: ['Object-Oriented Programming', 'Algorithm Design', 'Time/Correctness Analysis', 'Software Design']
   };
-
-  const experience = [
-    {
-      title: 'Systems Developer & Tester',
-      company: 'Ministry of Public and Business Service Delivery',
-      period: 'February 2025 - Present',
-      location: 'Toronto, Ontario, Canada',
-      description: 'Automating regression testing processes and implementing Web API integrations for government procurement systems.',
-      achievements: [
-        'Automated regression testing processes for government procurement systems, contributing to more efficient software deployment cycles',
-        'Implemented Web API integrations using Postman and Swagger over 12 months to enable real-time data exchange across three government platforms',
-        'Supported and executed the migration from SFTP to REST services, delivering development and testing contributions to enhance TestApp functionality'
-      ],
-      technologies: ['Postman', 'Swagger', 'REST APIs', 'SFTP', 'Testing Automation']
-    },
-    {
-      title: 'Customer Service Representative',
-      company: 'Farm Boy Inc.',
-      period: 'July 2024 - Present',
-      location: 'Ontario, Canada',
-      description: 'Providing exceptional customer service and maintaining efficient workflow in retail environment.',
-      achievements: [
-        'Provide exceptional customer service, addressing customer inquiries and resolving issues promptly and courteously',
-        'Maintain a clean and organized work area, following health and safety regulations',
-        'Assist with inventory management, including stocking supplies and monitoring product freshness',
-        'Offered assistant manager and supervisor titles within a few weeks of employment due to work ethic and delegation skills'
-      ],
-      technologies: ['Customer Service', 'Inventory Management', 'Team Leadership']
-    }
-  ];
-
-  const education = [
-    {
-      degree: 'Bachelor\'s degree in Computer Science and Statistics',
-      institution: 'University of Toronto Mississauga',
-      period: 'September 2022 - April 2027 (Expected)',
-      location: 'Mississauga, Ontario',
-      gpa: 'In Progress',
-      relevantCoursework: [
-        'Introduction to Machine Learning',
-        'Introduction to Artificial Intelligence',
-        'Introduction to Databases',
-        'Software Tools and Systems Programming',
-        'Data Structures and Analysis',
-        'Software Design',
-        'Computer Organization',
-        'Programming on the Web',
-        'Probability and Statistics'
-      ]
-    }
-  ];
 
   const projects = [
     {
       name: 'Stroku',
       description: 'Cross-platform streaming solution connecting Android devices with Roku TVs',
-      technologies: ['Android', 'Roku', 'Streaming', 'HDR 4K'],
-      impact: 'Enables seamless transmission and playback of HDR 4K video URLs, bypassing traditional Miracast limitations',
-      url: 'https://stroku.netlify.app/'
+      technologies: ['Android', 'Roku', 'Streaming', 'HDR 4K']
     },
     {
       name: 'Battleship Solitaire AI',
       description: 'AI-powered puzzle solver using constraint satisfaction algorithms',
-      technologies: ['Python', 'AI/ML', 'Constraint Satisfaction', 'AC-3 Algorithm'],
-      impact: 'Implemented forward checking and domain pruning using AC-3 algorithm, enhancing AI problem-solving capabilities',
-      url: 'https://github.com/gabrielsmith1874/My-Projects/tree/main/Battleship%20Solitaire'
+      technologies: ['Python', 'AI/ML', 'Constraint Satisfaction', 'AC-3 Algorithm']
     },
     {
       name: 'Checkers AI',
       description: 'Advanced Checkers AI with Minimax algorithm and alpha-beta pruning',
-      technologies: ['Python', 'AI/ML', 'Minimax', 'Alpha-Beta Pruning', 'PyGame'],
-      impact: 'Engineered an advanced Checkers AI with user-friendly interface using PyGame library',
-      url: 'https://github.com/gabrielsmith1874/My-Projects/tree/main/Checkers%20AI'
+      technologies: ['Python', 'AI/ML', 'Minimax', 'Alpha-Beta Pruning', 'PyGame']
     },
     {
       name: 'Text Adventure Game',
       description: 'Text-based adventure game with natural language processing',
-      technologies: ['Java', 'NLP', 'Google Cloud APIs', 'MaryTTS'],
-      impact: 'Integrated voice recognition and multilingual support, broadening accessibility to visually impaired players',
-      url: 'https://github.com/gabrielsmith1874/My-Projects/tree/main/Adventure%20Game'
+      technologies: ['Java', 'NLP', 'Google Cloud APIs', 'MaryTTS']
     },
     {
       name: 'Huffman Compression',
       description: 'Efficient compression and decompression algorithms',
-      technologies: ['Python', 'Data Structures', 'Algorithms', 'Compression'],
-      impact: 'Achieved over 80% compression rate with 100% accuracy in decompression, ensuring no data loss',
-      url: 'https://github.com/gabrielsmith1874/My-Projects/tree/main/huffman'
+      technologies: ['Python', 'Data Structures', 'Algorithms', 'Compression']
     }
   ];
 
-  const certifications = [
-    // No certifications listed in resume
+  const education = [
+    {
+      degree: "Bachelor's degree in Computer Science and Statistics",
+      school: 'University of Toronto Mississauga',
+      period: '09/2022 - 04/2027',
+      location: 'Mississauga, Ontario, Canada',
+      relevant_courses: [
+        'Data Structures and Algorithms',
+        'Software Engineering',
+        'Machine Learning',
+        'Database Systems',
+        'Computer Networks',
+        'Operating Systems'
+      ]
+    }
   ];
 
-  const renderPreview = () => (
-    <div className="bg-white text-black max-w-4xl mx-auto p-8 rounded-lg shadow-2xl">
-      {/* Header */}
-      <div className="text-center mb-8 border-b pb-6">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">{personalInfo.name}</h1>
-        <p className="text-xl text-gray-600 mb-4">{personalInfo.title}</p>
-        <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-500">
-          <div className="flex items-center">
-            <Mail size={16} className="mr-2" />
-            {personalInfo.email}
-          </div>
-          <div className="flex items-center">
-            <Phone size={16} className="mr-2" />
-            {personalInfo.phone}
-          </div>
-          <div className="flex items-center">
-            <MapPin size={16} className="mr-2" />
-            {personalInfo.location}
-          </div>
-        </div>
-      </div>
-
-      {/* Skills */}
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">
-          <Code size={24} className="mr-2 text-blue-600" />
-          Technical Skills
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <h3 className="font-semibold text-gray-700 mb-2">Programming Languages</h3>
-            <div className="flex flex-wrap gap-2">
-              {skills.programming.map((skill) => (
-                <span key={skill} className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-          <div>
-            <h3 className="font-semibold text-gray-700 mb-2">AI/ML & Data Science</h3>
-            <div className="flex flex-wrap gap-2">
-              {skills.ai_ml.map((skill) => (
-                <span key={skill} className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-          <div>
-            <h3 className="font-semibold text-gray-700 mb-2">Data Science</h3>
-            <div className="flex flex-wrap gap-2">
-              {skills.data_science.map((skill) => (
-                <span key={skill} className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-          <div>
-            <h3 className="font-semibold text-gray-700 mb-2">Other Skills</h3>
-            <div className="flex flex-wrap gap-2">
-              {skills.other.map((skill) => (
-                <span key={skill} className="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-sm">
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Experience */}
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">
-          <Briefcase size={24} className="mr-2 text-blue-600" />
-          Experience
-        </h2>
-        <div className="space-y-6">
-          {experience.map((job, index) => (
-            <div key={index} className="border-l-4 border-blue-500 pl-6">
-              <div className="flex justify-between items-start mb-2">
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-800">{job.title}</h3>
-                  <p className="text-lg text-gray-600">{job.company}</p>
-                </div>
-                <div className="text-right text-sm text-gray-500">
-                  <p>{job.period}</p>
-                  <p>{job.location}</p>
-                </div>
-              </div>
-              <p className="text-gray-600 mb-3">{job.description}</p>
-              <ul className="list-disc list-inside text-gray-600 mb-3">
-                {job.achievements.map((achievement, i) => (
-                  <li key={i}>{achievement}</li>
-                ))}
-              </ul>
-              <div className="flex flex-wrap gap-2">
-                {job.technologies.map((tech) => (
-                  <span key={tech} className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-sm">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Education */}
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">
-          <GraduationCap size={24} className="mr-2 text-blue-600" />
-          Education
-        </h2>
-        {education.map((edu, index) => (
-          <div key={index} className="border-l-4 border-blue-500 pl-6">
-            <div className="flex justify-between items-start mb-2">
-              <div>
-                <h3 className="text-xl font-semibold text-gray-800">{edu.degree}</h3>
-                <p className="text-lg text-gray-600">{edu.institution}</p>
-              </div>
-              <div className="text-right text-sm text-gray-500">
-                <p>{edu.period}</p>
-                <p>GPA: {edu.gpa}</p>
-              </div>
-            </div>
-            <p className="text-gray-600 mb-2">{edu.location}</p>
-            <div>
-              <h4 className="font-semibold text-gray-700 mb-2">Relevant Coursework:</h4>
-              <div className="flex flex-wrap gap-2">
-                {edu.relevantCoursework.map((course) => (
-                  <span key={course} className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-sm">
-                    {course}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Projects */}
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">
-          <Code size={24} className="mr-2 text-blue-600" />
-          Key Projects
-        </h2>
-        <div className="space-y-4">
-          {projects.map((project, index) => (
-            <div key={index} className="border-l-4 border-green-500 pl-6">
-              <h3 className="text-lg font-semibold text-gray-800">{project.name}</h3>
-              <p className="text-gray-600 mb-2">{project.description}</p>
-              <p className="text-gray-500 text-sm mb-2">{project.impact}</p>
-              <div className="flex flex-wrap gap-2">
-                {project.technologies.map((tech) => (
-                  <span key={tech} className="px-2 py-1 bg-green-100 text-green-800 rounded text-sm">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Certifications */}
-      <div>
-        <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center">
-          <Award size={24} className="mr-2 text-blue-600" />
-          Certifications
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {certifications.map((cert, index) => (
-            <div key={index} className="flex items-center p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-              <Award size={20} className="text-yellow-600 mr-3" />
-              <span className="text-gray-700">{cert}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-
-  const renderPDF = () => (
-    <div className="bg-gray-100 p-8 rounded-lg">
-      <div className="bg-white rounded-lg shadow-lg p-8 text-center">
-        <FileText size={64} className="text-gray-400 mx-auto mb-4" />
-        <h3 className="text-xl font-semibold text-gray-700 mb-2">PDF Resume</h3>
-        <p className="text-gray-500 mb-6">
-          Click the download button to get the full PDF version of my resume.
-        </p>
-        <button className="bg-gradient-to-r from-accent-blue to-accent-purple text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-300 flex items-center mx-auto">
-          <Download size={20} className="mr-2" />
-          Download PDF
-        </button>
-      </div>
-    </div>
-  );
+  const downloadResume = () => {
+    const link = document.createElement('a');
+    link.href = '/Gabriel_Smith_Resume.pdf';
+    link.download = 'Gabriel_Smith_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
-    <div className="min-h-screen bg-dark-bg py-20 relative">
+    <div className="min-h-screen bg-dark-bg relative overflow-hidden">
       {/* Animated Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-dark-bg via-dark-surface to-dark-card"></div>
       <div className="absolute inset-0">
-        {/* Terminal-style grid with animation */}
+        {/* Terminal-style grid pattern */}
         <div className="absolute inset-0 opacity-5">
           <div className="grid grid-cols-20 h-full">
             {Array.from({ length: 400 }).map((_, i) => (
               <div 
                 key={i} 
-                className="border-r border-b border-terminal-green/20 animate-pulse"
+                className="border-r border-b border-orange-400/20 animate-pulse"
                 style={{ animationDelay: `${i * 0.01}s` }}
               ></div>
             ))}
@@ -348,137 +108,293 @@ const Resume = () => {
         </div>
         
         {/* Floating geometric shapes */}
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-terminal-green/10 to-accent-blue/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-accent-blue/10 to-terminal-green/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 right-1/3 w-32 h-32 bg-gradient-to-r from-accent-orange/8 to-terminal-green/8 rounded-full blur-2xl animate-pulse delay-500"></div>
+        <div className="absolute top-20 left-1/4 w-32 h-32 bg-gradient-to-r from-orange-400/10 to-red-400/10 rounded-full blur-2xl animate-pulse"></div>
+        <div className="absolute top-1/4 right-1/4 w-56 h-56 bg-gradient-to-r from-red-400/8 to-orange-400/8 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute bottom-1/4 left-1/3 w-40 h-40 bg-gradient-to-r from-orange-400/6 to-red-400/6 rounded-full blur-2xl animate-pulse delay-500"></div>
         
-        {/* Animated code snippets */}
-        <div className="absolute top-20 left-20 text-terminal-green/8 font-mono text-xs animate-pulse">
-          <div className="animate-bounce">$ cat resume.pdf</div>
-          <div className="animate-bounce delay-100">$ ls -la skills/</div>
-          <div className="animate-bounce delay-200">$ grep experience</div>
+        {/* Additional Unique Lights */}
+        <div className="absolute top-1/18 left-1/18 w-36 h-36 bg-gradient-to-r from-red-400/9 to-orange-400/9 rounded-full blur-2xl animate-pulse delay-200"></div>
+        <div className="absolute bottom-1/18 right-1/18 w-44 h-44 bg-gradient-to-r from-orange-400/7 to-red-400/7 rounded-full blur-3xl animate-pulse delay-900"></div>
+        <div className="absolute top-11/12 right-1/19 w-28 h-28 bg-gradient-to-r from-red-400/11 to-orange-400/11 rounded-full blur-2xl animate-pulse delay-400"></div>
+        <div className="absolute bottom-1/19 left-1/19 w-52 h-52 bg-gradient-to-r from-orange-400/8 to-red-400/8 rounded-full blur-3xl animate-pulse delay-1100"></div>
+        <div className="absolute top-1/19 right-1/10 w-20 h-20 bg-gradient-to-r from-red-400/13 to-orange-400/13 rounded-full blur-2xl animate-pulse delay-600"></div>
+        
+        {/* Floating code snippets */}
+        <div className="absolute top-40 left-16 text-orange-400/12 font-mono text-sm animate-pulse">
+          <div className="animate-bounce" style={{ animationDuration: '2.3s' }}>[Python, Java, C]</div>
         </div>
-        <div className="absolute bottom-20 right-20 text-terminal-green/8 font-mono text-xs animate-pulse delay-1000">
-          <div className="animate-bounce">const skills = {'{'}</div>
-          <div className="animate-bounce delay-100">  languages: [...];</div>
-          <div className="animate-bounce delay-200">{'}'}</div>
+        <div className="absolute top-1/2 right-16 text-red-400/12 font-mono text-sm animate-pulse delay-500">
+          <div className="animate-bounce" style={{ animationDuration: '3.2s' }}>{'{AI, ML, Data}'}</div>
+        </div>
+        <div className="absolute bottom-40 left-1/2 transform -translate-x-1/2 text-orange-400/12 font-mono text-sm animate-pulse delay-1100">
+          <div className="animate-bounce" style={{ animationDuration: '2.7s' }}>&larr; Experience &rarr;</div>
+        </div>
+        <div className="absolute top-1/3 left-1/6 text-red-400/10 font-mono text-sm animate-pulse delay-200">
+          <div className="animate-bounce" style={{ animationDuration: '2.9s' }}>class Developer {'{'}</div>
+        </div>
+        <div className="absolute bottom-1/3 right-1/5 text-orange-400/10 font-mono text-sm animate-pulse delay-800">
+          <div className="animate-bounce" style={{ animationDuration: '3.1s' }}>  skills: [...];</div>
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-12"
-        >
-          <h1 className="text-4xl sm:text-5xl font-bold mb-6">
-            My <span className="gradient-text">Resume</span>
-          </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Download my resume or view it online. I'm always excited to discuss new opportunities 
-            and collaborate on innovative projects.
-          </p>
-        </motion.div>
+      {/* Main Content */}
+      <div className="relative z-10 container mx-auto px-4 py-20">
+        {/* Hero Section */}
+        <section className="text-center mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="mb-8"
+          >
+            <h1 className="text-5xl sm:text-6xl font-bold mb-6 font-mono">
+              <span className="text-white">resume</span>
+              <span className="text-orange-400">.pdf</span>
+            </h1>
+            <p className="text-xl text-gray-400 font-mono">
+              $ cat resume.txt | grep -E "(experience|skills|projects)"
+            </p>
+          </motion.div>
 
-        {/* View Mode Toggle */}
-        <div className="flex justify-center mb-8">
-          <div className="bg-dark-surface border border-gray-700 rounded-lg p-1 flex">
-            <button
-              onClick={() => setViewMode('preview')}
-              className={`px-6 py-2 rounded-md font-medium transition-all duration-300 flex items-center ${
-                viewMode === 'preview'
-                  ? 'bg-gradient-to-r from-accent-blue to-accent-purple text-white'
-                  : 'text-gray-300 hover:text-white'
-              }`}
+          {/* Terminal Commands */}
+          {showCommands && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="max-w-4xl mx-auto mb-8"
             >
-              <Eye size={20} className="mr-2" />
-              Preview
-            </button>
-            <button
-              onClick={() => setViewMode('pdf')}
-              className={`px-6 py-2 rounded-md font-medium transition-all duration-300 flex items-center ${
-                viewMode === 'pdf'
-                  ? 'bg-gradient-to-r from-accent-blue to-accent-purple text-white'
-                  : 'text-gray-300 hover:text-white'
-              }`}
-            >
-              <FileText size={20} className="mr-2" />
-              PDF Download
-            </button>
-          </div>
-        </div>
+              <div className="bg-black/80 border border-orange-400/30 rounded-lg p-6 font-mono text-sm">
+                
+                <div className="space-y-2">
+                  <div className="flex items-center">
+                    <span className="text-orange-400">gabriel@portfolio:~$ </span>
+                    <TypingAnimation 
+                      text="whoami"
+                      speed={30}
+                      className="text-white"
+                      onComplete={() => setShowPersonalInfo(true)}
+                    />
+                  </div>
+                  
+                  {showPersonalInfo && (
+                    <motion.div
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5 }}
+                      className="ml-4 text-gray-300"
+                    >
+                      <div>Name: Gabriel Smith</div>
+                      <div>Title: Computer Science Student & Systems Developer</div>
+                      <div>Location: Mississauga, Ontario, Canada</div>
+                      <div>Email: gabrielsmith1874@gmail.com</div>
+                      <div>Phone: 2896810442</div>
+                      <div>LinkedIn: linkedin.com/in/gabriel-smith-b3b366253</div>
+                      <div>Website: gabrielsmith.site</div>
+                    </motion.div>
+                  )}
 
-        {/* Resume Content */}
-        <motion.div
-          key={viewMode}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          {viewMode === 'preview' ? renderPreview() : renderPDF()}
-        </motion.div>
+                  {showPersonalInfo && (
+                    <div className="flex items-center mt-4">
+                      <span className="text-orange-400">gabriel@portfolio:~$ </span>
+                      <TypingAnimation 
+                        text="cat experience.md"
+                        speed={30}
+                        className="text-white"
+                        onComplete={() => setShowExperience(true)}
+                      />
+                    </div>
+                  )}
 
-        {/* Action Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mt-12"
-        >
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-gradient-to-r from-accent-blue to-accent-purple text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-accent-blue/25 transition-all duration-300 flex items-center justify-center">
-              <Download size={20} className="mr-2" />
-              Download Resume
-            </button>
-            <button 
-              onClick={() => navigate('/contact')}
-              className="border border-gray-600 text-gray-300 px-8 py-3 rounded-lg font-semibold hover:bg-gray-800 hover:text-white transition-all duration-300 flex items-center justify-center"
-            >
-              <Mail size={20} className="mr-2" />
-              Contact Me
-            </button>
-            <button 
-              onClick={() => window.open(`https://${personalInfo.linkedin}`, '_blank')}
-              className="border border-gray-600 text-gray-300 px-8 py-3 rounded-lg font-semibold hover:bg-gray-800 hover:text-white transition-all duration-300 flex items-center justify-center"
-            >
-              <ExternalLink size={20} className="mr-2" />
-              LinkedIn Profile
-            </button>
-          </div>
-        </motion.div>
+                  {showExperience && (
+                    <motion.div
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5 }}
+                      className="ml-4 text-gray-300"
+                    >
+                      <div className="mb-4">
+                        <div className="text-orange-400 font-semibold">Systems Developer & Tester</div>
+                        <div className="text-red-400">Ministry of Public and Business Service Delivery and Procurement</div>
+                        <div className="text-gray-400">February 2025 - Present | Toronto, ON</div>
+                        <div className="text-sm mt-2">• Automated regression testing processes for government procurement systems</div>
+                        <div className="text-sm">• Implemented Web API integrations using Postman and Swagger</div>
+                        <div className="text-sm">• Supported migration from SFTP to REST services</div>
+                      </div>
+                      <div className="mb-4">
+                        <div className="text-orange-400 font-semibold">Customer Service Representative</div>
+                        <div className="text-red-400">Farm Boy Inc.</div>
+                        <div className="text-gray-400">July 2024 - January 2025 | Ontario, Canada</div>
+                        <div className="text-sm mt-2">• Provided exceptional customer service and resolved issues promptly</div>
+                        <div className="text-sm">• Maintained clean work areas following health and safety regulations</div>
+                        <div className="text-sm">• Assisted with inventory management and product freshness monitoring</div>
+                        <div className="text-sm">• Offered assistant manager and supervisor titles due to work ethic</div>
+                      </div>
+                      <div className="mb-4">
+                        <div className="text-orange-400 font-semibold">HMR Clerk</div>
+                        <div className="text-red-400">Loblaws</div>
+                        <div className="text-gray-400">September 2023 - Present | Mississauga, ON</div>
+                        <div className="text-sm mt-2">• Provided exceptional customer engagement and meal guidance</div>
+                        <div className="text-sm">• Conducted meticulous food preparation with safety standards</div>
+                        <div className="text-sm">• Managed inventory optimization and waste minimization</div>
+                      </div>
+                      <div>
+                        <div className="text-orange-400 font-semibold">Assembler</div>
+                        <div className="text-red-400">Dana Incorporated</div>
+                        <div className="text-gray-400">August 2021 - September 2021 | Oakville, ON</div>
+                        <div className="text-sm mt-2">• Assembled mechanical and electronic components for automotive products</div>
+                        <div className="text-sm">• Met daily production targets efficiently with minimal errors</div>
+                        <div className="text-sm">• Maintained high quality standards with zero-defects</div>
+                      </div>
+                    </motion.div>
+                  )}
 
-        {/* Contact Information */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mt-16 bg-dark-surface border border-gray-700 rounded-xl p-8"
-        >
-          <h2 className="text-2xl font-bold text-center mb-6">
-            Let's <span className="gradient-text">Connect</span>
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-            <div className="flex flex-col items-center">
-              <Mail size={32} className="text-accent-blue mb-3" />
-              <h3 className="font-semibold text-white mb-1">Email</h3>
-              <p className="text-gray-400">{personalInfo.email}</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <Phone size={32} className="text-accent-blue mb-3" />
-              <h3 className="font-semibold text-white mb-1">Phone</h3>
-              <p className="text-gray-400">{personalInfo.phone}</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <MapPin size={32} className="text-accent-blue mb-3" />
-              <h3 className="font-semibold text-white mb-1">Location</h3>
-              <p className="text-gray-400">{personalInfo.location}</p>
-            </div>
-          </div>
-        </motion.div>
+                  {showExperience && (
+                    <div className="flex items-center mt-4">
+                      <span className="text-orange-400">gabriel@portfolio:~$ </span>
+                      <TypingAnimation 
+                        text="ls projects/"
+                        speed={30}
+                        className="text-white"
+                        onComplete={() => setShowProjects(true)}
+                      />
+                    </div>
+                  )}
+
+                  {showProjects && (
+                    <motion.div
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5 }}
+                      className="ml-4 text-gray-300"
+                    >
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {projects.slice(0, 4).map((project, index) => (
+                          <div key={index} className="border border-orange-400/30 rounded p-3">
+                            <div className="text-orange-400 font-semibold">{project.name}</div>
+                            <div className="text-sm text-gray-400">{project.description}</div>
+                            <div className="text-xs text-red-400 mt-1">
+                              {project.technologies?.slice(0, 3).join(', ') || 'N/A'}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {showProjects && (
+                    <div className="flex items-center mt-4">
+                      <span className="text-orange-400">gabriel@portfolio:~$ </span>
+                      <TypingAnimation 
+                        text="cat skills.txt"
+                        speed={30}
+                        className="text-white"
+                        onComplete={() => setShowSkills(true)}
+                      />
+                    </div>
+                  )}
+
+                  {showSkills && (
+                    <motion.div
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5 }}
+                      className="ml-4 text-gray-300"
+                    >
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <div className="text-orange-400 font-semibold">Programming Languages</div>
+                          <div className="text-sm">{skills.programming?.join(', ') || 'N/A'}</div>
+                        </div>
+                        <div>
+                          <div className="text-orange-400 font-semibold">AI/ML</div>
+                          <div className="text-sm">{skills.ai_ml?.join(', ') || 'N/A'}</div>
+                        </div>
+                        <div>
+                          <div className="text-orange-400 font-semibold">Data Science</div>
+                          <div className="text-sm">{skills.data_science?.join(', ') || 'N/A'}</div>
+                        </div>
+                        <div>
+                          <div className="text-orange-400 font-semibold">Other Skills</div>
+                          <div className="text-sm">{skills.other?.join(', ') || 'N/A'}</div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {showSkills && (
+                    <div className="flex items-center mt-4">
+                      <span className="text-orange-400">gabriel@portfolio:~$ </span>
+                      <TypingAnimation 
+                        text="cat education.md"
+                        speed={30}
+                        className="text-white"
+                        onComplete={() => setShowEducation(true)}
+                      />
+                    </div>
+                  )}
+
+                  {showEducation && (
+                    <motion.div
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5 }}
+                      className="ml-4 text-gray-300"
+                    >
+                      <div>
+                        <div className="text-orange-400 font-semibold">Bachelor's degree in Computer Science and Statistics</div>
+                        <div className="text-red-400">University of Toronto Mississauga</div>
+                        <div className="text-gray-400">09/2022 - 04/2027 | Mississauga, ON</div>
+                        <div className="text-sm mt-2">
+                          Relevant Courses: {education[0]?.relevant_courses?.join(', ') || 'N/A'}
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {showEducation && (
+                    <div className="flex items-center mt-4">
+                      <span className="text-orange-400">gabriel@portfolio:~$ </span>
+                      <TypingAnimation 
+                        text="npm run download-resume"
+                        speed={30}
+                        className="text-white"
+                        onComplete={() => setShowCTA(true)}
+                      />
+                    </div>
+                  )}
+
+                  {showCTA && (
+                    <motion.div
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5 }}
+                      className="ml-4 text-gray-300"
+                    >
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <button 
+                          onClick={downloadResume}
+                          className="bg-gradient-to-r from-orange-400 to-red-400 text-black px-6 py-2 rounded font-semibold hover:shadow-lg hover:shadow-orange-400/25 transition-all duration-300 flex items-center justify-center text-sm"
+                        >
+                          <Download size={16} className="mr-2" />
+                          Download PDF
+                        </button>
+                        <button 
+                          onClick={() => navigate('/contact')}
+                          className="border border-orange-400 text-orange-400 px-6 py-2 rounded font-semibold hover:bg-orange-400 hover:text-black transition-all duration-300 flex items-center justify-center text-sm"
+                        >
+                          <Mail size={16} className="mr-2" />
+                          Get In Touch
+                        </button>
+                      </div>
+                    </motion.div>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </section>
+
       </div>
     </div>
   );

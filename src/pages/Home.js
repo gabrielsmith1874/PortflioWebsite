@@ -87,6 +87,12 @@ const Home = () => {
             }}
           ></motion.div>
           
+          {/* Additional Animated Lights */}
+          <div className="absolute top-1/6 right-1/6 w-48 h-48 bg-gradient-to-r from-terminal-green/8 to-accent-blue/8 rounded-full blur-2xl animate-pulse delay-300"></div>
+          <div className="absolute bottom-1/6 left-1/6 w-72 h-72 bg-gradient-to-r from-accent-blue/6 to-terminal-green/6 rounded-full blur-3xl animate-pulse delay-700"></div>
+          <div className="absolute top-1/2 right-1/12 w-32 h-32 bg-gradient-to-r from-terminal-green/10 to-accent-blue/10 rounded-full blur-2xl animate-pulse delay-1000"></div>
+          <div className="absolute bottom-1/3 left-1/12 w-56 h-56 bg-gradient-to-r from-accent-blue/8 to-terminal-green/8 rounded-full blur-3xl animate-pulse delay-500"></div>
+          
           {/* Animated code snippets */}
           <div className="absolute top-20 left-20 text-terminal-green/15 font-mono text-xs animate-pulse">
             <div className="animate-bounce" style={{ animationDuration: '2s' }}>$ git status</div>
@@ -357,6 +363,12 @@ const Home = () => {
             <div className="absolute bottom-0 right-0 w-20 h-20 border-r-2 border-b-2 border-terminal-green/20 animate-pulse delay-600"></div>
             <div className="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-accent-orange/20 animate-pulse delay-300"></div>
             <div className="absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-accent-blue/20 animate-pulse delay-900"></div>
+
+            {/* Additional Animated Lights */}
+            <div className="absolute top-1/5 left-1/12 w-36 h-36 bg-gradient-to-r from-terminal-green/8 to-accent-blue/8 rounded-full blur-2xl animate-pulse delay-400"></div>
+            <div className="absolute bottom-1/5 right-1/12 w-44 h-44 bg-gradient-to-r from-accent-orange/6 to-terminal-green/6 rounded-full blur-3xl animate-pulse delay-800"></div>
+            <div className="absolute top-2/3 left-1/8 w-28 h-28 bg-gradient-to-r from-accent-blue/10 to-accent-orange/10 rounded-full blur-2xl animate-pulse delay-1200"></div>
+            <div className="absolute bottom-1/6 right-1/8 w-52 h-52 bg-gradient-to-r from-terminal-green/7 to-accent-blue/7 rounded-full blur-3xl animate-pulse delay-600"></div>
           </div>
 
           <div className="max-w-6xl mx-auto relative z-10">

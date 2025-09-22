@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import HuffmanCompression from './HuffmanCompression';
 
 const HuffmanDemo = ({ isOpen, onClose }) => {
   const [error, setError] = useState('');
@@ -8,6 +9,7 @@ const HuffmanDemo = ({ isOpen, onClose }) => {
   const [decompressedFile, setDecompressedFile] = useState(null);
   const [compressedFileData, setCompressedFileData] = useState(null); // Store compressed file data for decompression
   const [isProcessing, setIsProcessing] = useState(false);
+  const [huffmanCompression] = useState(new HuffmanCompression());
 
   const resetDemo = () => {
     setFileResults(null);
@@ -42,32 +44,27 @@ const HuffmanDemo = ({ isOpen, onClose }) => {
     setFileResults(null);
 
     try {
-      const formData = new FormData();
-      formData.append('file', selectedFile);
-
-      const response = await fetch('http://localhost:5000/compress_file', {
-        method: 'POST',
-        body: formData
-      });
-
-      if (!response.ok) {
-        throw new Error(`Backend error: ${response.statusText}`);
-      }
-
-      const compressedBlob = await response.blob();
-      const originalSize = parseInt(response.headers.get('X-Original-Size')) || selectedFile.size;
-      const compressedSize = parseInt(response.headers.get('X-Compressed-Size')) || compressedBlob.size;
-      const originalFilename = response.headers.get('X-Original-Filename') || selectedFile.name;
+      // Read file as ArrayBuffer
+      const arrayBuffer = await selectedFile.arrayBuffer();
+      const data = new Uint8Array(arrayBuffer);
+      
+      // Compress using local JavaScript implementation
+      const result = huffmanCompression.compress(data, selectedFile.name);
+      
+      // Create blob from compressed data
+      const compressedBlob = huffmanCompression.createBlob(result.compressedData, 'application/octet-stream');
       
       const compressedFileInfo = {
         originalFile: selectedFile,
-        originalFileName: originalFilename,
+        originalFileName: result.originalFilename,
         compressedBlob: compressedBlob,
         stats: {
-          originalSize: originalSize,
-          compressedSize: compressedSize,
-          spaceSaved: ((originalSize - compressedSize) / originalSize * 100).toFixed(1)
-        }
+          originalSize: result.originalSize,
+          compressedSize: result.compressedSize,
+          spaceSaved: ((result.originalSize - result.compressedSize) / result.originalSize * 100).toFixed(1),
+          avgBitsPerSymbol: result.avgBitsPerSymbol.toFixed(2)
+        },
+        codes: result.codes
       };
       
       setFileResults(compressedFileInfo);
@@ -75,7 +72,7 @@ const HuffmanDemo = ({ isOpen, onClose }) => {
       setIsProcessing(false);
     } catch (err) {
       setIsProcessing(false);
-      setError('Error compressing file: ' + err.message + '. Make sure the Python backend is running (cd huffman-backend && python app.py)');
+      setError('Error compressing file: ' + err.message);
     }
   };
 
@@ -102,52 +99,26 @@ const HuffmanDemo = ({ isOpen, onClose }) => {
     setError('');
 
     try {
-      const formData = new FormData();
-      formData.append('file', selectedFile);
-
-      const response = await fetch('http://localhost:5000/decompress', {
-        method: 'POST',
-        body: formData
-      });
-
-      if (!response.ok) {
-        throw new Error(`Backend error: ${response.statusText}`);
-      }
-
-      const decompressedBlob = await response.blob();
-      const contentDisposition = response.headers.get('Content-Disposition');
-      const originalFilename = response.headers.get('X-Original-Filename');
+      // Read file as ArrayBuffer
+      const arrayBuffer = await selectedFile.arrayBuffer();
+      const data = new Uint8Array(arrayBuffer);
       
-      // Debug: log what we're getting from headers
-      console.log('Content-Disposition:', contentDisposition);
-      console.log('X-Original-Filename:', originalFilename);
+      // Decompress using local JavaScript implementation
+      const result = huffmanCompression.decompress(data, selectedFile.name.replace('.huff', ''));
       
-      // Use the original filename from backend headers if available, otherwise fallback
-      let finalFileName;
-      if (originalFilename) {
-        finalFileName = originalFilename;
-      } else if (contentDisposition) {
-        const filenameMatch = contentDisposition.match(/filename="(.+)"/);
-        if (filenameMatch) {
-          finalFileName = filenameMatch[1];
-        }
-      } else {
-        // Fallback: try to restore extension from .huff filename
-        finalFileName = selectedFile.name.replace('.huff', '');
-      }
-      
-      console.log('Final filename:', finalFileName);
+      // Create blob from decompressed data
+      const decompressedBlob = huffmanCompression.createBlob(result.decompressedData);
       
       setCompressedFileData({
-        originalFileName: finalFileName,
-        originalFileSize: decompressedBlob.size
+        originalFileName: result.originalFilename,
+        originalFileSize: result.originalSize
       });
 
       setDecompressedFile(decompressedBlob);
       setIsProcessing(false);
     } catch (err) {
       setIsProcessing(false);
-      setError('Error decompressing file: ' + err.message + '. Make sure the Python backend is running (cd huffman-backend && python app.py)');
+      setError('Error decompressing file: ' + err.message);
     }
   };
 

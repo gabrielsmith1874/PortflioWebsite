@@ -10,6 +10,8 @@ const Navigation = () => {
   // Check which page we're on to use appropriate theme colors
   const isTimelinePage = location.pathname === '/timeline';
   const isProjectsPage = location.pathname === '/projects';
+  const isResumePage = location.pathname === '/resume';
+  const isContactPage = location.pathname === '/contact';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,6 +43,8 @@ const Navigation = () => {
               <span className={`font-bold text-sm font-mono ${
                 isTimelinePage ? 'text-blue-400' : 
                 isProjectsPage ? 'text-purple-400' : 
+                isResumePage ? 'text-orange-400' :
+                isContactPage ? 'text-cyan-400' :
                 'text-terminal-green'
               }`}>GS</span>
             </div>
@@ -48,12 +52,16 @@ const Navigation = () => {
               <span className={
                 isTimelinePage ? 'text-blue-400' : 
                 isProjectsPage ? 'text-purple-400' : 
+                isResumePage ? 'text-orange-400' :
+                isContactPage ? 'text-cyan-400' :
                 'text-terminal-green'
               }>gabriel@portfolio:</span>
               <span className="directory-text">~</span>
               <span className={
                 isTimelinePage ? 'text-blue-400' : 
                 isProjectsPage ? 'text-purple-400' : 
+                isResumePage ? 'text-orange-400' :
+                isContactPage ? 'text-cyan-400' :
                 'text-terminal-green'
               }>$</span>
             </span>
@@ -68,8 +76,8 @@ const Navigation = () => {
                   to={item.path}
                   className={`px-3 py-2 rounded text-sm font-medium font-mono transition-colors duration-200 ${
                     location.pathname === item.path
-                      ? `${isTimelinePage ? 'text-blue-400' : isProjectsPage ? 'text-purple-400' : 'text-terminal-green'} bg-dark-surface border border-dark-border`
-                      : `text-terminal-text hover:${isTimelinePage ? 'text-blue-400' : isProjectsPage ? 'text-purple-400' : 'text-terminal-green'} hover:bg-dark-surface hover:border hover:border-dark-border`
+                      ? `${isTimelinePage ? 'text-blue-400' : isProjectsPage ? 'text-purple-400' : isResumePage ? 'text-orange-400' : isContactPage ? 'text-cyan-400' : 'text-terminal-green'} bg-dark-surface border border-dark-border`
+                      : `text-terminal-text hover:${isTimelinePage ? 'text-blue-400' : isProjectsPage ? 'text-purple-400' : isResumePage ? 'text-orange-400' : isContactPage ? 'text-cyan-400' : 'text-terminal-green'} hover:bg-dark-surface hover:border hover:border-dark-border`
                   }`}
                 >
                   {item.name.toLowerCase()}
@@ -85,6 +93,8 @@ const Navigation = () => {
               <span className={
                 isTimelinePage ? 'text-blue-400' : 
                 isProjectsPage ? 'text-purple-400' : 
+                isResumePage ? 'text-orange-400' :
+                isContactPage ? 'text-cyan-400' :
                 'text-terminal-green'
               }>●</span>
               <span>current: {location.pathname === '/' ? 'home' : location.pathname.slice(1)}</span>

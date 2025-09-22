@@ -114,6 +114,13 @@ const Projects = () => {
           <div className="absolute top-1/4 right-1/4 w-56 h-56 bg-gradient-to-r from-pink-400/8 to-purple-400/8 rounded-full blur-3xl animate-pulse delay-1000"></div>
           <div className="absolute bottom-1/4 left-1/3 w-40 h-40 bg-gradient-to-r from-purple-400/6 to-pink-400/6 rounded-full blur-2xl animate-pulse delay-500"></div>
           
+          {/* Additional Unique Lights */}
+          <div className="absolute top-1/13 left-1/13 w-36 h-36 bg-gradient-to-r from-pink-400/9 to-purple-400/9 rounded-full blur-2xl animate-pulse delay-200"></div>
+          <div className="absolute bottom-1/13 right-1/13 w-44 h-44 bg-gradient-to-r from-purple-400/7 to-pink-400/7 rounded-full blur-3xl animate-pulse delay-900"></div>
+          <div className="absolute top-9/10 right-1/17 w-28 h-28 bg-gradient-to-r from-pink-400/11 to-purple-400/11 rounded-full blur-2xl animate-pulse delay-400"></div>
+          <div className="absolute bottom-1/17 left-1/17 w-52 h-52 bg-gradient-to-r from-purple-400/8 to-pink-400/8 rounded-full blur-3xl animate-pulse delay-1100"></div>
+          <div className="absolute top-1/17 right-1/9 w-20 h-20 bg-gradient-to-r from-pink-400/13 to-purple-400/13 rounded-full blur-2xl animate-pulse delay-600"></div>
+          
           {/* Floating Code Snippets */}
           <div className="absolute top-40 left-16 text-purple-400/12 font-mono text-sm animate-pulse">
             <div className="animate-bounce" style={{ animationDuration: '2.3s' }}>[React, Python, AI]</div>
@@ -346,14 +353,23 @@ const Projects = () => {
           <div className="absolute bottom-10 right-10 w-96 h-96 bg-gradient-to-r from-pink-400/5 to-purple-400/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-gradient-to-r from-purple-400/8 to-pink-400/8 rounded-full blur-2xl animate-pulse delay-500"></div>
           
+          {/* Additional Unique Lights */}
+          <div className="absolute top-1/14 left-1/14 w-40 h-40 bg-gradient-to-r from-pink-400/6 to-purple-400/6 rounded-full blur-2xl animate-pulse delay-300"></div>
+          <div className="absolute bottom-1/14 right-1/14 w-48 h-48 bg-gradient-to-r from-purple-400/7 to-pink-400/7 rounded-full blur-3xl animate-pulse delay-700"></div>
+          <div className="absolute top-10/11 right-1/18 w-24 h-24 bg-gradient-to-r from-pink-400/9 to-purple-400/9 rounded-full blur-2xl animate-pulse delay-800"></div>
+          <div className="absolute bottom-1/18 left-1/18 w-36 h-36 bg-gradient-to-r from-purple-400/8 to-pink-400/8 rounded-full blur-2xl animate-pulse delay-400"></div>
+          
           {/* Subtle Grid */}
           <div className="absolute inset-0 opacity-3">
-            <div className="grid grid-cols-12 h-full">
-              {Array.from({ length: 144 }).map((_, i) => (
+            <div className="grid grid-cols-16 h-full">
+              {Array.from({ length: 256 }).map((_, i) => (
                 <div 
                   key={i} 
                   className="border-r border-b border-purple-400/10"
-                  style={{ animationDelay: `${i * 0.02}s` }}
+                  style={{ 
+                    animationDelay: `${i * 0.015}s`,
+                    clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)'
+                  }}
                 ></div>
               ))}
             </div>
@@ -417,18 +433,18 @@ const Projects = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
-                className="bg-gray-800/60 border border-purple-400/20 rounded-lg p-6 backdrop-blur-sm"
+                className="bg-gray-800/60 border border-purple-400/20 rounded-lg p-4 backdrop-blur-sm max-w-md mx-auto"
               >
-                <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <button 
                     onClick={() => navigate('/contact')}
-                    className="bg-gradient-to-r from-purple-500 to-pink-600 text-white px-8 py-4 rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300 font-mono"
+                    className="bg-gradient-to-r from-purple-500 to-pink-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300 font-mono text-sm"
                   >
                     Start a Project
                   </button>
                   <button 
                     onClick={() => navigate('/resume')}
-                    className="border border-gray-600 text-gray-300 px-8 py-4 rounded-lg font-semibold hover:bg-gray-800 hover:text-white transition-all duration-300 font-mono"
+                    className="border border-gray-600 text-gray-300 px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 hover:text-white transition-all duration-300 font-mono text-sm"
                   >
                     View Resume
                   </button>
