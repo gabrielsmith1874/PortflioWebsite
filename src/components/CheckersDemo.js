@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import CheckersAI, { CheckersState } from './CheckersAI';
 
 const CheckersDemo = ({ isOpen, onClose }) => {
   const [board, setBoard] = useState([]);
@@ -11,80 +12,20 @@ const CheckersDemo = ({ isOpen, onClose }) => {
   const [error, setError] = useState('');
   const [capturedPiece, setCapturedPiece] = useState(null);
   const [validMoves, setValidMoves] = useState([]);
+  const [ai] = useState(new CheckersAI());
 
-  const BACKEND_URL = 'http://localhost:5000'; // Same port as Checkers AI backend
-  
-  // Debug: Log the current origin
-  console.log('Frontend origin:', window.location.origin);
+  const initializeGame = React.useCallback(() => {
+    const initialBoard = ai.initializeBoard();
+    setBoard(initialBoard);
+    setCurrentPlayer('b');
+    setGameOver(false);
+    setWinner(null);
+    setAiThinking(false);
+    setError('');
+    setSelectedCell(null);
+    setValidMoves([]);
+  }, [ai]);
 
-  const updateGameState = (data) => {
-    console.log('Game state data:', data); // Debug log
-    
-    // Handle both possible response formats
-    const board = data.board || data.game_board;
-    const currentPlayer = data.current_player || data.currentPlayer;
-    const gameOver = data.game_over || data.gameOver;
-    const winner = data.winner;
-    const aiThinking = data.ai_thinking || data.aiThinking;
-    
-    console.log('Parsed game state:', { board, currentPlayer, gameOver, winner, aiThinking });
-    
-    if (board) {
-      setBoard(board);
-    }
-    
-    if (currentPlayer !== undefined) {
-      setCurrentPlayer(currentPlayer);
-    }
-    
-    if (gameOver !== undefined) {
-      setGameOver(gameOver);
-    }
-    
-    if (winner !== undefined) {
-      setWinner(winner);
-    }
-    
-    if (aiThinking !== undefined) {
-      setAiThinking(aiThinking);
-    }
-  };
-
-  const initializeGame = React.useCallback(async () => {
-    try {
-      setError('');
-      // First try to get the current board state
-      let response = await fetch(`${BACKEND_URL}/api/get-board`);
-      
-      if (!response.ok) {
-        throw new Error('Failed to get board state');
-      }
-      
-      let data = await response.json();
-      console.log('Initial board state:', data);
-      
-      // If we don't have a proper game state, start a new game
-      if (!data.current_player && !data.currentPlayer) {
-        response = await fetch(`${BACKEND_URL}/api/new-game`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        
-        if (!response.ok) {
-          throw new Error('Failed to initialize new game');
-        }
-        
-        data = await response.json();
-        console.log('New game state:', data);
-      }
-      
-      updateGameState(data);
-    } catch (err) {
-      setError('Failed to connect to Checkers AI backend. Make sure to run: cd "Checkers AI" && python app.py (CORS enabled)');
-    }
-  }, []);
 
 
   const handleCellClick = async (row, col) => {
@@ -134,12 +75,7 @@ const CheckersDemo = ({ isOpen, onClose }) => {
     try {
       setError('');
       
-      const moveData = {
-        from: [from.row, from.col],
-        to: [to.row, to.col]
-      };
-      
-      console.log('Attempting move:', moveData);
+      console.log('Making move from', from, 'to', to);
       
       // First, update the board visually with the player's move
       const newBoard = [...board];
@@ -169,6 +105,11 @@ const CheckersDemo = ({ isOpen, onClose }) => {
         setTimeout(() => setCapturedPiece(null), 300);
       }
       
+      // Check for king promotion
+      if (piece === 'b' && to.row === 7) {
+        newBoard[to.row][to.col] = 'B';
+      }
+      
       setBoard(newBoard);
       
       // Set AI thinking state
@@ -178,76 +119,41 @@ const CheckersDemo = ({ isOpen, onClose }) => {
       // Small delay to show the visual move before processing
       await new Promise(resolve => setTimeout(resolve, 500));
       
-      const response = await fetch(`${BACKEND_URL}/api/move`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(moveData),
-      });
-
-      const data = await response.json();
-      console.log('Move response:', data);
-
-      if (data.error) {
-        console.log('Move error:', data.error);
-        setError(data.error);
-        setAiThinking(false);
-        setCurrentPlayer('b'); // Back to player's turn
-        return;
-      }
-
-      // Update with the server's response (includes any captures)
-      updateGameState(data);
-      
-      // Get updated game state after AI move
-      setTimeout(async () => {
+      // Make AI move using local AI
+      setTimeout(() => {
         try {
-          const stateResponse = await fetch(`${BACKEND_URL}/api/state`);
-          const stateData = await stateResponse.json();
-          console.log('Updated game state after AI move:', stateData);
-          updateGameState(stateData);
-        } catch (err) {
-          setError('Failed to get updated game state');
+          const aiBoard = ai.getBestMove(newBoard, 'r');
+          setBoard(aiBoard);
+          
+          // Check if game is over
+          const state = new CheckersState(aiBoard);
+          if (state.checkEnd()) {
+            setGameOver(true);
+            setWinner(ai.determineWinner(aiBoard));
+          }
+          
+          setCurrentPlayer('b');
           setAiThinking(false);
+        } catch (err) {
+          console.error('AI move failed:', err);
+          setAiThinking(false);
+          setCurrentPlayer('b');
         }
       }, 1000);
 
     } catch (err) {
-      console.log('Move request failed:', err);
-      setError('Failed to make move. Check backend connection and CORS settings.');
+      console.log('Move failed:', err);
+      setError('Move failed. Please try again.');
       setAiThinking(false);
       setCurrentPlayer('b'); // Back to player's turn
     }
   };
 
-  const resetGame = async () => {
-    try {
-      setError('');
-      setSelectedCell(null);
-      setAiThinking(false);
-      
-      // Call the new game endpoint to reset the backend
-      const response = await fetch(`${BACKEND_URL}/api/new-game`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      
-      if (!response.ok) {
-        throw new Error('Failed to start new game');
-      }
-      
-      const data = await response.json();
-      console.log('New game started:', data);
-      
-      // Update the game state with the fresh board
-      updateGameState(data);
-      
-    } catch (err) {
-      setError('Failed to start new game. Check backend connection.');
-    }
+  const resetGame = () => {
+    setError('');
+    setSelectedCell(null);
+    setAiThinking(false);
+    initializeGame();
   };
 
   useEffect(() => {
