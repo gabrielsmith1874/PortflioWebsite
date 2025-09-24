@@ -38,7 +38,6 @@ const Contact = () => {
     }
   }, [showContactInfo]);
 
-
   const contactInfo = {
     email: 'gabrielsmith1874@gmail.com',
     phone: '2896810442',
@@ -47,17 +46,8 @@ const Contact = () => {
     github: 'github.com/gabrielsmith1874',
   };
 
-
-
   return (
     <div className="min-h-screen bg-dark-bg relative overflow-hidden">
-      {/* Hidden form for Netlify form detection */}
-      <form name="contact" netlify netlify-honeypot="bot-field" data-netlify="true" hidden>
-        <input type="text" name="name" />
-        <input type="email" name="email" />
-        <input type="text" name="subject" />
-        <textarea name="message"></textarea>
-      </form>
       {/* Animated Background */}
       <div className="absolute inset-0">
         {/* Terminal-style grid pattern */}
@@ -182,7 +172,7 @@ const Contact = () => {
                       transition={{ duration: 0.5 }}
                       className="ml-4 text-gray-300"
                     >
-                      <form name="contact" netlify netlify-honeypot="bot-field" data-netlify="true" action="/success" method="POST" className="space-y-4">
+                      <form name="contact" netlify netlify-honeypot="bot-field" action="/success" method="POST" className="space-y-4">
                         <div style={{ display: 'none' }}>
                           <label>
                             Don't fill this out if you're human: <input name="bot-field" />
@@ -292,7 +282,6 @@ const Contact = () => {
                       </div>
                     </motion.div>
                   )}
-
 
                 </div>
               </div>
