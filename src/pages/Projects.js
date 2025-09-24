@@ -174,21 +174,21 @@ const Projects = () => {
             transition={{ duration: 0.8 }}
             className="mb-16"
           >
-            <div className="text-center mb-16">
-              <h1 className="text-5xl sm:text-6xl font-bold mb-4 font-mono">
+            <div className="text-center mb-8 sm:mb-16">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 font-mono">
                 <span className="text-white">My</span> <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Projects</span>
               </h1>
-              <div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-pink-500 mx-auto rounded"></div>
+              <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-purple-400 to-pink-500 mx-auto rounded"></div>
             </div>
 
             {showCommands && (
               <>
-                <div className="mb-4 bg-gray-800/80 border border-green-400/30 rounded-lg p-4 backdrop-blur-sm inline-block">
-                  <span className="text-purple-400 text-lg font-mono">gabriel@portfolio:~$ </span>
+                <div className="mb-4 bg-gray-800/80 border border-green-400/30 rounded-lg p-3 sm:p-4 backdrop-blur-sm inline-block max-w-full">
+                  <span className="text-purple-400 text-sm sm:text-lg font-mono">gabriel@portfolio:~$ </span>
                   <TypingAnimation 
                     text="cat projects-intro.md" 
                     speed={30}
-                    className="text-purple-400 text-lg font-mono"
+                    className="text-purple-400 text-sm sm:text-lg font-mono"
                     onComplete={() => {
                       setTimeout(() => {
                         setShowContent(true);
@@ -202,7 +202,7 @@ const Projects = () => {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.8 }}
-                      className="text-gray-300 text-lg font-mono mb-4 bg-gray-800/60 border border-purple-400/20 rounded-lg p-4 backdrop-blur-sm inline-block"
+                      className="text-gray-300 text-sm sm:text-base md:text-lg font-mono mb-4 bg-gray-800/60 border border-purple-400/20 rounded-lg p-3 sm:p-4 backdrop-blur-sm inline-block max-w-full"
                     >
                       Welcome to my Projects Showcase!<br/><br/>
                       Here you'll find a collection of innovative solutions<br/>
@@ -214,12 +214,12 @@ const Projects = () => {
                       Explore the projects below to see the code,<br/>
                       technologies, and methodologies behind each creation.
                     </motion.div>
-                    <div className="mb-4 bg-gray-800/80 border border-green-400/30 rounded-lg p-4 backdrop-blur-sm inline-block">
-                      <span className="text-purple-400 text-lg font-mono">gabriel@portfolio:~$ </span>
+                    <div className="mb-4 bg-gray-800/80 border border-green-400/30 rounded-lg p-3 sm:p-4 backdrop-blur-sm inline-block max-w-full">
+                      <span className="text-purple-400 text-sm sm:text-lg font-mono">gabriel@portfolio:~$ </span>
                       <TypingAnimation 
                         text="npm run generate-projects"
                         speed={30}
-                        className="text-purple-400 text-lg font-mono"
+                        className="text-purple-400 text-sm sm:text-lg font-mono"
                         onComplete={() => {
                           setTimeout(() => {
                             setShowProjects(true);
@@ -238,31 +238,31 @@ const Projects = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
-                className="bg-gray-800/60 border border-purple-400/20 rounded-xl p-8 backdrop-blur-sm"
+                className="bg-gray-800/60 border border-purple-400/20 rounded-xl p-4 sm:p-6 md:p-8 backdrop-blur-sm"
               >
-                <div className="text-center mb-8">
-                  <h2 className="text-3xl font-bold font-mono text-white mb-2">Featured Projects</h2>
-                  <div className="w-16 h-1 bg-gradient-to-r from-purple-400 to-pink-500 mx-auto rounded"></div>
+                <div className="text-center mb-6 sm:mb-8">
+                  <h2 className="text-2xl sm:text-3xl font-bold font-mono text-white mb-2">Featured Projects</h2>
+                  <div className="w-12 sm:w-16 h-1 bg-gradient-to-r from-purple-400 to-pink-500 mx-auto rounded"></div>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   {projects.map((project, index) => (
                     <motion.div
                       key={project.id}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.6, delay: index * 0.1 }}
-                      className="bg-gray-900/95 border-l-4 border-purple-400 p-4 font-mono"
+                      className="bg-gray-900/95 border-l-4 border-purple-400 p-3 sm:p-4 font-mono"
                       style={{ borderStyle: 'solid' }}
                     >
                       {/* Project Header - UNIX style */}
-                      <div className="flex items-center justify-between mb-3">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 gap-2">
                         <div className="flex items-center gap-2">
                           <span className="text-purple-400">$</span>
-                          <span className="text-purple-400 text-sm">{project.path}</span>
+                          <span className="text-purple-400 text-xs sm:text-sm">{project.path}</span>
                           <span className="text-gray-500">{'>'}</span>
                         </div>
-                        <span className={`px-2 py-1 text-xs font-mono border ${
+                        <span className={`px-2 py-1 text-xs font-mono border self-start ${
                           project.status === 'COMPLETE' 
                             ? 'bg-green-900 text-green-400 border-green-600' 
                             : 'bg-yellow-900 text-yellow-400 border-yellow-600'
@@ -273,19 +273,19 @@ const Projects = () => {
 
                       {/* Project Title - Bold and blocky */}
                       <div className="mb-3">
-                        <span className="text-white font-bold text-lg">PROJECT:</span>
-                        <span className="text-purple-300 ml-2 text-lg">{project.title}</span>
+                        <span className="text-white font-bold text-sm sm:text-lg">PROJECT:</span>
+                        <span className="text-purple-300 ml-2 text-sm sm:text-lg">{project.title}</span>
                       </div>
 
                       {/* Description - Terminal output style */}
-                      <div className="mb-3 text-gray-300 text-sm leading-relaxed">
+                      <div className="mb-3 text-gray-300 text-xs sm:text-sm leading-relaxed">
                         <span className="text-gray-500">DESC:</span>
                         <span className="ml-2">{project.description}</span>
                       </div>
 
                       {/* Technologies - Tag style */}
                       <div className="mb-4">
-                        <span className="text-gray-500 text-sm">TECH:</span>
+                        <span className="text-gray-500 text-xs sm:text-sm">TECH:</span>
                         <div className="mt-1 flex flex-wrap gap-1">
                           {project.technologies.map((tech, techIndex) => (
                             <span key={tech} className="px-2 py-1 bg-gray-800 text-purple-300 text-xs border border-gray-600">
@@ -296,11 +296,11 @@ const Projects = () => {
                       </div>
 
                       {/* Action Buttons - Terminal style */}
-                      <div className="flex gap-2">
+                      <div className="flex flex-wrap gap-2">
                         {project.id !== 1 && (
                           <button 
                             onClick={() => window.open(project.githubUrl, '_blank')}
-                            className="bg-purple-600 text-white px-4 py-2 border border-purple-500 hover:bg-purple-500 transition-colors font-mono text-sm"
+                            className="bg-purple-600 text-white px-3 sm:px-4 py-2 border border-purple-500 hover:bg-purple-500 transition-colors font-mono text-xs sm:text-sm touch-manipulation"
                           >
                             [VIEW CODE]
                           </button>
@@ -308,7 +308,7 @@ const Projects = () => {
                         {project.liveUrl !== '#' && (
                           <button 
                             onClick={() => window.open(project.liveUrl, '_blank')}
-                            className={`px-4 py-2 border transition-colors font-mono text-sm ${
+                            className={`px-3 sm:px-4 py-2 border transition-colors font-mono text-xs sm:text-sm touch-manipulation ${
                               project.id === 1 
                                 ? 'bg-green-600 text-white border-green-500 hover:bg-green-500' 
                                 : 'bg-gray-800 text-purple-300 border-gray-600 hover:bg-gray-700 hover:text-white'
@@ -320,7 +320,7 @@ const Projects = () => {
                         {project.id === 3 && (
                           <button 
                             onClick={() => setShowCheckersDemo(true)}
-                            className="bg-gray-800 text-purple-300 px-4 py-2 border border-gray-600 hover:bg-gray-700 hover:text-white transition-colors font-mono text-sm"
+                            className="bg-gray-800 text-purple-300 px-3 sm:px-4 py-2 border border-gray-600 hover:bg-gray-700 hover:text-white transition-colors font-mono text-xs sm:text-sm touch-manipulation"
                           >
                             [LIVE DEMO]
                           </button>
@@ -328,7 +328,7 @@ const Projects = () => {
                         {project.id === 5 && (
                           <button 
                             onClick={() => setShowHuffmanDemo(true)}
-                            className="bg-gray-800 text-purple-300 px-4 py-2 border border-gray-600 hover:bg-gray-700 hover:text-white transition-colors font-mono text-sm"
+                            className="bg-gray-800 text-purple-300 px-3 sm:px-4 py-2 border border-gray-600 hover:bg-gray-700 hover:text-white transition-colors font-mono text-xs sm:text-sm touch-manipulation"
                           >
                             [LIVE DEMO]
                           </button>
@@ -435,16 +435,16 @@ const Projects = () => {
                 transition={{ duration: 0.8 }}
                 className="bg-gray-800/60 border border-purple-400/20 rounded-lg p-4 backdrop-blur-sm max-w-md mx-auto"
               >
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                   <button 
                     onClick={() => navigate('/contact')}
-                    className="bg-gradient-to-r from-purple-500 to-pink-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300 font-mono text-sm"
+                    className="bg-gradient-to-r from-purple-500 to-pink-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300 font-mono text-sm sm:text-base touch-manipulation w-full sm:w-auto"
                   >
                     Start a Project
                   </button>
                   <button 
                     onClick={() => navigate('/resume')}
-                    className="border border-gray-600 text-gray-300 px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 hover:text-white transition-all duration-300 font-mono text-sm"
+                    className="border border-gray-600 text-gray-300 px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 hover:text-white transition-all duration-300 font-mono text-sm sm:text-base touch-manipulation w-full sm:w-auto"
                   >
                     View Resume
                   </button>

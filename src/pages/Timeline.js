@@ -188,12 +188,12 @@ const Timeline = () => {
           >
             {showCommands && (
               <>
-                <div className="mb-4 bg-gray-800/80 border border-green-400/30 rounded-lg p-4 backdrop-blur-sm inline-block">
-                  <span className="text-blue-400 text-lg font-mono">gabriel@portfolio:~$ </span>
+                <div className="mb-4 bg-gray-800/80 border border-green-400/30 rounded-lg p-3 sm:p-4 backdrop-blur-sm inline-block max-w-full">
+                  <span className="text-blue-400 text-sm sm:text-lg font-mono">gabriel@portfolio:~$ </span>
                   <TypingAnimation 
                     text="cat experience.log" 
                     speed={30}
-                    className="text-blue-400 text-lg font-mono"
+                    className="text-blue-400 text-sm sm:text-lg font-mono"
                     onComplete={() => {
                       setTimeout(() => {
                         setShowContent(true);
@@ -207,17 +207,17 @@ const Timeline = () => {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.8 }}
-                      className="text-gray-300 text-lg font-mono mb-4 bg-gray-800/60 border border-blue-400/20 rounded-lg p-4 backdrop-blur-sm inline-block"
+                      className="text-gray-300 text-sm sm:text-base md:text-lg font-mono mb-4 bg-gray-800/60 border border-blue-400/20 rounded-lg p-3 sm:p-4 backdrop-blur-sm inline-block max-w-full"
                     >
                       Professional journey spanning government systems development, retail excellence, 
                       and manufacturing precision. Here's the complete timeline of my career progression.
                     </motion.div>
-                    <div className="mb-4 bg-gray-800/80 border border-green-400/30 rounded-lg p-4 backdrop-blur-sm inline-block">
-                      <span className="text-blue-400 text-lg font-mono">gabriel@portfolio:~$ </span>
+                    <div className="mb-4 bg-gray-800/80 border border-green-400/30 rounded-lg p-3 sm:p-4 backdrop-blur-sm inline-block max-w-full">
+                      <span className="text-blue-400 text-sm sm:text-lg font-mono">gabriel@portfolio:~$ </span>
                       <TypingAnimation 
                         text="./build-timeline.sh"
                         speed={30}
-                        className="text-blue-400 text-lg font-mono"
+                        className="text-blue-400 text-sm sm:text-lg font-mono"
                         onComplete={() => {
                           setTimeout(() => {
                             setShowTimeline(true);
@@ -236,7 +236,7 @@ const Timeline = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
-                className="mt-6 bg-gray-800/60 border border-blue-400/20 rounded-lg p-4 backdrop-blur-sm"
+                className="mt-6 bg-gray-800/60 border border-blue-400/20 rounded-lg p-3 sm:p-4 backdrop-blur-sm"
               >
                 {/* Enhanced Timeline Header */}
                 <motion.div
@@ -245,24 +245,24 @@ const Timeline = () => {
                   transition={{ duration: 0.8, delay: 0.2 }}
                   className="mb-8"
                 >
-                  <div className="bg-gradient-to-r from-blue-900/20 to-cyan-900/20 border border-blue-400/40 rounded-xl p-6 backdrop-blur-sm">
-                    <div className="flex items-center justify-between mb-4">
+                  <div className="bg-gradient-to-r from-blue-900/20 to-cyan-900/20 border border-blue-400/40 rounded-xl p-4 sm:p-6 backdrop-blur-sm">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
                       <div className="flex items-center space-x-3">
                         <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
-                        <span className="text-blue-400 font-mono text-lg font-semibold">Career Timeline</span>
+                        <span className="text-blue-400 font-mono text-base sm:text-lg font-semibold">Career Timeline</span>
                       </div>
-                      <div className="text-green-400 font-mono text-sm">
+                      <div className="text-green-400 font-mono text-xs sm:text-sm">
                         {new Date().toISOString().split('T')[0]}
                       </div>
                     </div>
-                    <div className="text-cyan-300 font-mono text-sm">
+                    <div className="text-cyan-300 font-mono text-xs sm:text-sm">
                       ~/portfolio/career.log | Gabriel Smith's Professional Journey
                     </div>
                   </div>
                 </motion.div>
 
                 {/* Enhanced Timeline Entries */}
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   {timelineData.map((item, index) => (
                     <motion.div
                       key={item.id}
@@ -273,28 +273,28 @@ const Timeline = () => {
                     >
                       {/* Timeline Connector */}
                       {index < timelineData.length - 1 && (
-                        <div className="absolute left-6 top-16 bottom-0 w-0.5 bg-gradient-to-b from-blue-400 to-transparent opacity-30"></div>
+                        <div className="absolute left-4 sm:left-6 top-12 sm:top-16 bottom-0 w-0.5 bg-gradient-to-b from-blue-400 to-transparent opacity-30"></div>
                       )}
                       
                       {/* Entry Card */}
-                      <div className="bg-gradient-to-br from-gray-900/60 to-gray-800/60 border border-blue-400/30 rounded-xl p-6 backdrop-blur-sm hover:border-blue-400/50 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-blue-400/10">
+                      <div className="bg-gradient-to-br from-gray-900/60 to-gray-800/60 border border-blue-400/30 rounded-xl p-4 sm:p-6 backdrop-blur-sm hover:border-blue-400/50 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-blue-400/10">
                         {/* Entry Number Badge */}
-                        <div className="absolute -left-2 top-6 w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center shadow-lg border-4 border-gray-900">
-                          <span className="text-white font-mono font-bold text-lg">{index + 1}</span>
+                        <div className="absolute -left-1 sm:-left-2 top-4 sm:top-6 w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center shadow-lg border-2 sm:border-4 border-gray-900">
+                          <span className="text-white font-mono font-bold text-sm sm:text-lg">{index + 1}</span>
                         </div>
 
                         {/* Header Section */}
-                        <div className="ml-8 mb-6">
-                          <div className="flex items-start justify-between mb-4">
-                            <div>
-                              <h3 className="text-2xl font-bold text-white font-mono mb-2 group-hover:text-blue-300 transition-colors">
+                        <div className="ml-6 sm:ml-8 mb-4 sm:mb-6">
+                          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4 gap-2">
+                            <div className="flex-1">
+                              <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white font-mono mb-2 group-hover:text-blue-300 transition-colors">
                                 {item.title}
                               </h3>
-                              <div className="flex items-center space-x-4 text-cyan-400 font-mono">
-                                <span className="bg-blue-900/30 px-3 py-1 rounded-lg border border-blue-400/30">
+                              <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 text-cyan-400 font-mono gap-2">
+                                <span className="bg-blue-900/30 px-2 sm:px-3 py-1 rounded-lg border border-blue-400/30 text-xs sm:text-sm">
                                   {item.company}
                                 </span>
-                                <span className="text-green-400 font-semibold">
+                                <span className="text-green-400 font-semibold text-xs sm:text-sm">
                                   {item.period}
                                 </span>
                               </div>
@@ -302,33 +302,33 @@ const Timeline = () => {
                           </div>
 
                           {/* Location */}
-                          <div className="flex items-center text-gray-300 mb-4">
-                            <div className="w-2 h-2 bg-blue-400 rounded-full mr-3"></div>
-                            <span className="font-mono">{item.location}</span>
+                          <div className="flex items-center text-gray-300 mb-3 sm:mb-4">
+                            <div className="w-2 h-2 bg-blue-400 rounded-full mr-2 sm:mr-3"></div>
+                            <span className="font-mono text-xs sm:text-sm">{item.location}</span>
                           </div>
 
                           {/* Description */}
-                          <div className="bg-gray-800/40 rounded-lg p-4 mb-6 border border-gray-700">
+                          <div className="bg-gray-800/40 rounded-lg p-3 sm:p-4 mb-4 sm:mb-6 border border-gray-700">
                             <div className="flex items-center mb-2">
-                              <span className="text-yellow-400 font-mono text-sm font-semibold mr-2">→</span>
-                              <span className="text-yellow-400 font-mono text-sm">Role Overview</span>
+                              <span className="text-yellow-400 font-mono text-xs sm:text-sm font-semibold mr-2">→</span>
+                              <span className="text-yellow-400 font-mono text-xs sm:text-sm">Role Overview</span>
                             </div>
-                            <p className="text-gray-300 font-mono text-sm leading-relaxed ml-4">
+                            <p className="text-gray-300 font-mono text-xs sm:text-sm leading-relaxed ml-3 sm:ml-4">
                               {item.description}
                             </p>
                           </div>
 
                           {/* Achievements */}
-                          <div className="mb-6">
+                          <div className="mb-4 sm:mb-6">
                             <div className="flex items-center mb-3">
-                              <span className="text-yellow-400 font-mono text-sm font-semibold mr-2">⚡</span>
-                              <span className="text-yellow-400 font-mono text-sm">Key Achievements</span>
+                              <span className="text-yellow-400 font-mono text-xs sm:text-sm font-semibold mr-2">⚡</span>
+                              <span className="text-yellow-400 font-mono text-xs sm:text-sm">Key Achievements</span>
                             </div>
-                            <div className="grid gap-3">
+                            <div className="grid gap-2 sm:gap-3">
                               {item.achievements.map((achievement, achievementIndex) => (
-                                <div key={achievementIndex} className="flex items-start bg-gray-800/30 rounded-lg p-3 border border-gray-700 hover:border-blue-400/30 transition-colors">
-                                  <div className="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                                  <span className="text-gray-300 font-mono text-sm leading-relaxed">
+                                <div key={achievementIndex} className="flex items-start bg-gray-800/30 rounded-lg p-2 sm:p-3 border border-gray-700 hover:border-blue-400/30 transition-colors">
+                                  <div className="w-2 h-2 bg-blue-400 rounded-full mt-1 sm:mt-2 mr-2 sm:mr-3 flex-shrink-0"></div>
+                                  <span className="text-gray-300 font-mono text-xs sm:text-sm leading-relaxed">
                                     {achievement}
                                   </span>
                                 </div>
@@ -339,14 +339,14 @@ const Timeline = () => {
                           {/* Skills */}
                           <div>
                             <div className="flex items-center mb-3">
-                              <span className="text-yellow-400 font-mono text-sm font-semibold mr-2">🛠️</span>
-                              <span className="text-yellow-400 font-mono text-sm">Technologies & Skills</span>
+                              <span className="text-yellow-400 font-mono text-xs sm:text-sm font-semibold mr-2">🛠️</span>
+                              <span className="text-yellow-400 font-mono text-xs sm:text-sm">Technologies & Skills</span>
                             </div>
-                            <div className="flex flex-wrap gap-2">
+                            <div className="flex flex-wrap gap-1 sm:gap-2">
                               {item.skills.map((skill, skillIndex) => (
                                 <span
                                   key={skillIndex}
-                                  className="bg-gradient-to-r from-blue-900/40 to-cyan-900/40 text-cyan-300 px-3 py-2 rounded-lg border border-blue-400/30 text-sm font-mono hover:bg-gradient-to-r hover:from-blue-900/60 hover:to-cyan-900/60 transition-all duration-200"
+                                  className="bg-gradient-to-r from-blue-900/40 to-cyan-900/40 text-cyan-300 px-2 sm:px-3 py-1 sm:py-2 rounded-lg border border-blue-400/30 text-xs sm:text-sm font-mono hover:bg-gradient-to-r hover:from-blue-900/60 hover:to-cyan-900/60 transition-all duration-200"
                                 >
                                   {skill}
                                 </span>
@@ -470,16 +470,16 @@ const Timeline = () => {
                 transition={{ duration: 0.8 }}
                 className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-4 backdrop-blur-sm max-w-md mx-auto"
               >
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                   <button 
                     onClick={() => navigate('/projects')}
-                    className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 font-mono text-sm"
+                    className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 font-mono text-sm sm:text-base touch-manipulation w-full sm:w-auto"
                   >
                     View Projects
                   </button>
                   <button 
                     onClick={() => navigate('/contact')}
-                    className="border border-gray-600 text-gray-300 px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 hover:text-white transition-all duration-300 font-mono text-sm"
+                    className="border border-gray-600 text-gray-300 px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 hover:text-white transition-all duration-300 font-mono text-sm sm:text-base touch-manipulation w-full sm:w-auto"
                   >
                     Get In Touch
                   </button>

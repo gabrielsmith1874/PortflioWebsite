@@ -147,11 +147,11 @@ const Resume = () => {
             transition={{ duration: 0.8 }}
             className="mb-8"
           >
-            <h1 className="text-5xl sm:text-6xl font-bold mb-6 font-mono">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 font-mono">
               <span className="text-white">resume</span>
               <span className="text-orange-400">.pdf</span>
             </h1>
-            <p className="text-xl text-gray-400 font-mono">
+            <p className="text-lg sm:text-xl text-gray-400 font-mono">
               $ cat resume.txt | grep -E "(experience|skills|projects)"
             </p>
           </motion.div>
@@ -164,7 +164,7 @@ const Resume = () => {
               transition={{ duration: 0.5 }}
               className="max-w-4xl mx-auto mb-8"
             >
-              <div className="bg-black/80 border border-orange-400/30 rounded-lg p-6 font-mono text-sm">
+              <div className="bg-black/80 border border-orange-400/30 rounded-lg p-4 sm:p-6 font-mono text-sm">
                 
                 <div className="space-y-2">
                   <div className="flex items-center">
@@ -268,11 +268,11 @@ const Resume = () => {
                       transition={{ duration: 0.5 }}
                       className="ml-4 text-gray-300"
                     >
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                         {projects.slice(0, 4).map((project, index) => (
                           <div key={index} className="border border-orange-400/30 rounded p-3">
-                            <div className="text-orange-400 font-semibold">{project.name}</div>
-                            <div className="text-sm text-gray-400">{project.description}</div>
+                            <div className="text-orange-400 font-semibold text-sm sm:text-base">{project.name}</div>
+                            <div className="text-xs sm:text-sm text-gray-400 mt-1">{project.description}</div>
                             <div className="text-xs text-red-400 mt-1">
                               {project.technologies?.slice(0, 3).join(', ') || 'N/A'}
                             </div>
@@ -301,22 +301,22 @@ const Resume = () => {
                       transition={{ duration: 0.5 }}
                       className="ml-4 text-gray-300"
                     >
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                         <div>
-                          <div className="text-orange-400 font-semibold">Programming Languages</div>
-                          <div className="text-sm">{skills.programming?.join(', ') || 'N/A'}</div>
+                          <div className="text-orange-400 font-semibold text-sm sm:text-base">Programming Languages</div>
+                          <div className="text-xs sm:text-sm">{skills.programming?.join(', ') || 'N/A'}</div>
                         </div>
                         <div>
-                          <div className="text-orange-400 font-semibold">AI/ML</div>
-                          <div className="text-sm">{skills.ai_ml?.join(', ') || 'N/A'}</div>
+                          <div className="text-orange-400 font-semibold text-sm sm:text-base">AI/ML</div>
+                          <div className="text-xs sm:text-sm">{skills.ai_ml?.join(', ') || 'N/A'}</div>
                         </div>
                         <div>
-                          <div className="text-orange-400 font-semibold">Data Science</div>
-                          <div className="text-sm">{skills.data_science?.join(', ') || 'N/A'}</div>
+                          <div className="text-orange-400 font-semibold text-sm sm:text-base">Data Science</div>
+                          <div className="text-xs sm:text-sm">{skills.data_science?.join(', ') || 'N/A'}</div>
                         </div>
                         <div>
-                          <div className="text-orange-400 font-semibold">Other Skills</div>
-                          <div className="text-sm">{skills.other?.join(', ') || 'N/A'}</div>
+                          <div className="text-orange-400 font-semibold text-sm sm:text-base">Other Skills</div>
+                          <div className="text-xs sm:text-sm">{skills.other?.join(', ') || 'N/A'}</div>
                         </div>
                       </div>
                     </motion.div>
@@ -374,14 +374,14 @@ const Resume = () => {
                       <div className="flex flex-col sm:flex-row gap-3">
                         <button 
                           onClick={downloadResume}
-                          className="bg-gradient-to-r from-orange-400 to-red-400 text-black px-6 py-2 rounded font-semibold hover:shadow-lg hover:shadow-orange-400/25 transition-all duration-300 flex items-center justify-center text-sm"
+                          className="bg-gradient-to-r from-orange-400 to-red-400 text-black px-6 py-3 rounded font-semibold hover:shadow-lg hover:shadow-orange-400/25 transition-all duration-300 flex items-center justify-center text-sm sm:text-base touch-manipulation w-full sm:w-auto"
                         >
                           <Download size={16} className="mr-2" />
                           Download PDF
                         </button>
                         <button 
                           onClick={() => navigate('/contact')}
-                          className="border border-orange-400 text-orange-400 px-6 py-2 rounded font-semibold hover:bg-orange-400 hover:text-black transition-all duration-300 flex items-center justify-center text-sm"
+                          className="border border-orange-400 text-orange-400 px-6 py-3 rounded font-semibold hover:bg-orange-400 hover:text-black transition-all duration-300 flex items-center justify-center text-sm sm:text-base touch-manipulation w-full sm:w-auto"
                         >
                           <Mail size={16} className="mr-2" />
                           Get In Touch

@@ -87,7 +87,7 @@ const Navigation = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4">
             {/* Current Page Indicator */}
             <div className="hidden lg:flex items-center space-x-2 px-3 py-2 rounded text-sm font-mono text-terminal-text bg-dark-surface border border-dark-border">
               <span className={
@@ -102,7 +102,8 @@ const Navigation = () => {
 
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-300 hover:text-white hover:bg-dark-surface focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              className="md:hidden inline-flex items-center justify-center p-3 rounded-md text-gray-300 hover:text-white hover:bg-dark-surface focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white touch-manipulation"
+              aria-label="Toggle mobile menu"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -113,19 +114,23 @@ const Navigation = () => {
       {/* Mobile Navigation */}
       {isOpen && (
         <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-dark-surface border-t border-gray-700">
+          <div className="px-4 pt-4 pb-6 space-y-2 bg-dark-surface border-t border-gray-700">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 to={item.path}
-                className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
+                className={`block px-4 py-3 rounded-lg text-lg font-medium transition-colors duration-200 touch-manipulation ${
                   location.pathname === item.path
-                    ? 'text-accent-blue bg-dark-card'
+                    ? `${isTimelinePage ? 'text-blue-400 bg-blue-900/20 border border-blue-400/30' : 
+                        isProjectsPage ? 'text-purple-400 bg-purple-900/20 border border-purple-400/30' : 
+                        isResumePage ? 'text-orange-400 bg-orange-900/20 border border-orange-400/30' :
+                        isContactPage ? 'text-cyan-400 bg-cyan-900/20 border border-cyan-400/30' :
+                        'text-terminal-green bg-green-900/20 border border-terminal-green/30'}`
                     : 'text-gray-300 hover:text-white hover:bg-dark-card'
                 }`}
                 onClick={() => setIsOpen(false)}
               >
-                {item.name}
+                {item.name.toLowerCase()}
               </Link>
             ))}
           </div>

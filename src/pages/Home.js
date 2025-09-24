@@ -129,7 +129,7 @@ const Home = () => {
             transition={{ duration: 0.8 }}
           >
             {/* Terminal-style container */}
-            <div className="bg-dark-surface/80 border-2 border-terminal-green/50 rounded-lg p-6 backdrop-blur-sm shadow-lg shadow-terminal-green/20">
+            <div className="bg-dark-surface/80 border-2 border-terminal-green/50 rounded-lg p-4 sm:p-6 backdrop-blur-sm shadow-lg shadow-terminal-green/20">
               {/* Command 1: whoami */}
               <div className="mb-4">
                 <span className="prompt-text text-lg font-mono">gabriel@portfolio:~$ </span>
@@ -150,7 +150,7 @@ const Home = () => {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8, delay: 0.5 }}
-                    className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 font-mono mt-8"
+                    className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 font-mono mt-6 sm:mt-8"
                   >
                     <span className="gradient-text">Gabriel Smith</span>
                   </motion.h1>
@@ -175,7 +175,7 @@ const Home = () => {
                   {currentCommand > 1 && (
                     <>
                       <span className="command-text text-lg font-mono">cat title.txt</span>
-                      <div className="text-terminal-text text-xl sm:text-2xl font-mono mt-2">
+                      <div className="text-terminal-text text-lg sm:text-xl md:text-2xl font-mono mt-2">
                         Computer Science & Statistics Student
                       </div>
                     </>
@@ -201,7 +201,7 @@ const Home = () => {
                   {currentCommand > 2 && (
                     <>
                       <span className="command-text text-lg font-mono">cat about.md</span>
-                      <div className="text-terminal-text text-lg font-mono mt-2 max-w-2xl">
+                      <div className="text-terminal-text text-sm sm:text-base md:text-lg font-mono mt-2 max-w-2xl mx-auto">
                         Passionate about technology and innovation, eager to learn new skills, 
                         and ready to apply them to real-world challenges in programming, AI, and software development.
                       </div>
@@ -220,12 +220,12 @@ const Home = () => {
 
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mt-6 sm:mt-8">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => navigate('/projects')}
-                className="unix-button px-8 py-3 text-lg font-mono"
+                className="unix-button px-6 sm:px-8 py-3 text-sm sm:text-base md:text-lg font-mono w-full sm:w-auto touch-manipulation"
               >
                 <span className="command-text">./view_projects.sh</span>
               </motion.button>
@@ -233,7 +233,7 @@ const Home = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => navigate('/contact')}
-                className="unix-button px-8 py-3 text-lg font-mono"
+                className="unix-button px-6 sm:px-8 py-3 text-sm sm:text-base md:text-lg font-mono w-full sm:w-auto touch-manipulation"
               >
                 <span className="command-text">./contact.sh</span>
               </motion.button>
@@ -409,10 +409,10 @@ const Home = () => {
                       transition={{ duration: 0.8 }}
                       className="mt-6 bg-dark-surface/60 border border-accent-blue/20 rounded-lg p-6 backdrop-blur-sm"
                     >
-                      <h2 className="text-4xl sm:text-5xl font-bold mb-6 font-mono text-center">
+                      <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 font-mono text-center">
                         About <span className="gradient-text">Me</span>
                       </h2>
-                      <div className="text-terminal-text text-lg font-mono">
+                      <div className="text-terminal-text text-sm sm:text-base md:text-lg font-mono">
                         I'm a Computer Science and Statistics student at University of Toronto with a strong foundation in programming, specifically data structures, algorithms, and artificial intelligence. Currently working as a Systems Developer at the Ministry of Public and Business Service Delivery.
                       </div>
                     </motion.div>
@@ -504,24 +504,24 @@ const Home = () => {
               className="bg-dark-surface/60 border border-accent-blue/20 rounded-lg p-6 backdrop-blur-sm"
             >
               {/* Skills Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
                 {skills.map((skill, index) => (
                   <motion.div
                     key={skill.name}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.8, delay: index * 0.1 }}
-                    className="unix-card p-4 h-full"
+                    className="unix-card p-3 sm:p-4 h-full"
                   >
-                    <skill.icon size={48} className="text-terminal-green mb-4" />
-                    <h3 className="text-xl font-semibold mb-2 text-terminal-text font-mono">{skill.name}</h3>
-                    <p className="text-terminal-text font-mono">{skill.description}</p>
+                    <skill.icon size={40} className="text-terminal-green mb-3 sm:mb-4 mx-auto sm:mx-0" />
+                    <h3 className="text-lg sm:text-xl font-semibold mb-2 text-terminal-text font-mono text-center sm:text-left">{skill.name}</h3>
+                    <p className="text-terminal-text font-mono text-sm sm:text-base text-center sm:text-left">{skill.description}</p>
                   </motion.div>
                 ))}
               </div>
 
               {/* Stats */}
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                 {stats.map((stat, index) => (
                   <motion.div
                     key={stat.label}
@@ -530,8 +530,8 @@ const Home = () => {
                     transition={{ duration: 0.8, delay: (index + 4) * 0.1 }}
                     className="text-center h-full"
                   >
-                    <div className="text-4xl font-bold gradient-text mb-2 font-mono">{stat.number}</div>
-                    <div className="text-terminal-text font-mono">{stat.label}</div>
+                    <div className="text-2xl sm:text-3xl md:text-4xl font-bold gradient-text mb-1 sm:mb-2 font-mono">{stat.number}</div>
+                    <div className="text-terminal-text font-mono text-xs sm:text-sm md:text-base">{stat.label}</div>
                   </motion.div>
                 ))}
               </div>
@@ -638,26 +638,26 @@ const Home = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-4xl sm:text-5xl font-bold mb-6 font-mono text-center"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 font-mono text-center"
               >
                 Featured <span className="gradient-text">Projects</span>
               </motion.h2>
 
               {/* Projects List - Terminal Style */}
-              <div className="space-y-6 mb-6">
+              <div className="space-y-4 sm:space-y-6 mb-4 sm:mb-6">
                 {/* Project 1 */}
-                <div className="border-b border-dark-border pb-4">
-                  <div className="flex items-start justify-between mb-2">
-                    <div>
-                      <span className="text-terminal-green font-mono text-sm">~/projects/stroku</span>
-                      <h3 className="text-xl font-bold text-terminal-text font-mono mt-1">Stroku</h3>
+                <div className="border-b border-dark-border pb-3 sm:pb-4">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2 gap-2">
+                    <div className="flex-1">
+                      <span className="text-terminal-green font-mono text-xs sm:text-sm">~/projects/stroku</span>
+                      <h3 className="text-lg sm:text-xl font-bold text-terminal-text font-mono mt-1">Stroku</h3>
                     </div>
-                    <span className="text-accent-green font-mono text-xs bg-accent-green/10 px-2 py-1 rounded">ACTIVE</span>
+                    <span className="text-accent-green font-mono text-xs bg-accent-green/10 px-2 py-1 rounded self-start">ACTIVE</span>
                   </div>
-                  <p className="text-terminal-text/80 font-mono text-sm mb-3">
+                  <p className="text-terminal-text/80 font-mono text-xs sm:text-sm mb-3">
                     Cross-platform streaming solution connecting Android devices with Roku TVs
                   </p>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1 sm:gap-2">
                     <span className="px-2 py-1 bg-dark-border text-terminal-text font-mono text-xs rounded">React</span>
                     <span className="px-2 py-1 bg-dark-border text-terminal-text font-mono text-xs rounded">JavaScript</span>
                     <span className="px-2 py-1 bg-dark-border text-terminal-text font-mono text-xs rounded">Streaming</span>
@@ -665,18 +665,18 @@ const Home = () => {
                 </div>
 
                 {/* Project 2 */}
-                <div className="border-b border-dark-border pb-4">
-                  <div className="flex items-start justify-between mb-2">
-                    <div>
-                      <span className="text-terminal-green font-mono text-sm">~/projects/battleship-ai</span>
-                      <h3 className="text-xl font-bold text-terminal-text font-mono mt-1">Battleship Solitaire AI</h3>
+                <div className="border-b border-dark-border pb-3 sm:pb-4">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2 gap-2">
+                    <div className="flex-1">
+                      <span className="text-terminal-green font-mono text-xs sm:text-sm">~/projects/battleship-ai</span>
+                      <h3 className="text-lg sm:text-xl font-bold text-terminal-text font-mono mt-1">Battleship Solitaire AI</h3>
                     </div>
-                    <span className="text-accent-blue font-mono text-xs bg-accent-blue/10 px-2 py-1 rounded">COMPLETE</span>
+                    <span className="text-accent-blue font-mono text-xs bg-accent-blue/10 px-2 py-1 rounded self-start">COMPLETE</span>
                   </div>
-                  <p className="text-terminal-text/80 font-mono text-sm mb-3">
+                  <p className="text-terminal-text/80 font-mono text-xs sm:text-sm mb-3">
                     AI-powered puzzle solver using constraint satisfaction algorithms
                   </p>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1 sm:gap-2">
                     <span className="px-2 py-1 bg-dark-border text-terminal-text font-mono text-xs rounded">Python</span>
                     <span className="px-2 py-1 bg-dark-border text-terminal-text font-mono text-xs rounded">AI/ML</span>
                     <span className="px-2 py-1 bg-dark-border text-terminal-text font-mono text-xs rounded">Algorithms</span>
@@ -685,17 +685,17 @@ const Home = () => {
 
                 {/* Project 3 */}
                 <div>
-                  <div className="flex items-start justify-between mb-2">
-                    <div>
-                      <span className="text-terminal-green font-mono text-sm">~/projects/checkers-ai</span>
-                      <h3 className="text-xl font-bold text-terminal-text font-mono mt-1">Checkers AI</h3>
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2 gap-2">
+                    <div className="flex-1">
+                      <span className="text-terminal-green font-mono text-xs sm:text-sm">~/projects/checkers-ai</span>
+                      <h3 className="text-lg sm:text-xl font-bold text-terminal-text font-mono mt-1">Checkers AI</h3>
                     </div>
-                    <span className="text-accent-blue font-mono text-xs bg-accent-blue/10 px-2 py-1 rounded">COMPLETE</span>
+                    <span className="text-accent-blue font-mono text-xs bg-accent-blue/10 px-2 py-1 rounded self-start">COMPLETE</span>
                   </div>
-                  <p className="text-terminal-text/80 font-mono text-sm mb-3">
+                  <p className="text-terminal-text/80 font-mono text-xs sm:text-sm mb-3">
                     Advanced game AI with Minimax algorithm and alpha-beta pruning
                   </p>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1 sm:gap-2">
                     <span className="px-2 py-1 bg-dark-border text-terminal-text font-mono text-xs rounded">Python</span>
                     <span className="px-2 py-1 bg-dark-border text-terminal-text font-mono text-xs rounded">PyGame</span>
                     <span className="px-2 py-1 bg-dark-border text-terminal-text font-mono text-xs rounded">Minimax</span>
@@ -810,12 +810,12 @@ const Home = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-4xl sm:text-5xl font-bold mb-6 font-mono text-center"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 font-mono text-center"
               >
                 Let's Build Something <span className="gradient-text">Amazing</span>
               </motion.h2>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                 {showCTAButtons && (
                   <>
                     <motion.button
@@ -823,7 +823,7 @@ const Home = () => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.8, delay: 0.4 }}
                       onClick={() => navigate('/contact')}
-                      className="bg-gradient-to-r from-accent-blue to-accent-purple text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg hover:shadow-accent-blue/25 transition-all duration-300 text-sm"
+                      className="bg-gradient-to-r from-accent-blue to-accent-purple text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-accent-blue/25 transition-all duration-300 text-sm sm:text-base touch-manipulation w-full sm:w-auto"
                     >
                       Get In Touch
                     </motion.button>
@@ -832,7 +832,7 @@ const Home = () => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.8, delay: 0.6 }}
                       onClick={() => navigate('/resume')}
-                      className="border border-gray-600 text-gray-300 px-6 py-2 rounded-lg font-semibold hover:bg-gray-800 hover:text-white transition-all duration-300 text-sm"
+                      className="border border-gray-600 text-gray-300 px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 hover:text-white transition-all duration-300 text-sm sm:text-base touch-manipulation w-full sm:w-auto"
                     >
                       Download Resume
                     </motion.button>

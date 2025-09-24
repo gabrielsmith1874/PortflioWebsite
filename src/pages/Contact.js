@@ -166,11 +166,11 @@ const Contact = () => {
             transition={{ duration: 0.8 }}
             className="mb-8"
           >
-            <h1 className="text-5xl sm:text-6xl font-bold mb-6 font-mono">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 font-mono">
               <span className="text-white">contact</span>
               <span className="text-cyan-400">.sh</span>
             </h1>
-            <p className="text-xl text-gray-400 font-mono">
+            <p className="text-lg sm:text-xl text-gray-400 font-mono">
               $ ./contact.sh --help
             </p>
           </motion.div>
@@ -183,7 +183,7 @@ const Contact = () => {
               transition={{ duration: 0.5 }}
               className="max-w-4xl mx-auto mb-8"
             >
-              <div className="bg-black/80 border border-cyan-400/30 rounded-lg p-6 font-mono text-sm">
+              <div className="bg-black/80 border border-cyan-400/30 rounded-lg p-4 sm:p-6 font-mono text-sm">
                 
                 <div className="space-y-2">
                   <div className="flex items-center">
@@ -247,7 +247,7 @@ const Contact = () => {
                             type="text"
                             name="name"
                             required
-                            className="w-full bg-black/50 border border-cyan-400/30 rounded px-3 py-2 text-white focus:border-cyan-400 focus:outline-none"
+                            className="w-full bg-black/50 border border-cyan-400/30 rounded px-3 py-3 text-white focus:border-cyan-400 focus:outline-none text-base"
                             placeholder="Your name"
                           />
                         </div>
@@ -257,7 +257,7 @@ const Contact = () => {
                             type="email"
                             name="email"
                             required
-                            className="w-full bg-black/50 border border-cyan-400/30 rounded px-3 py-2 text-white focus:border-cyan-400 focus:outline-none"
+                            className="w-full bg-black/50 border border-cyan-400/30 rounded px-3 py-3 text-white focus:border-cyan-400 focus:outline-none text-base"
                             placeholder="your.email@example.com"
                           />
                         </div>
@@ -266,7 +266,7 @@ const Contact = () => {
                           <input
                             type="text"
                             name="subject"
-                            className="w-full bg-black/50 border border-cyan-400/30 rounded px-3 py-2 text-white focus:border-cyan-400 focus:outline-none"
+                            className="w-full bg-black/50 border border-cyan-400/30 rounded px-3 py-3 text-white focus:border-cyan-400 focus:outline-none text-base"
                             placeholder="Message subject"
                           />
                         </div>
@@ -276,14 +276,14 @@ const Contact = () => {
                             name="message"
                             required
                             rows={4}
-                            className="w-full bg-black/50 border border-cyan-400/30 rounded px-3 py-2 text-white focus:border-cyan-400 focus:outline-none resize-none"
+                            className="w-full bg-black/50 border border-cyan-400/30 rounded px-3 py-3 text-white focus:border-cyan-400 focus:outline-none resize-none text-base"
                             placeholder="Your message here..."
                           />
                         </div>
                         <div className="flex justify-center">
                           <button
                             type="submit"
-                            className="bg-gradient-to-r from-cyan-400 to-teal-400 text-black px-6 py-2 rounded font-semibold hover:shadow-lg hover:shadow-cyan-400/25 transition-all duration-300 flex items-center text-sm"
+                            className="bg-gradient-to-r from-cyan-400 to-teal-400 text-black px-6 py-3 rounded font-semibold hover:shadow-lg hover:shadow-cyan-400/25 transition-all duration-300 flex items-center text-sm sm:text-base touch-manipulation"
                           >
                             <Send size={16} className="mr-2" />
                             Send Message
@@ -308,38 +308,38 @@ const Contact = () => {
                         <p className="text-gray-400 mb-4 font-mono text-sm">
                           Prefer other ways to reach out? Here are additional options.
                         </p>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                           <a 
                             href={`mailto:${contactInfo.email}`}
-                            className="flex items-center justify-center p-3 border border-cyan-400/30 rounded hover:bg-cyan-400/10 transition-all duration-300"
+                            className="flex items-center justify-center p-4 border border-cyan-400/30 rounded hover:bg-cyan-400/10 transition-all duration-300 touch-manipulation"
                           >
-                            <Mail size={16} className="mr-2 text-cyan-400" />
-                            <span className="text-white text-sm">Direct Email</span>
+                            <Mail size={18} className="mr-2 text-cyan-400" />
+                            <span className="text-white text-sm sm:text-base">Direct Email</span>
                           </a>
                           <a 
                             href={`tel:${contactInfo.phone}`}
-                            className="flex items-center justify-center p-3 border border-cyan-400/30 rounded hover:bg-cyan-400/10 transition-all duration-300"
+                            className="flex items-center justify-center p-4 border border-cyan-400/30 rounded hover:bg-cyan-400/10 transition-all duration-300 touch-manipulation"
                           >
-                            <Phone size={16} className="mr-2 text-cyan-400" />
-                            <span className="text-white text-sm">Phone Call</span>
+                            <Phone size={18} className="mr-2 text-cyan-400" />
+                            <span className="text-white text-sm sm:text-base">Phone Call</span>
                           </a>
                           <a 
                             href={`https://${contactInfo.linkedin}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center justify-center p-3 border border-cyan-400/30 rounded hover:bg-cyan-400/10 transition-all duration-300"
+                            className="flex items-center justify-center p-4 border border-cyan-400/30 rounded hover:bg-cyan-400/10 transition-all duration-300 touch-manipulation"
                           >
-                            <Linkedin size={16} className="mr-2 text-cyan-400" />
-                            <span className="text-white text-sm">LinkedIn</span>
+                            <Linkedin size={18} className="mr-2 text-cyan-400" />
+                            <span className="text-white text-sm sm:text-base">LinkedIn</span>
                           </a>
                           <a 
                             href={`https://${contactInfo.github}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center justify-center p-3 border border-cyan-400/30 rounded hover:bg-cyan-400/10 transition-all duration-300"
+                            className="flex items-center justify-center p-4 border border-cyan-400/30 rounded hover:bg-cyan-400/10 transition-all duration-300 touch-manipulation"
                           >
-                            <Github size={16} className="mr-2 text-cyan-400" />
-                            <span className="text-white text-sm">GitHub</span>
+                            <Github size={18} className="mr-2 text-cyan-400" />
+                            <span className="text-white text-sm sm:text-base">GitHub</span>
                           </a>
                         </div>
                       </div>

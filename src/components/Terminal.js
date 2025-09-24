@@ -515,8 +515,8 @@ const Terminal = () => {
 
   return (
     <div className={`fixed z-50 transition-all duration-300 ${
-      isMinimized ? 'bottom-0 right-6' : isMaximized ? 'inset-4' : 'bottom-6 right-6'
-    } ${isMinimized ? 'w-64 h-12' : isMaximized ? 'w-auto h-auto' : 'w-96 h-80'}`}>
+      isMinimized ? 'bottom-0 right-2 sm:right-6' : isMaximized ? 'inset-2 sm:inset-4' : 'bottom-2 right-2 sm:bottom-6 sm:right-6'
+    } ${isMinimized ? 'w-64 h-12' : isMaximized ? 'w-auto h-auto' : 'w-80 sm:w-96 h-64 sm:h-80'}`}>
       <div 
         className={`bg-dark-surface/95 border rounded-lg shadow-2xl backdrop-blur-sm h-full flex flex-col ${
           isTimelinePage ? 'border-blue-400/30' : 
@@ -535,7 +535,7 @@ const Terminal = () => {
       >
         {/* Terminal Header */}
         <div 
-          className={`bg-terminal-header border-b px-4 py-2 flex items-center justify-between rounded-t-lg cursor-pointer ${
+          className={`bg-terminal-header border-b px-3 sm:px-4 py-2 flex items-center justify-between rounded-t-lg cursor-pointer ${
             isTimelinePage ? 'border-blue-400/30' : 
             isProjectsPage ? 'border-purple-400/30' : 
             isResumePage ? 'border-orange-400/30' :
@@ -558,7 +558,7 @@ const Terminal = () => {
               isContactPage ? 'text-cyan-400' :
               'text-terminal-green'
             } />
-            <span className="text-sm text-terminal-text font-mono">gabriel@portfolio:~$</span>
+            <span className="text-xs sm:text-sm text-terminal-text font-mono">gabriel@portfolio:~$</span>
           </div>
           <div className="flex items-center space-x-2">
             <button
@@ -580,7 +580,7 @@ const Terminal = () => {
 
         {/* Terminal Content */}
         <div 
-          className="terminal-content flex-1 p-4 overflow-y-auto bg-dark-bg/50 text-terminal-text font-mono text-sm cursor-text" 
+          className="terminal-content flex-1 p-3 sm:p-4 overflow-y-auto bg-dark-bg/50 text-terminal-text font-mono text-xs sm:text-sm cursor-text" 
           ref={terminalRef}
           onClick={(e) => {
             e.stopPropagation();
