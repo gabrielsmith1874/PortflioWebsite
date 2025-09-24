@@ -223,29 +223,29 @@ const CheckersDemo = ({ isOpen, onClose }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+        className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-4"
         onClick={onClose}
       >
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
-          className="bg-gray-900 border border-purple-400/30 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+          className="bg-gray-900 border border-purple-400/30 rounded-lg max-w-4xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-y-auto mx-2 sm:mx-4"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="flex items-center justify-between p-4 border-b border-purple-400/30">
-            <h2 className="text-2xl font-bold text-white">Checkers AI Challenge</h2>
-            <div className="flex items-center gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 border-b border-purple-400/30 gap-3 sm:gap-4">
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white text-center sm:text-left">Checkers AI Challenge</h2>
+            <div className="flex items-center gap-2 sm:gap-4 justify-center sm:justify-end">
               <button
                 onClick={resetGame}
-                className="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-lg font-semibold transition-colors"
+                className="bg-purple-600 hover:bg-purple-500 text-white px-3 sm:px-4 py-2 rounded-lg font-semibold transition-colors text-sm sm:text-base touch-manipulation"
               >
                 New Game
               </button>
               <button
                 onClick={onClose}
-                className="bg-gray-600 hover:bg-gray-500 text-white px-4 py-2 rounded-lg font-semibold transition-colors"
+                className="bg-gray-600 hover:bg-gray-500 text-white px-3 sm:px-4 py-2 rounded-lg font-semibold transition-colors text-sm sm:text-base touch-manipulation"
               >
                 Close
               </button>
@@ -253,23 +253,23 @@ const CheckersDemo = ({ isOpen, onClose }) => {
           </div>
 
           {/* Game Status */}
-          <div className="p-4 border-b border-purple-400/30">
-            <div className="flex items-center justify-between">
-              <div className="text-white">
+          <div className="p-3 sm:p-4 border-b border-purple-400/30">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              <div className="text-white text-center sm:text-left">
                 {gameOver ? (
-                  <span className="text-lg font-bold">
+                  <span className="text-base sm:text-lg font-bold">
                     Game Over! Winner: {winner === 'black' ? 'You' : winner === 'red' ? 'AI' : 'Tie'}
                   </span>
                 ) : (
-                  <span className="text-lg">
+                  <span className="text-base sm:text-lg">
                     {aiThinking ? 'AI is thinking...' : currentPlayer === 'b' ? 'Your turn (Black)' : currentPlayer === 'r' ? 'AI turn (Red)' : 'Waiting...'}
                   </span>
                 )}
               </div>
               {aiThinking && (
-                <div className="flex items-center gap-2 text-purple-400">
+                <div className="flex items-center justify-center sm:justify-end gap-2 text-purple-400">
                   <div className="animate-spin w-4 h-4 border-2 border-purple-400 border-t-transparent rounded-full"></div>
-                  <span>AI analyzing...</span>
+                  <span className="text-sm sm:text-base">AI analyzing...</span>
                 </div>
               )}
             </div>
@@ -277,16 +277,16 @@ const CheckersDemo = ({ isOpen, onClose }) => {
 
           {/* Error Display */}
           {error && (
-            <div className="p-4 bg-red-900/50 border-l-4 border-red-500">
-              <div className="text-red-400">
+            <div className="p-3 sm:p-4 bg-red-900/50 border-l-4 border-red-500">
+              <div className="text-red-400 text-sm sm:text-base">
                 <strong>Error:</strong> {error}
               </div>
             </div>
           )}
 
           {/* Game Board */}
-          <div className="p-6 flex justify-center">
-            <div className="grid grid-cols-8 gap-0 bg-gray-800 p-2 rounded-lg border-2 border-purple-400/30">
+          <div className="p-3 sm:p-6 flex justify-center">
+            <div className="grid grid-cols-8 gap-0 bg-gray-800 p-1 sm:p-2 rounded-lg border-2 border-purple-400/30 max-w-full overflow-hidden">
               {board.map((row, rowIndex) =>
                 row.map((piece, colIndex) => {
                   // Flip the board so black pieces are at the bottom (row 0 is now at bottom)
@@ -300,11 +300,11 @@ const CheckersDemo = ({ isOpen, onClose }) => {
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: (rowIndex * 8 + colIndex) * 0.01 }}
                       className={`
-                        w-16 h-16 flex items-center justify-center cursor-pointer transition-all duration-300 border border-gray-600
+                        w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 flex items-center justify-center cursor-pointer transition-all duration-300 border border-gray-600 touch-manipulation
                         ${getCellClass(displayRowIndex, displayColIndex, piece)}
-                        ${selectedCell?.row === rowIndex && selectedCell?.col === colIndex ? 'ring-4 ring-yellow-400 shadow-lg shadow-yellow-400/50' : ''}
-                        ${validMoves.some(move => move.row === rowIndex && move.col === colIndex) ? 'ring-2 ring-green-400 shadow-lg shadow-green-400/50 bg-green-400/20' : ''}
-                        ${piece !== '.' && piece.toLowerCase() === 'b' ? 'hover:ring-2 hover:ring-blue-400 hover:shadow-lg hover:shadow-blue-400/30' : ''}
+                        ${selectedCell?.row === rowIndex && selectedCell?.col === colIndex ? 'ring-2 sm:ring-4 ring-yellow-400 shadow-lg shadow-yellow-400/50' : ''}
+                        ${validMoves.some(move => move.row === rowIndex && move.col === colIndex) ? 'ring-1 sm:ring-2 ring-green-400 shadow-lg shadow-green-400/50 bg-green-400/20' : ''}
+                        ${piece !== '.' && piece.toLowerCase() === 'b' ? 'hover:ring-1 sm:hover:ring-2 hover:ring-blue-400 hover:shadow-lg hover:shadow-blue-400/30' : ''}
                       `}
                       onClick={() => handleCellClick(rowIndex, colIndex)}
                     >
@@ -313,13 +313,13 @@ const CheckersDemo = ({ isOpen, onClose }) => {
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         className={`
-                          w-12 h-12 rounded-full border-2 flex items-center justify-center shadow-lg transition-all duration-300
+                          w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 rounded-full border-2 flex items-center justify-center shadow-lg transition-all duration-300
                           ${piece.toLowerCase() === 'r' ? 'bg-red-600 border-red-800' : 'bg-black border-gray-700'}
                           ${capturedPiece?.row === rowIndex && capturedPiece?.col === colIndex ? 'opacity-0 scale-0' : ''}
                         `}
                       >
                         {isKing(piece) && (
-                          <span className="text-yellow-400 text-xl">♔</span>
+                          <span className="text-yellow-400 text-xs sm:text-base md:text-xl">♔</span>
                         )}
                       </motion.div>
                     )}
@@ -331,8 +331,8 @@ const CheckersDemo = ({ isOpen, onClose }) => {
           </div>
 
           {/* Game Info */}
-          <div className="p-4 border-t border-purple-400/30">
-            <div className="text-gray-300 text-sm">
+          <div className="p-3 sm:p-4 border-t border-purple-400/30">
+            <div className="text-gray-300 text-xs sm:text-sm">
               <p><strong>How to play:</strong></p>
               <ul className="list-disc list-inside mt-2 space-y-1">
                 <li>You play as <span className="text-gray-400">Black pieces</span></li>

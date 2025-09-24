@@ -89,7 +89,7 @@ const Projects = () => {
   return (
     <div className="min-h-screen bg-dark-bg">
       {/* Hero Section with Terminal Commands */}
-      <section className="relative py-16 px-4 sm:px-6 lg:px-8 min-h-screen overflow-hidden">
+      <section className="relative py-20 sm:py-24 px-4 sm:px-6 lg:px-8 min-h-screen overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-purple-900/20 to-black"></div>
         <div className="absolute inset-0">
@@ -166,13 +166,13 @@ const Projects = () => {
           <div className="absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-pink-400/20 animate-pulse delay-900"></div>
         </div>
 
-        <div className="max-w-4xl mx-auto text-center relative z-10">
+        <div className="max-w-4xl mx-auto text-center relative z-10 pt-8 sm:pt-12">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="mb-16"
+            className="mb-12 sm:mb-16"
           >
             <div className="text-center mb-8 sm:mb-16">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 font-mono">

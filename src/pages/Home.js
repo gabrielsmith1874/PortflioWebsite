@@ -257,7 +257,7 @@ const Home = () => {
       </section>
 
         {/* About Section */}
-        <section className="relative py-12 px-4 sm:px-6 lg:px-8 h-[1200px] overflow-hidden">
+        <section className="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8 min-h-[1200px] overflow-hidden">
           {/* Unique About Section Background */}
           <div className="absolute inset-0 bg-gradient-to-br from-dark-surface via-dark-bg to-dark-card"></div>
           <div className="absolute inset-0 h-[1200px]">
@@ -371,13 +371,13 @@ const Home = () => {
             <div className="absolute bottom-1/6 right-1/8 w-52 h-52 bg-gradient-to-r from-terminal-green/7 to-accent-blue/7 rounded-full blur-3xl animate-pulse delay-600"></div>
           </div>
 
-          <div className="max-w-6xl mx-auto relative z-10">
+          <div className="max-w-6xl mx-auto relative z-10 pt-8 sm:pt-12">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-16"
+            className="text-center mb-12 sm:mb-16"
              onViewportEnter={() => {
                if (currentSection === 0) {
                  setCurrentSection(1);
@@ -541,7 +541,7 @@ const Home = () => {
       </section>
 
       {/* Featured Projects Preview */}
-      <section className="relative py-12 px-4 sm:px-6 lg:px-8 h-[1200px] overflow-hidden">
+      <section className="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8 min-h-[1200px] overflow-hidden">
         {/* Unique Projects Section Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-dark-card via-dark-surface to-dark-bg"></div>
         <div className="absolute inset-0 h-[1200px]">
@@ -564,13 +564,13 @@ const Home = () => {
 
         </div>
 
-        <div className="max-w-6xl mx-auto relative z-10">
+        <div className="max-w-6xl mx-auto relative z-10 pt-8 sm:pt-12">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-16"
+            className="text-center mb-12 sm:mb-16"
              onViewportEnter={() => {
                setTimeout(() => setShowProjectsCommands(true), 500);
              }}
@@ -721,7 +721,7 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="relative py-12 px-4 sm:px-6 lg:px-8 h-[600px] overflow-hidden">
+      <section className="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8 min-h-[600px] overflow-hidden">
         {/* Simple CTA Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-dark-card via-dark-surface to-dark-bg"></div>
         <div className="absolute inset-0 h-[600px]">
@@ -739,7 +739,7 @@ const Home = () => {
           </div>
         </div>
         
-        <div className="max-w-4xl mx-auto text-center relative z-10">
+        <div className="max-w-4xl mx-auto text-center relative z-10 pt-8 sm:pt-12">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
