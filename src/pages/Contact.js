@@ -71,17 +71,17 @@ const Contact = () => {
     setSubmitStatus(null);
 
     try {
-      // Create mailto link for email service
-      const subject = encodeURIComponent(formData.subject || 'Contact from Portfolio');
-      const body = encodeURIComponent(
-        `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-      );
+      // Submit to Netlify Forms
+      const form = e.target;
+      const formData = new FormData(form);
       
-      // Open email client
-      window.open(`mailto:${contactInfo.email}?subject=${subject}&body=${body}`);
-      
-      // Simulate success after a short delay
-      setTimeout(() => {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData).toString()
+      });
+
+      if (response.ok) {
         setSubmitStatus('success');
         setFormData({
           name: '',
@@ -89,17 +89,25 @@ const Contact = () => {
           subject: '',
           message: ''
         });
-        setIsSubmitting(false);
-      }, 1000);
-      
+      } else {
+        setSubmitStatus('error');
+      }
     } catch (error) {
       setSubmitStatus('error');
+    } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
     <div className="min-h-screen bg-dark-bg relative overflow-hidden">
+      {/* Hidden form for Netlify form detection */}
+      <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <input type="text" name="subject" />
+        <textarea name="message"></textarea>
+      </form>
       {/* Animated Background */}
       <div className="absolute inset-0">
         {/* Terminal-style grid pattern */}
@@ -224,7 +232,12 @@ const Contact = () => {
                       transition={{ duration: 0.5 }}
                       className="ml-4 text-gray-300"
                     >
-                      <form onSubmit={handleSubmit} className="space-y-4">
+                      <form name="contact" netlify netlify-honeypot="bot-field" onSubmit={handleSubmit} className="space-y-4">
+                        <div style={{ display: 'none' }}>
+                          <label>
+                            Don't fill this out if you're human: <input name="bot-field" />
+                          </label>
+                        </div>
                         <div>
                           <label className="block text-cyan-400 text-sm mb-1">Name:</label>
                           <input
@@ -279,7 +292,7 @@ const Contact = () => {
                             className="bg-gradient-to-r from-cyan-400 to-teal-400 text-black px-6 py-2 rounded font-semibold hover:shadow-lg hover:shadow-cyan-400/25 transition-all duration-300 flex items-center text-sm disabled:opacity-50"
                           >
                             <Send size={16} className="mr-2" />
-                            {isSubmitting ? 'Sending...' : 'Send Email'}
+                            {isSubmitting ? 'Sending...' : 'Send Message'}
                           </button>
                         </div>
                       </form>
@@ -348,7 +361,7 @@ const Contact = () => {
                     >
                       <div className="flex items-center">
                         <CheckCircle size={16} className="mr-2" />
-                        Message sent successfully! Email client opened.
+                        Message sent successfully! I'll get back to you soon.
                       </div>
                     </motion.div>
                   )}
