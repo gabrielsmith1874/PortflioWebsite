@@ -47,7 +47,7 @@ const Contact = () => {
     github: 'github.com/gabrielsmith1874',
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     
     // Show popup immediately
@@ -58,12 +58,55 @@ const Contact = () => {
       setShowPopup(false);
     }, 3000);
     
-    // Reset form
-    e.target.reset();
+    // Get form data
+    const form = e.target;
+    const formData = {
+      name: form.name.value,
+      email: form.email.value,
+      subject: form.subject.value,
+      message: form.message.value
+    };
     
-    // For now, just show the popup without submitting to Netlify
-    // The form data is captured but not sent anywhere
-    // You can implement email sending or other methods later
+    try {
+      // Create URL-encoded form data for Netlify Forms (matching your working implementation)
+      const formDataEncoded = new URLSearchParams();
+      formDataEncoded.append('form-name', 'contact');
+      formDataEncoded.append('name', formData.name);
+      formDataEncoded.append('email', formData.email);
+      formDataEncoded.append('subject', formData.subject);
+      formDataEncoded.append('message', formData.message);
+      
+      console.log('Submitting form data:', {
+        'form-name': 'contact',
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject,
+        message: formData.message.substring(0, 50) + '...'
+      });
+      
+      // Submit to Netlify Forms
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: formDataEncoded.toString()
+      });
+      
+      console.log('Response status:', response.status);
+      console.log('Response ok:', response.ok);
+      
+      if (response.ok) {
+        // Reset form on successful submission
+        form.reset();
+        console.log('Form submitted successfully to Netlify Forms');
+      } else {
+        const responseText = await response.text();
+        console.error('Form submission failed:', response.status, response.statusText, responseText);
+        throw new Error(`Failed to submit form: ${response.status} - ${response.statusText}`);
+      }
+      
+    } catch (error) {
+      console.error('Form submission error:', error);
+    }
   };
 
   return (
@@ -192,7 +235,12 @@ const Contact = () => {
                       transition={{ duration: 0.5 }}
                       className="ml-4 text-gray-300"
                     >
-                      <form onSubmit={handleFormSubmit} className="space-y-4">
+                      <form name="contact" netlify netlify-honeypot="bot-field" onSubmit={handleFormSubmit} className="space-y-4">
+                        <div style={{ display: 'none' }}>
+                          <label>
+                            Don't fill this out if you're human: <input name="bot-field" />
+                          </label>
+                        </div>
                         <div>
                           <label className="block text-cyan-400 text-sm mb-1">Name:</label>
                           <input
