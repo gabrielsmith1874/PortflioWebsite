@@ -6,9 +6,7 @@ import {
   Phone, 
   Linkedin, 
   Github, 
-  Send,
-  CheckCircle,
-  AlertCircle
+  Send
 } from 'lucide-react';
 
 const Contact = () => {
@@ -21,8 +19,6 @@ const Contact = () => {
     subject: '',
     message: ''
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null);
 
   // Scroll to top on component mount
   useEffect(() => {
@@ -65,24 +61,6 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    setIsSubmitting(true);
-    setSubmitStatus(null);
-    
-    // Let Netlify handle the form submission naturally
-    // The form will submit to the current page and Netlify will process it
-    // We'll show a success message after a short delay
-    setTimeout(() => {
-      setSubmitStatus('success');
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-      });
-      setIsSubmitting(false);
-    }, 1000);
-  };
 
   return (
     <div className="min-h-screen bg-dark-bg relative overflow-hidden">
@@ -217,7 +195,7 @@ const Contact = () => {
                       transition={{ duration: 0.5 }}
                       className="ml-4 text-gray-300"
                     >
-                      <form name="contact" netlify netlify-honeypot="bot-field" action="/" method="POST" onSubmit={handleSubmit} className="space-y-4">
+                      <form name="contact" netlify netlify-honeypot="bot-field" action="/success.html" method="POST" className="space-y-4">
                         <div style={{ display: 'none' }}>
                           <label>
                             Don't fill this out if you're human: <input name="bot-field" />
@@ -273,11 +251,10 @@ const Contact = () => {
                         <div className="flex justify-center">
                           <button
                             type="submit"
-                            disabled={isSubmitting}
-                            className="bg-gradient-to-r from-cyan-400 to-teal-400 text-black px-6 py-2 rounded font-semibold hover:shadow-lg hover:shadow-cyan-400/25 transition-all duration-300 flex items-center text-sm disabled:opacity-50"
+                            className="bg-gradient-to-r from-cyan-400 to-teal-400 text-black px-6 py-2 rounded font-semibold hover:shadow-lg hover:shadow-cyan-400/25 transition-all duration-300 flex items-center text-sm"
                           >
                             <Send size={16} className="mr-2" />
-                            {isSubmitting ? 'Sending...' : 'Send Message'}
+                            Send Message
                           </button>
                         </div>
                       </form>
@@ -337,33 +314,6 @@ const Contact = () => {
                     </motion.div>
                   )}
 
-                  {submitStatus === 'success' && (
-                    <motion.div
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5 }}
-                      className="ml-4 text-cyan-400"
-                    >
-                      <div className="flex items-center">
-                        <CheckCircle size={16} className="mr-2" />
-                        Message sent successfully! I'll get back to you soon.
-                      </div>
-                    </motion.div>
-                  )}
-
-                  {submitStatus === 'error' && (
-                    <motion.div
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5 }}
-                      className="ml-4 text-red-400"
-                    >
-                      <div className="flex items-center">
-                        <AlertCircle size={16} className="mr-2" />
-                        Error sending message. Please try again.
-                      </div>
-                    </motion.div>
-                  )}
 
                 </div>
               </div>
