@@ -13,12 +13,6 @@ const Contact = () => {
   const [showCommands, setShowCommands] = useState(false);
   const [showContactInfo, setShowContactInfo] = useState(false);
   const [showForm, setShowForm] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
 
   // Scroll to top on component mount
   useEffect(() => {
@@ -53,19 +47,12 @@ const Contact = () => {
     github: 'github.com/gabrielsmith1874',
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
 
 
   return (
     <div className="min-h-screen bg-dark-bg relative overflow-hidden">
       {/* Hidden form for Netlify form detection */}
-      <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+      <form name="contact" netlify netlify-honeypot="bot-field" data-netlify="true" hidden>
         <input type="text" name="name" />
         <input type="email" name="email" />
         <input type="text" name="subject" />
@@ -195,7 +182,7 @@ const Contact = () => {
                       transition={{ duration: 0.5 }}
                       className="ml-4 text-gray-300"
                     >
-                      <form name="contact" netlify netlify-honeypot="bot-field" action="/success.html" method="POST" className="space-y-4">
+                      <form name="contact" netlify netlify-honeypot="bot-field" data-netlify="true" action="/success" method="POST" className="space-y-4">
                         <div style={{ display: 'none' }}>
                           <label>
                             Don't fill this out if you're human: <input name="bot-field" />
@@ -206,8 +193,6 @@ const Contact = () => {
                           <input
                             type="text"
                             name="name"
-                            value={formData.name}
-                            onChange={handleInputChange}
                             required
                             className="w-full bg-black/50 border border-cyan-400/30 rounded px-3 py-2 text-white focus:border-cyan-400 focus:outline-none"
                             placeholder="Your name"
@@ -218,8 +203,6 @@ const Contact = () => {
                           <input
                             type="email"
                             name="email"
-                            value={formData.email}
-                            onChange={handleInputChange}
                             required
                             className="w-full bg-black/50 border border-cyan-400/30 rounded px-3 py-2 text-white focus:border-cyan-400 focus:outline-none"
                             placeholder="your.email@example.com"
@@ -230,8 +213,6 @@ const Contact = () => {
                           <input
                             type="text"
                             name="subject"
-                            value={formData.subject}
-                            onChange={handleInputChange}
                             className="w-full bg-black/50 border border-cyan-400/30 rounded px-3 py-2 text-white focus:border-cyan-400 focus:outline-none"
                             placeholder="Message subject"
                           />
@@ -240,8 +221,6 @@ const Contact = () => {
                           <label className="block text-cyan-400 text-sm mb-1">Message:</label>
                           <textarea
                             name="message"
-                            value={formData.message}
-                            onChange={handleInputChange}
                             required
                             rows={4}
                             className="w-full bg-black/50 border border-cyan-400/30 rounded px-3 py-2 text-white focus:border-cyan-400 focus:outline-none resize-none"

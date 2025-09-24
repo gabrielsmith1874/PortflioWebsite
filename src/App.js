@@ -7,6 +7,7 @@ import Timeline from './pages/Timeline';
 import Projects from './pages/Projects';
 import Resume from './pages/Resume';
 import Contact from './pages/Contact';
+import Success from './pages/Success';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/projects" element={<Projects />} />
           <Route path="/resume" element={<Resume />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/success" element={<Success />} />
         </Routes>
         <Terminal />
       </div>
