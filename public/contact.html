@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Form</title>
+</head>
+<body>
+    <form name="contact" netlify netlify-honeypot="bot-field">
+        <div style="display: none;">
+            <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+        </div>
+        <p>
+            <label>Name <input type="text" name="name" required /></label>
+        </p>
+        <p>
+            <label>Email <input type="email" name="email" required /></label>
+        </p>
+        <p>
+            <label>Subject <input type="text" name="subject" /></label>
+        </p>
+        <p>
+            <label>Message <textarea name="message" required></textarea></label>
+        </p>
+        <p>
+            <button type="submit">Send</button>
+        </p>
+    </form>
+</body>
+</html>

@@ -72,6 +72,8 @@ const Contact = () => {
       if (response.ok) {
         // Reset form on successful submission
         form.reset();
+      } else {
+        console.error('Form submission failed:', response.status);
       }
     } catch (error) {
       console.error('Form submission error:', error);
