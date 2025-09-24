@@ -13,6 +13,7 @@ const Contact = () => {
   const [showCommands, setShowCommands] = useState(false);
   const [showContactInfo, setShowContactInfo] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
   // Scroll to top on component mount
   useEffect(() => {
@@ -44,6 +45,21 @@ const Contact = () => {
     location: 'Mississauga, Ontario, Canada',
     linkedin: 'linkedin.com/in/gabriel-smith-b3b366253',
     github: 'github.com/gabrielsmith1874',
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    
+    // Show popup
+    setShowPopup(true);
+    
+    // Hide popup after 3 seconds
+    setTimeout(() => {
+      setShowPopup(false);
+    }, 3000);
+    
+    // Reset form
+    e.target.reset();
   };
 
   return (
@@ -172,7 +188,7 @@ const Contact = () => {
                       transition={{ duration: 0.5 }}
                       className="ml-4 text-gray-300"
                     >
-                      <form name="contact" netlify netlify-honeypot="bot-field" action="/success" method="POST" className="space-y-4">
+                      <form name="contact" netlify netlify-honeypot="bot-field" onSubmit={handleFormSubmit} className="space-y-4">
                         <div style={{ display: 'none' }}>
                           <label>
                             Don't fill this out if you're human: <input name="bot-field" />
@@ -290,6 +306,35 @@ const Contact = () => {
         </section>
 
       </div>
+
+      {/* Success Popup */}
+      {showPopup && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-dark-bg border border-cyan-400/30 rounded-lg p-8 max-w-md mx-4 text-center"
+          >
+            <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-cyan-400 to-teal-400 rounded-full flex items-center justify-center">
+              <svg className="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h3 className="text-2xl font-bold mb-2 font-mono">
+              <span className="text-white">Message</span>
+              <span className="text-cyan-400"> Sent!</span>
+            </h3>
+            <p className="text-gray-400 font-mono">
+              Thank you for reaching out. I'll get back to you soon.
+            </p>
+          </motion.div>
+        </motion.div>
+      )}
     </div>
   );
 };
