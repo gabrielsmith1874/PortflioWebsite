@@ -48,9 +48,7 @@ const Contact = () => {
   };
 
   const handleFormSubmit = (e) => {
-    e.preventDefault();
-    
-    // Show popup
+    // Show popup immediately
     setShowPopup(true);
     
     // Hide popup after 3 seconds
@@ -58,8 +56,8 @@ const Contact = () => {
       setShowPopup(false);
     }, 3000);
     
-    // Reset form
-    e.target.reset();
+    // Let the form submit naturally to Netlify
+    // The form will redirect to /contact-success after submission
   };
 
   return (
@@ -188,7 +186,7 @@ const Contact = () => {
                       transition={{ duration: 0.5 }}
                       className="ml-4 text-gray-300"
                     >
-                      <form name="contact" netlify netlify-honeypot="bot-field" onSubmit={handleFormSubmit} className="space-y-4">
+                      <form name="contact" method="POST" netlify netlify-honeypot="bot-field" action="/contact-success" onSubmit={handleFormSubmit} className="space-y-4">
                         <div style={{ display: 'none' }}>
                           <label>
                             Don't fill this out if you're human: <input name="bot-field" />

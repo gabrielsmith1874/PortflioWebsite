@@ -4,11 +4,9 @@
     <title>Contact Form</title>
 </head>
 <body>
-    <form name="contact" netlify netlify-honeypot="bot-field" action="/success" method="POST">
+    <form name="contact" method="POST" netlify netlify-honeypot="bot-field" action="/contact-success">
         <div style="display: none;">
-            <label>
-                Don't fill this out if you're human: <input name="bot-field" />
-            </label>
+            <label>Don't fill this out if you're human: <input name="bot-field" /></label>
         </div>
         <p>
             <label>Name <input type="text" name="name" required /></label>
