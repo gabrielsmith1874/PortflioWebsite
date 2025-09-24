@@ -47,7 +47,9 @@ const Contact = () => {
     github: 'github.com/gabrielsmith1874',
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    
     // Show popup immediately
     setShowPopup(true);
     
@@ -56,8 +58,24 @@ const Contact = () => {
       setShowPopup(false);
     }, 3000);
     
-    // Let the form submit naturally to Netlify
-    // The form will redirect to /contact-success after submission
+    // Submit form to Netlify
+    const form = e.target;
+    const formData = new FormData(form);
+    
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData).toString()
+      });
+      
+      if (response.ok) {
+        // Reset form on successful submission
+        form.reset();
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+    }
   };
 
   return (
@@ -186,7 +204,7 @@ const Contact = () => {
                       transition={{ duration: 0.5 }}
                       className="ml-4 text-gray-300"
                     >
-                      <form name="contact" method="POST" netlify netlify-honeypot="bot-field" action="/contact-success" onSubmit={handleFormSubmit} className="space-y-4">
+                      <form name="contact" netlify netlify-honeypot="bot-field" onSubmit={handleFormSubmit} className="space-y-4">
                         <div style={{ display: 'none' }}>
                           <label>
                             Don't fill this out if you're human: <input name="bot-field" />
